@@ -1,0 +1,44 @@
+@charset "UTF-8";
+/**
+ * 常用样式变量
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.container.data-v-4586967a {
+  height: 100vh;
+  background: linear-gradient(to bottom, #DDE9F9, #F7F9FC);
+  padding: 30% 30rpx 0 30rpx;
+  box-sizing: border-box;
+}
+.container .title.data-v-4586967a {
+  font-size: 50rpx;
+  font-weight: 600;
+}
+.container .text.data-v-4586967a {
+  margin-top: 28rpx;
+  text-align: center;
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.container .card-box.data-v-4586967a {
+  margin-top: 20%;
+}
+.container .login-title.data-v-4586967a {
+  font-size: 40rpx;
+  font-weight: 600;
+}
+.flex_center.data-v-4586967a {
+  display: flex;
+  justify-content: center;
+}

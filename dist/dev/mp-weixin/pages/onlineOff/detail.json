@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "事件",
+  "navigationBarBackgroundColor": "#205BA9",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "u-notify": "/node-modules/uview-ui/components/u-notify/u-notify",
+    "u--form": "/node-modules/uview-ui/components/u--form/u--form",
+    "u-form-item": "/node-modules/uview-ui/components/u-form-item/u-form-item",
+    "u--textarea": "/node-modules/uview-ui/components/u--textarea/u--textarea",
+    "u-album": "/node-modules/uview-ui/components/u-album/u-album",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
+    "card": "/components/Card"
+  }
+}

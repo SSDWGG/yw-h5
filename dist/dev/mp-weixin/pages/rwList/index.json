@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "任务列表",
+  "navigationBarBackgroundColor": "#205BA9",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "u-subsection": "/node-modules/uview-ui/components/u-subsection/u-subsection",
+    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
+    "card": "/components/Card"
+  }
+}

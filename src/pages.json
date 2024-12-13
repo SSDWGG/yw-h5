@@ -1,0 +1,119 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [
+		{
+			"path": "yw/login/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}
+	],
+	"subPackages":[
+    {
+
+      "root": "yw",
+			"pages":[
+        {
+          "path": "login/index",
+          "style": {
+            "navigationBarTitleText": "登录"
+          }
+        },
+        {
+          "path": "menu/index",
+          "style": {
+            "navigationBarTitleText": "登录"
+          }
+        }
+      ]
+      
+    },
+		{
+			"root": "pagesPack1",
+			"pages": [
+				{
+					"path": "personInfo/index",
+					"style": {
+						"navigationBarTitleText": "个人信息",
+						"navigationBarBackgroundColor": "#205BA9",
+						"navigationBarTextStyle": "white"
+					}
+				},
+				{
+					"path": "myRating/myRating",
+					"style": {
+						"navigationBarTitleText": "我的评分",
+						"navigationBarBackgroundColor": "#205BA9",
+						"navigationBarTextStyle": "white"
+					}
+				},
+				{
+					"path": "inform/inform",
+					"style": {
+						"navigationBarTitleText": "通知",
+						"navigationBarBackgroundColor": "#205BA9",
+						"navigationBarTextStyle": "white"
+					}
+				},
+				{
+					"path": "personMange/index",
+					"style": {
+						"navigationBarTitleText": "人员管理",
+						"navigationBarBackgroundColor": "#205BA9",
+						"navigationBarTextStyle": "white"
+					}
+				},
+				{
+					"path": "personMange/personDetail",
+					"style": {
+						"navigationBarTitleText": "人员信息",
+						"navigationBarBackgroundColor": "#205BA9",
+						"navigationBarTextStyle": "white"
+					}
+				},
+				{
+					"path": "personMange/pointChange",
+					"style": {
+						"navigationBarTitleText": "积分变更"
+					}
+				}
+			]
+		},
+    {
+
+      "root": "pagesPack2",
+			"pages":[
+        {
+          "path": "home/index",
+          "style": {
+            "navigationBarTitleText": "首页"
+          }
+        }
+      ]
+      
+    }
+	],
+	"tabBar": {
+		"color": "#666666",
+		"iconWidth": "12px",
+		"borderStyle": "white",
+		"selectedColor": "#205BA9",
+		"blurEffect": "light",
+		"backgroundColor": "#ffffff",
+		"custom":true,
+		"list": [ {
+			"pagePath": "yw/menu/index"
+		}, {
+			"pagePath": "yw/me/index"
+		}]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "燕窝",
+		"navigationBarBackgroundColor": "#fff",
+		"backgroundColor": "#fff"
+	},
+	"lazyCodeLoading": "requiredComponents"
+}

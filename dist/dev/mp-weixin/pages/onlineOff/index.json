@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "网上办公室",
+  "navigationBarBackgroundColor": "#205BA9",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "u-tabs": "/node-modules/uview-ui/components/u-tabs/u-tabs",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
+    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
+    "card": "/components/Card"
+  }
+}

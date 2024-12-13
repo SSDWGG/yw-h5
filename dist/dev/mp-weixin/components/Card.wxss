@@ -1,0 +1,67 @@
+@charset "UTF-8";
+/**
+ * 常用样式变量
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.card-container.data-v-f883d62a {
+  background-color: #ffffff !important;
+  border-radius: 24rpx;
+}
+.card-container .header.data-v-f883d62a {
+  line-height: 80rpx;
+  font-size: 35rpx;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+.card-container .header.data-v-f883d62a::after {
+  content: "";
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-bottom: 1px solid #f5f6f8;
+}
+.card-container .header .title.data-v-f883d62a {
+  margin-left: 20rpx;
+}
+.card-container .header .title .titleIcon.data-v-f883d62a {
+  margin-right: 10rpx;
+}
+.card-container .header .value.data-v-f883d62a {
+  margin-right: 20rpx;
+}
+.card-container .header .value .valueIcon.data-v-f883d62a {
+  margin-left: 10rpx;
+}
+.card-container .body.data-v-f883d62a {
+  line-height: 60rpx;
+  padding: 30rpx;
+}
+.card-container .footer.data-v-f883d62a {
+  line-height: 80rpx;
+  position: relative;
+  padding: 20rpx;
+}
+.card-container .footer.data-v-f883d62a::before {
+  content: "";
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom: 1px solid #f5f6f8;
+}
+.card-container-shadow.data-v-f883d62a {
+  box-shadow: 0px 2px 5px 0px rgba(99, 99, 99, 0.26);
+}

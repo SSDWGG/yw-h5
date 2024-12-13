@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "我的评分",
+  "navigationBarBackgroundColor": "#205BA9",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

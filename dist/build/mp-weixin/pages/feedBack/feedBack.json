@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "信息反馈",
+  "navigationBarBackgroundColor": "#205BA9",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "u--input": "/node-modules/uview-ui/components/u--input/u--input",
+    "u--textarea": "/node-modules/uview-ui/components/u--textarea/u--textarea",
+    "u-upload": "/node-modules/uview-ui/components/u-upload/u-upload",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
+    "u-notify": "/node-modules/uview-ui/components/u-notify/u-notify",
+    "u-picker": "/node-modules/uview-ui/components/u-picker/u-picker",
+    "card": "/components/Card"
+  }
+}

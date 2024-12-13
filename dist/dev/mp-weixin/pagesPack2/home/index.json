@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "首页",
+  "usingComponents": {
+    "u-swiper": "/node-modules/uview-ui/components/u-swiper/u-swiper",
+    "card": "/components/Card",
+    "home-pie": "/pagesPack2/home/components/homePie",
+    "home-bar": "/pagesPack2/home/components/homeBar",
+    "home-line": "/pagesPack2/home/components/homeLine",
+    "tabbar": "/components/Tabbar"
+  }
+}

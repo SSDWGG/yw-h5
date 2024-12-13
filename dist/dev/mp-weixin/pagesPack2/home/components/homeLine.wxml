@@ -1,0 +1,1 @@
+<view class="echart-container data-v-345f66f8"><view class="data-v-345f66f8">吸毒人员趋势图</view><l-echart class="card-content data-v-345f66f8 vue-ref" vue-id="578df90e-1" data-ref="chart" bind:__l="__l"></l-echart></view>

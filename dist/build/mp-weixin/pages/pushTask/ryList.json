@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "人员列表",
+  "navigationBarBackgroundColor": "#205BA9",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "u--input": "/node-modules/uview-ui/components/u--input/u--input",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
+    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
+    "u-picker": "/node-modules/uview-ui/components/u-picker/u-picker",
+    "u-notify": "/node-modules/uview-ui/components/u-notify/u-notify",
+    "card": "/components/Card"
+  }
+}
