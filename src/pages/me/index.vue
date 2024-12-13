@@ -5,7 +5,7 @@
       <image src="../../static/my/grzx.png" class="infoBg"></image>
     </view>
     <view class="infoCon">
-      <image :src="!!userInfor.avatar ? location.locatioUrl + userInfor.avatar : require('@/static/my/avatar.png')" class="tx">
+      <image :src="!!userInfor.avatar ? location.locatioUrl + userInfor.avatar " class="tx">
       </image>
       <view class="myinfo">
         <view class="wdxx">
@@ -22,39 +22,7 @@
       </view>
     </view>
   </view>
-    <view class="infoList">
-      <view class="listCon">
-        <navigator url="../../pagesPack1/personInfo/index">
-          <view class="conItem">
-            <image src="../../static/my/grxx.png" class="icon"></image>
-            <view>个人信息</view>
-          </view>
-        </navigator>
-        <navigator url="../../pagesPack1/inform/inform">
-          <view class="conItem">
-            <view class="hb">
-              <u-badge :isDot="true" bgColor="#DD2223"></u-badge>
-            </view>
-            <image src="../../static/my/tx.png" class="icon"></image>
-            <view>消息通知</view>
-          </view>
-        </navigator>
-        <template v-if="userInfor.userTypeEnum == '吸毒人员'">
-          <navigator url="../../pagesPack1/myRating/myRating">
-            <view class="conItem">
-              <image src="../../static/my/wdpf.png" class="rw"></image>
-              <view>我的积分</view>
-            </view>
-          </navigator>
-
-        </template>
-
-        <view class="conItem" @click="loginOut">
-          <image src="../../static/my/tc.png" class="rw"></image>
-          <view>退出登录</view>
-        </view>
-      </view>
-    </view>
+    
     <Tabbar current="我的"></Tabbar>
   </view>
 </template>

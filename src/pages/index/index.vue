@@ -34,7 +34,6 @@
           <view
             class="item-tab tab3"
             v-if="userType == '禁毒中队' || userType == '地方派出所'"
-            @click="handleJump('/pagesPack1/personMange/index')"
           >
             <view class="icon"> </view>
             <text>人员管理</text>

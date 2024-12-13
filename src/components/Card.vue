@@ -140,7 +140,7 @@ export default {
 
     .body {
         line-height: 60rpx;
-        padding: 30rpx;
+        padding: 10px 24px;
     }
 
     .footer {

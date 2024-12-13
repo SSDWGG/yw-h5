@@ -88,8 +88,7 @@ export default {
     hangleDetail(item) {
      console.log('8888');
      uni.navigateTo({
-        // url: '/pages/personMange/personDetail?id=' + item.userid
-        url:'/pagesPack1/personMange/personDetail?id=' + item.userid
+       
       })
     },
   }
