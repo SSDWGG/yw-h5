@@ -15,8 +15,7 @@
           <u-form-item>
             <!-- padding:12px; -->
             <u--input v-model="form.username" style="border: 1px solid #CAA156;border-radius: 10px;"
-              prefixIcon="account" prefixIconStyle="color: #CAA156;margin-right:2px;"
-              placeholder="请输入用户名"></u--input>
+              prefixIcon="account" prefixIconStyle="color: #CAA156;margin-right:2px;" placeholder="请输入用户名"></u--input>
           </u-form-item>
           <u-form-item>
             <u--input v-model="form.password" style="border: 1px solid #CAA156;border-radius: 10px;"
@@ -32,23 +31,30 @@
           </u-form-item>
           <u-form-item style="margin-top:118px">
             <view class="footer" hover-class="none">
-
-
               <u-button color="#EF432A" text="登 陆" class="btn" @click="handleLogin"></u-button>
               <view class="footerBtns">
                 <view class="btn1" hover-class="none">
-                  <u-checkbox-group  v-model="jzPassWord">
-                    <u-checkbox size="14" labelSize="12" shape="circle" label="记住密码" activeColor="#CAA156"></u-checkbox>
+                  <u-checkbox-group>
+                    <u-checkbox checked size="14" labelSize="12" shape="circle" label="保存密码"
+                      activeColor="#CAA156"></u-checkbox>
                   </u-checkbox-group>
                 </view>
                 <view class="btn2" hover-class="none" @click="toRegister">
-                  前往注册
+                  忘记密码
                 </view>
               </view>
             </view>
           </u-form-item>
         </u--form>
       </card>
+      <view class="bottomTip" @click="toRegister">
+        <view class="tip">
+          还没有账号，去注册
+        </view>
+
+        <u-icon name="arrow-right" color="rgba(70, 41, 6, 0.4)" size="10">
+          ></u-icon>
+      </view>
     </view>
   </view>
 </template>
@@ -61,16 +67,16 @@ export default {
   data() {
     return {
       form: {
-        username: '18158131111',
-        password: '123456'
+        username: '',
+        password: ''
       },
       isShowPassword: false,
       jzPassWord: []
     }
   },
   methods: {
-    toRegister(){
-                   uni.navigateTo({ url: '/yw/register/index' })             
+    toRegister() {
+      uni.navigateTo({ url: '/yw/register/index' })
     },
     handleLogin() {
       let phone = /^1[3456789]\d{9}$/
@@ -145,9 +151,23 @@ export default {
   }
 
   .card-box {
-    padding-top: 165px;
+    padding-top: 190px;
     margin: 0 23px;
     z-index: 2;
+
+    .bottomTip {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      color: rgba(70, 41, 6, 0.4);
+      margin-top: 28px;
+      font-size: 14px;
+
+      .tip {
+        margin-right: 8px;
+      }
+    }
   }
 
   .login-title {

@@ -1,119 +1,15 @@
 <template>
   <view class="container">
-     <u-swiper :list="bannerlist"></u-swiper>
-    <!--<view class="notice" @click="handleJump('/packPages/remind/index')">
-            <view class="icon-box">
-                <image src="@/static/icon/icon-notice.png" mode="scaleToFill" />
-            </view>
-            <view class="text-box">
-                <view class="text">您有{{txhz.total}}条任务需整改</view>
-                <view class="date">{{txhz.date}}</view>
-            </view>
-        </view> -->
-    <view class="card">
-      <card :isShadow="true">
-        <view class="tabs">
-          <view
-            class="item-tab tab1"
-            v-if="userType == '禁毒中队'"
-            @click="handleJump('/pages/pushTask/index')"
-          >
-            <view class="icon"> </view>
-            <text>发布任务</text>
-          </view>
-          <view
-            class="item-tab tab2"
-            v-if="userType != '吸毒人员家属'"
-            @click="handleJump('/pages/todoAgency/index')"
-          >
-            <view class="icon">
-              <u-badge :type="type" max="99" :value="value"></u-badge>
-            </view>
-            <view>待办事项</view>
-          </view>
-          <view
-            class="item-tab tab3"
-            v-if="userType == '禁毒中队' || userType == '地方派出所'"
-          >
-            <view class="icon"> </view>
-            <text>人员管理</text>
-          </view>
-          <view
-            class="item-tab tab4"
-            v-if="userType == '禁毒中队'"
-            @click="handleJump('/pages/onlineOff/index')"
-          >
-            <view class="icon"> </view>
-            <text>网上办公室</text>
-          </view>
-          <view
-            class="item-tab tab4"
-            v-if="userType == '吸毒人员'"
-            @click="handleJump('/pages/onlineOff/xdrysb')"
-          >
-            <view class="icon"> </view>
-            <text>网上办公室</text>
-          </view>
-          <view
-            class="item-tab tab5"
-            v-if="userType != '吸毒人员家属'"
-            @click="handleJump('/pages/rwList/index')"
-          >
-            <view class="icon"> </view>
-            <text>任务列表</text>
-          </view>
-          <view
-            class="item-tab tab6"
-            v-if="userType == '吸毒人员家属'"
-            @click="handleJump('/pages/inquireInfo/inquireInfo')"
-          >
-            <view class="icon"> </view>
-            <text>信息查询</text>
-          </view>
-          <view
-            class="item-tab tab7"
-            v-if="userType == '吸毒人员家属'"
-            @click="handleJump('/pages/feedBack/feedBack')"
-          >
-            <view class="icon"> </view>
-            <text>反馈信息</text>
-          </view>
-          <view
-            class="item-tab tab8"
-            v-if="userType !== '禁毒中队'"
-            @click="handleJump('/pages/knowledgeList/konwList')"
-          >
-            <view class="jdzs"></view>
-            <text>禁毒知识</text>
-          </view>
-        </view>
-      </card>
-    </view>
+     <u-swiper :list="bannerlist" indicator height='220px'></u-swiper>
 
-    <!-- <u-button @click="show = true">打开</u-button> -->
-    <u-popup :show="show" mode="center">
-      <view class="qdBox">
-        <img src="@/static/index/pop_qd.png" class="qdBox_img" alt="" />
-        <view class="qdRadio" v-if="qdzt == '未签到'" @click="signHandle">
-          <view style="text-align: center">
-            <view style="font-size: 34rpx">{{ nowTime }}</view>
-            <view style="margin-top: 16rpx">签到</view>
-          </view>
+     <!-- 入口 -->
+     <view class="" hover-class="none" hover-stop-propagation="false">
+        <view class="" hover-class="none" hover-stop-propagation="false">
+          123
         </view>
-        <view class="qdRadio" v-if="qdzt == '已签到' || qdzt == '请求中'">
-          <view style="text-align: center" v-if="qdzt == '已签到'">
-            <u-icon name="checkbox-mark" size="72" color="#fff"></u-icon>
-          </view>
-          <u-loading-icon
-            size="48"
-            color="#fff"
-            v-if="qdzt == '请求中'"
-          ></u-loading-icon>
-          <view class="qdTitle" v-if="qdzt == '已签到'">签到成功</view>
-        </view>
-      </view>
-    </u-popup>
-    <Tabbar current="工作台"></Tabbar>
+     </view>
+ 
+    <Tabbar current="首页"></Tabbar>
   </view>
 </template>
 
@@ -133,7 +29,7 @@ export default {
       show: false,
       timer: null,
       nowTime: "",
-      bannerlist: ["https://gayws.wuchuangroup.com:8443/prod-api/profile/upload/banner/banner2.jpg"],
+      bannerlist: [require("@/static/yw/swiper/hb1.png"),require("@/static/yw/swiper/hb1.png")],
       backlog: {},
       txhz: {},
       qdzt: "未签到",
@@ -282,7 +178,7 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep.container {
-  padding: 30rpx 30rpx 0 30rpx;
+  padding: 15px;
   background: #f9fafa;
   .u-popup__content {
     border-radius: 50rpx;

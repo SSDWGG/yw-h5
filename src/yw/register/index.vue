@@ -16,7 +16,7 @@
             <!-- padding:12px; -->
             <u--input v-model="form.username" style="border: 1px solid #CAA156;border-radius: 10px;"
               prefixIcon="account" prefixIconStyle="color: #CAA156;margin-right:2px;"
-              placeholder="请输入用户名"></u--input>
+              placeholder="请输入您的真实姓名"></u--input>
           </u-form-item>
           <u-form-item>
             <u--input v-model="form.password" style="border: 1px solid #CAA156;border-radius: 10px;"
@@ -30,25 +30,54 @@
               </template>
             </u--input>
           </u-form-item>
-          <u-form-item style="margin-top:118px">
+          <u-form-item>
+            <u--input v-model="form.passwordAganin" style="border: 1px solid #CAA156;border-radius: 10px;"
+              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: #CAA156;margin-right:2px;"
+              placeholder="请确认密码">
+              <template slot="suffix">
+                <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
+                  isShowPassword = !isShowPassword
+                }">
+                  ></u-icon>
+              </template>
+            </u--input>
+          </u-form-item>
+          <u-form-item>
+            <u--input v-model="form.phone" style="border: 1px solid #CAA156;border-radius: 10px;"
+              prefixIcon="phone-fill" prefixIconStyle="color: #CAA156;margin-right:2px;" placeholder="请输入手机号">
+
+            </u--input>
+          </u-form-item>
+          <u-form-item>
+            <u--input v-model="form.code" style="border: 1px solid #CAA156;border-radius: 10px;"
+              prefixIcon="fingerprint" prefixIconStyle="color: #CAA156;margin-right:2px;" placeholder="请输入验证码">
+              <!-- <template slot="suffix">
+                <u-button text="发送验证码"></u-button>
+              </template> -->
+            </u--input>
+            <u-button class="code" :disabled="canSendTime > 0" @click="sendSms" :text="canSendTime > 0 ? `重发${canSendTime}秒` : '发送验证码'
+              "></u-button>
+          </u-form-item>
+          <u-form-item style="margin-top:20px">
             <view class="footer" hover-class="none">
 
 
-              <u-button color="#EF432A" text="登 陆" class="btn" @click="handleLogin"></u-button>
-              <view class="footerBtns">
-                <view class="btn1" hover-class="none">
-                  <u-checkbox-group  v-model="jzPassWord">
-                    <u-checkbox size="14" labelSize="12" shape="circle" label="记住密码" activeColor="#CAA156"></u-checkbox>
-                  </u-checkbox-group>
-                </view>
-                <view class="btn2" hover-class="none">
-                  前往注册
-                </view>
-              </view>
+              <u-button color="#EF432A" text="立即注册" class="btn" @click="handleLogin"></u-button>
+
             </view>
           </u-form-item>
         </u--form>
       </card>
+
+
+      <view class="bottomTip" @click="handleToLogin">
+        <view class="tip">
+          直接登录
+        </view>
+
+        <u-icon name="arrow-right" color="rgba(70, 41, 6, 0.4)" size="10">
+          ></u-icon>
+      </view>
     </view>
   </view>
 </template>
@@ -61,14 +90,39 @@ export default {
   data() {
     return {
       form: {
-        username: '18158131111',
-        password: '123456'
+        username: '',
+        password: '',
+        passwordAganin: '',
+        phone: '',
+        code: ''
       },
-      isShowPassword: false,
-      jzPassWord: false
+      canSendTime: 0,
+      isShowPassword: true,
+      intervalTimer: null,
+      jzPassWord: []
     }
   },
   methods: {
+    sendSms() {
+      if (!!this.form.phone) {
+        this.canSendTime = 60;
+        this.intervalTimer = setInterval(() => {
+          if (this.canSendTime > 0) {
+            this.canSendTime--;
+          } else {
+            clearInterval(this.intervalTimer);
+          }
+        }, 1000)
+      } else {
+        uni.showToast({
+          title: '请输入正确的手机号',
+          icon: 'none'
+        })
+      }
+    },
+    handleToLogin() {
+      uni.navigateTo({ url: '/yw/login/index' })
+    },
     handleLogin() {
       let phone = /^1[3456789]\d{9}$/
       if (!this.form.username) {
@@ -78,13 +132,6 @@ export default {
         })
         return
       }
-      // else if (!phone.test(this.form.username)) {
-      //     uni.showToast({
-      //         title: '没有该用户',
-      //         icon: 'none'
-      //     })
-      //     return
-      // }
       if (!this.form.password) {
         uni.showToast({
           title: '密码不得为空',
@@ -92,28 +139,14 @@ export default {
         })
         return
       }
-      // this.$store.dispatch('user/login', this.form).then(res => {
-      //     if (res.code == '200') {
-      //         if(res.userType == '禁毒中队') {
-      //             // uni.setStorageSync('tabBar',tabbar[0])
-      //             uni.navigateTo({ url: '/pagesPack2/home/index' })
-      //         } else {
-      //             // uni.setStorageSync('tabBar',tabbar[1])
-      //             uni.switchTab({ url: '/pages/index/index' })
-      //         }
-      //     } else {
-      //         uni.showToast({
-      //             title: res.msg,
-      //             icon: 'none'
-      //         })
-      //     }
-      // }).catch((err) => {
-      //     // console.log(err)
-      //     uni.showToast({
-      //         title: err.data,
-      //         icon: 'none'
-      //     })
-      // })
+
+      if (this.form.password !== this.form.passwordAganin) {
+        uni.showToast({
+          title: '密码不一致',
+          icon: 'none'
+        })
+        return
+      }
       uni.switchTab({ url: '/yw/menu/index' })
 
     }
@@ -142,9 +175,23 @@ export default {
   }
 
   .card-box {
-    padding-top: 165px;
+    padding-top: 190px;
     margin: 0 23px;
     z-index: 2;
+
+    .bottomTip {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      color: rgba(70, 41, 6, 0.4);
+      margin-top: 28px;
+      font-size: 14px;
+
+      .tip {
+        margin-right: 8px;
+      }
+    }
   }
 
   .login-title {
@@ -178,6 +225,15 @@ export default {
         color: #BB9F59;
       }
     }
+  }
+
+  .code {
+    background: #E5C57F;
+    color: #fff;
+    width: 97px;
+    border-radius: 6px;
+    height: 40px;
+    margin-left: 13px;
   }
 
 
