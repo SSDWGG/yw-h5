@@ -92,7 +92,7 @@ export default {
       uni.navigateTo({ url: '/yw/prod-list/index' })
     },
     handleBuy() {
-      console.log(111);
+      uni.navigateTo({ url: '/yw/prod-detail/index' })
     },
   },
 };
@@ -195,7 +195,7 @@ export default {
 
         .price1 {
           color: #B1771A;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: SemiBold;
           margin-right: 13px;
           font-family: Source Han Serif CN-Sem;

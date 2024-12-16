@@ -2,53 +2,48 @@
   <view class="container">
     <u-swiper :list="bannerlist" indicator height='220px'></u-swiper>
 
-    <!-- 入口 -->
-    <view class="rkList">
-      <view class="rkItem" v-for="(item, index) in rkList" :key=index>
-        <view class="txt">
-          {{ item.title }}
+    <view class="info cell">
+      <view class="title">
+        {{ prodInfo.title }}
+      </view>
+      <view class="price">
+        ￥{{ prodInfo.price }}
+      </view>
+      <view class="line3">
+        <view class="left">
+          当前优惠 ￥0.00
         </view>
-        <img :src="item.bg" class="bg" />
+        <view class="kc">
+          库存：993739
+        </view>
       </view>
     </view>
-    <!-- 会员 -->
-    <view class="hy">
-      <img src="@/static/yw/hyicon.png" class="hyicon" />
-      <view class="txt">
-        会员终身制 享¥46/盒
-      </view>
-      <view class="go" hover-class="none" hover-stop-propagation="false">
-        <u-icon name="arrow-right" color="#B1742F" size="12">
-          ></u-icon>
-      </view>
+    <view class="num cell">
+      购买数量：<u-number-box integer button-size="28" color="#462906" bgColor="#F4F3F2"
+        iconStyle="color: #fff"></u-number-box>
+    </view>
 
+    <view class="prodDetailInfo">
+      产品详情
     </view>
-    <Tabbar current="首页"></Tabbar>
+
+    <!-- 底部按钮操作栏 -->
+    
   </view>
 </template>
 
 <script>
-import Tabbar from "@/components/Tabbar.vue";
-import Card from "@/components/Card.vue";
+
 export default {
-  components: {
-    Card,
-    Tabbar
-  },
+
   data() {
     return {
-      rkList: [
-        {
-          title: '零售专区',
-          bg: require("@/static/yw/rkbg.png")
-        }, {
-          title: '复购专区',
-          bg: require("@/static/yw/rkbg.png")
-        }, {
-          title: '配件专区',
-          bg: require("@/static/yw/rkbg.png")
-        }
-      ],
+      prodInfo: {
+        title: '商品标题商品标题商品标题品标题商品标题商品标题品标商品标题商品标',
+        price: 883749,
+
+      },
+
       bannerlist: [require("@/static/yw/swiper/hb1.png"), require("@/static/yw/swiper/hb1.png")],
     };
   },
@@ -62,66 +57,75 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  padding: 15px 16px;
-  background: #fff;
+  background-color: #F4F3F2;
 
-  .rkList {
-    display: flex;
+  .cell {
+    padding: 15px 17px;
+    background-color: #fff;
+    border-radius: 6px;
+  }
 
-    .rkItem {
-      flex: 1;
-      color: #FFF8E9;
+  .info {
+    margin: 10px;
+
+    .title {
+      color: #222222;
+      font-size: 16px;
+      width: 100%;
       font-weight: Medium;
-      font-size: 14px;
-      position: relative;
+      overflow: hidden;
+      /* 隐藏溢出的内容 */
+      text-overflow: ellipsis;
+      /* 使用省略号表示溢出的文本 */
+      display: -webkit-box;
+      /* 将对象作为弹性伸缩盒子模型显示 */
+      -webkit-box-orient: vertical;
+      /* 垂直排列子元素 */
+      -webkit-line-clamp: 1;
+      /* 限制在两行文本 */
+    }
+
+    .price {
+      color: #B1771A;
+      font-size: 26px;
+      font-weight: Heavy;
+      font-family: Source Han Serif CN-Heavy;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .line3 {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-top: 36px;
+      justify-content: space-between;
 
-      .txt {
-        width: 30px;
-        z-index: 999;
-        position: absolute;
+      .left {
+        padding: 5px 8px;
+        color: #B1771A;
+        border: 1px solid #B1771A;
+        border-radius: 4px;
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-wrap: wrap;
+        font-weight: Regular;
       }
 
-      .bg {
-        width: 90px;
-        height: 90px;
+      .kc {
+        color: #999999;
+        font-size: 14px;
+        font-weight: Regular;
       }
     }
   }
 
-  .hy {
+  .num {
+    margin: 10px;
+    color: #666666;
+    font-size: 14px;
     display: flex;
-    background-color: #FFF7E8;
-    border-radius: 10px;
-    padding: 11px 12px;
     align-items: center;
-
-    .hyicon {
-      width: 27px;
-      height: 24px;
-      margin-right: 14px;
-    }
-
-    .txt {
-      font-family: Source Han Serif CN-Sem;
-      font-size: 18px;
-      font-weight: 700;
-      color: #BD7527;
-    }
-
-    .go {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
   }
+
+
 }
 </style>

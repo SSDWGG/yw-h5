@@ -1,55 +1,6 @@
 <template>
   <view class="container">
-    <view class="bgcolor">
-
-    </view>
-    <img class="titleBg" src="@/static/yw/registerBg.png">
-    <view class="card-box">
-      <card class="card" :isShadow="true">
-        <u--form labelPosition="left" labelWidth="0" :model="form">
-          <u-form-item>
-            <text class="login-title">
-              <span class="name">用户注册</span>
-            </text>
-          </u-form-item>
-          <u-form-item>
-            <!-- padding:12px; -->
-            <u--input v-model="form.username" style="border: 1px solid #CAA156;border-radius: 10px;"
-              prefixIcon="account" prefixIconStyle="color: #CAA156;margin-right:2px;"
-              placeholder="请输入用户名"></u--input>
-          </u-form-item>
-          <u-form-item>
-            <u--input v-model="form.password" style="border: 1px solid #CAA156;border-radius: 10px;"
-              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: #CAA156;margin-right:2px;"
-              placeholder="请输入密码">
-              <template slot="suffix">
-                <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
-                  isShowPassword = !isShowPassword
-                }">
-                  ></u-icon>
-              </template>
-            </u--input>
-          </u-form-item>
-          <u-form-item style="margin-top:118px">
-            <view class="footer" hover-class="none">
-
-
-              <u-button color="#EF432A" text="登 陆" class="btn" @click="handleLogin"></u-button>
-              <view class="footerBtns">
-                <view class="btn1" hover-class="none">
-                  <u-checkbox-group  v-model="jzPassWord">
-                    <u-checkbox size="14" labelSize="12" shape="circle" label="记住密码" activeColor="#CAA156"></u-checkbox>
-                  </u-checkbox-group>
-                </view>
-                <view class="btn2" hover-class="none">
-                  前往注册
-                </view>
-              </view>
-            </view>
-          </u-form-item>
-        </u--form>
-      </card>
-    </view>
+    我的
   </view>
 </template>
 <script>

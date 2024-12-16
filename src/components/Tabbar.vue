@@ -37,22 +37,21 @@ export default {
   },
   methods: {
     handleTabClick(index) {
+      console.log(index);
       if (index == '我的') {
         uni.switchTab({
           url: '/yw/me/index',
         });
-        return
       } else if (index == '首页') {
         uni.switchTab({
           url: '/yw/menu/index',
         });
-        return
+       
       } else {
         uni.switchTab({
           url: '/yw/car/index',
         });
       }
-      // 使用 uni.switchTab 方法切换页面
       
 
     },

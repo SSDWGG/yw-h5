@@ -1,40 +1,80 @@
 <template>
   <view class="container">
-    <u-swiper :list="bannerlist" indicator height='220px'></u-swiper>
+    <!-- header -->
+    <view class="headerList">
+      <view :class="[activeIndex === index ? 'activeIndex' : '']" class="headerItem" v-for="(item, index) in headerList"
+        :key="index" @click="() => {
+          activeIndex = index
+        }">
+        {{ item.title }}
+      </view>
+    </view>
 
-   
+    <!-- 商品卡片 -->
+    <view class="prodList">
+      <view class="prod" v-for="(item, index) in prodList" :key="index">
+        <img :src="item.prodImage" class="prodImage" />
+        <view class="prodinfo" hover-class="none" hover-stop-propagation="false">
+          <view class="title">
+            {{ item.title }}
+          </view>
+          <view class="info">
+            <view class="price1">
+              ￥{{ item.price1 }}
+            </view>
+            <view class="price2">
+              ￥{{ item.price2 }}
+            </view>
+            <view class="buy">
+              <u-button color="linear-gradient(to bottom, #F9694C, #F22020)" text="去购买" class="btn"
+                @click="handleBuy"></u-button>
+
+            </view>
+
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
 <script>
-import Tabbar from "@/components/Tabbar.vue";
-import Card from "@/components/Card.vue";
 export default {
-  components: {
-    Card,
-    Tabbar
-  },
   data() {
     return {
-      rkList: [
+      headerList: [
         {
-          title: '零售专区',
-          bg: require("@/static/yw/rkbg.png")
+          title: '综合',
+          index: 0
+        },
+        {
+          title: '销量',
+          index: 0
         }, {
-          title: '复购专区',
-          bg: require("@/static/yw/rkbg.png")
-        }, {
-          title: '配件专区',
-          bg: require("@/static/yw/rkbg.png")
+          title: '价格',
+          index: 0
         }
       ],
-      bannerlist: [require("@/static/yw/swiper/hb1.png"), require("@/static/yw/swiper/hb1.png")],
+      activeIndex: 0,
+      prodList: [{
+        title: '精品燕窝精品燕窝商品标题',
+        price1: 55644,
+        price2: 55644,
+        prodImage: require("@/static/yw/prodDetail.png")
+      }, {
+        title: '精品燕窝商品标题商品标精品燕窝商品标题精品燕窝商品品标题精品燕窝精品燕窝商品标题商品标题商品标题',
+        price1: 55644,
+        price2: 55644,
+        prodImage: require("@/static/yw/prodDetail.png")
+      }],
     };
   },
 
   methods: {
 
-
+    handleBuy() {
+      uni.navigateTo({ url: '/yw/prod-detail/index' })
+    },
   },
 };
 </script>
@@ -43,63 +83,104 @@ export default {
 .container {
   padding: 15px 16px;
   background: #fff;
+  height: 100%;
 
-  .rkList {
+  .headerList {
     display: flex;
+    align-items: center;
 
-    .rkItem {
+    .headerItem {
       flex: 1;
-      color: #FFF8E9;
-      font-weight: Medium;
-      font-size: 14px;
-      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 36px;
+      color: #999999;
+      font-size: 16px;
+    }
 
-      .txt {
-        width: 30px;
-        z-index: 999;
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .bg {
-        width: 90px;
-        height: 90px;
-      }
+    .activeIndex {
+      color: #222222;
+      font-size: 18px;
     }
   }
 
-  .hy {
-    display: flex;
-    background-color: #FFF7E8;
-    border-radius: 10px;
-    padding: 11px 12px;
-    align-items: center;
-
-    .hyicon {
-      width: 27px;
-      height: 24px;
-      margin-right: 14px;
-    }
-
-    .txt {
-      font-family: Source Han Serif CN-Sem;
-      font-size: 18px;
-      font-weight: 700;
-      color: #BD7527;
-    }
-
-    .go {
-      flex: 1;
+  .prodList {
+    margin-top: 15px;
+    .prod {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(70, 41, 6, .1);
       display: flex;
-      align-items: center;
-      justify-content: flex-end;
+
+      .prodImage {
+        width: 107px;
+        height: 107px;
+        margin-right: 16px;
+      }
+
+      .prodinfo {
+
+        flex: 1;
+        padding: 3px 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        .title {
+          color: #222222;
+          font-size: 14px;
+          width: 100%;
+          font-weight: Medium;
+          overflow: hidden;
+          /* 隐藏溢出的内容 */
+          text-overflow: ellipsis;
+          /* 使用省略号表示溢出的文本 */
+          display: -webkit-box;
+          /* 将对象作为弹性伸缩盒子模型显示 */
+          -webkit-box-orient: vertical;
+          /* 垂直排列子元素 */
+          -webkit-line-clamp: 2;
+          /* 限制在两行文本 */
+        }
+
+        .info {
+          display: flex;
+          align-items: flex-end;
+          width: 100%;
+
+          .price1 {
+            color: #B1771A;
+            font-size: 16px;
+            font-weight: SemiBold;
+            margin-right: 8px;
+            font-family: Source Han Serif CN-Sem;
+          }
+
+          .price2 {
+            font-family: Source Han Serif CN-Sem;
+            color: #999999;
+            font-size: 14px;
+            font-weight: SemiBold;
+            text-decoration: line-through;
+            font-size: 14px;
+          }
+
+          .buy {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .btn {
+              margin: 0;
+              width: 66px;
+              height: 28px;
+            }
+
+          }
+        }
+      }
     }
   }
 }
