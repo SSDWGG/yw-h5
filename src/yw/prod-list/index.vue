@@ -2,28 +2,7 @@
   <view class="container">
     <u-swiper :list="bannerlist" indicator height='220px'></u-swiper>
 
-    <!-- 入口 -->
-    <view class="rkList">
-      <view class="rkItem" v-for="(item, index) in rkList" :key=index>
-        <view class="txt">
-          {{ item.title }}
-        </view>
-        <img :src="item.bg" class="bg" />
-      </view>
-    </view>
-    <!-- 会员 -->
-    <view class="hy">
-      <img src="@/static/yw/hyicon.png" class="hyicon" />
-      <view class="txt">
-        会员终身制 享¥46/盒
-      </view>
-      <view class="go" hover-class="none" hover-stop-propagation="false">
-        <u-icon name="arrow-right" color="#B1742F" size="12">
-          ></u-icon>
-      </view>
-
-    </view>
-    <Tabbar current="首页"></Tabbar>
+   
   </view>
 </template>
 

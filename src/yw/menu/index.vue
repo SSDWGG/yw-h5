@@ -4,7 +4,7 @@
 
     <!-- 入口 -->
     <view class="rkList">
-      <view class="rkItem" v-for="(item, index) in rkList" :key=index>
+      <view class="rkItem" v-for="(item, index) in rkList" :key=index @click="toProdList">
         <view class="txt">
           {{ item.title }}
         </view>
@@ -13,15 +13,38 @@
     </view>
     <!-- 会员 -->
     <view class="hy">
-      <img src="@/static/yw/hyicon.png" class="hyicon" />
+      <!-- <img src="@/static/yw/hyicon.png" class="hyicon" />
       <view class="txt">
         会员终身制 享¥46/盒
       </view>
       <view class="go" hover-class="none" hover-stop-propagation="false">
         <u-icon name="arrow-right" color="#B1742F" size="12">
           ></u-icon>
-      </view>
+      </view> -->
+      <img src="@/static/yw/hycardrk.png" class="hyiconAll" />
+    </view>
+    <!-- 商品卡片 -->
+    <view class="prodList">
+      <view class="prod" v-for="(item,index) in prodList" :key="index">
+        <img :src="item.prodImage" class="prodImage" />
+        <view class="title">
+          {{ item.title }}
+        </view>
+        <view class="info">
+          <view class="price1">
+            ￥{{item.price1}}
+          </view>
+          <view class="price2">
+            ￥{{item.price2}}
+          </view>
+          <view class="buy">
+            <u-button color="linear-gradient(to bottom, #F9694C, #F22020)" text="立即购买" class="btn"
+              @click="handleBuy"></u-button>
 
+          </view>
+
+        </view>
+      </view>
     </view>
     <Tabbar current="首页"></Tabbar>
   </view>
@@ -49,13 +72,28 @@ export default {
           bg: require("@/static/yw/rkbg.png")
         }
       ],
+      prodList:[{
+        title:'商品标题商品标题商品标题商品品标题商品标题商品标题商品标题',
+        price1:55644,
+        price2:55644,
+        prodImage:require("@/static/yw/prod1.png")
+      },{
+        title:'商品标题商品标题商品标题商品品标题商品标题商品标题商品标题',
+        price1:55644,
+        price2:55644,
+        prodImage:require("@/static/yw/prod2.png")
+      }],
       bannerlist: [require("@/static/yw/swiper/hb1.png"), require("@/static/yw/swiper/hb1.png")],
     };
   },
 
   methods: {
-
-
+    toProdList(){
+      uni.navigateTo({ url: '/yw/prod-list/index' })
+    },
+    handleBuy() {
+      console.log(111);
+    },
   },
 };
 </script>
@@ -102,6 +140,11 @@ export default {
     border-radius: 10px;
     padding: 11px 12px;
     align-items: center;
+    margin-top: 20px;
+
+    .hyiconAll {
+      width: 100%;
+    }
 
     .hyicon {
       width: 27px;
@@ -121,6 +164,66 @@ export default {
       display: flex;
       align-items: center;
       justify-content: flex-end;
+    }
+  }
+
+  .prodList {
+
+    .prod {
+      margin-top: 13px;
+      border: 1px solid #EDE3D8;
+      border-radius: 10px;
+
+      .prodImage {
+        width: 100%;
+      }
+
+      .title {
+        padding: 15px 16px;
+        color: #222222;
+        font-size: 14px;
+        font-weight: Medium;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .info {
+        padding: 20px 16px;
+        display: flex;
+        align-items: center;
+
+        .price1 {
+          color: #B1771A;
+          font-size: 14px;
+          font-weight: SemiBold;
+          margin-right: 13px;
+          font-family: Source Han Serif CN-Sem;
+        }
+
+        .price2 {
+          font-family: Source Han Serif CN-Sem;
+          color: #999999;
+          font-size: 14px;
+          font-weight: SemiBold;
+          text-decoration: line-through;
+          font-size: 14px;
+        }
+
+        .buy {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+
+          .btn {
+            margin: 0;
+            width: 77px;
+            height: 28px;
+          }
+
+        }
+      }
     }
   }
 }

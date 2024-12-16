@@ -39,17 +39,17 @@ export default {
     handleTabClick(index) {
       if (index == '我的') {
         uni.switchTab({
-          url: '/pages/me/index',
+          url: '/yw/me/index',
         });
         return
-      } else if (index == '工作台') {
+      } else if (index == '首页') {
         uni.switchTab({
-          url: '/pages/index/index',
+          url: '/yw/menu/index',
         });
         return
       } else {
-        uni.navigateTo({
-          url: '/pagesPack2/home/index',
+        uni.switchTab({
+          url: '/yw/car/index',
         });
       }
       // 使用 uni.switchTab 方法切换页面
@@ -85,6 +85,6 @@ export default {
   bottom: calc(120rpx + env(safe-area-inset-bottom));
 }
 ::v-deep .u-tabbar__placeholder{
-  height: 0 !important;
+  // height: 0 !important;
 }
 </style>
