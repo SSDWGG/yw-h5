@@ -70,7 +70,7 @@ export default {
         username: '',
         password: ''
       },
-      isShowPassword: false,
+      isShowPassword: true,
       jzPassWord: []
     }
   },

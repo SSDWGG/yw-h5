@@ -31,6 +31,34 @@
         "navigationBarTitleText": "我的购物车"
 
 			}
+		}, {
+			"path": "yw/prod-list/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "商品列表"
+
+			}
+		}, {
+			"path": "yw/prod-detail/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "商品详情"
+
+			}
+		}, {
+			"path": "yw/submit/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "订单结算"
+
+			}
+		}, {
+			"path": "yw/address/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "收货地址"
+
+			}
 		}
 	],
 	"subPackages":[],
