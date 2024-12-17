@@ -201,7 +201,7 @@ export default {
           display: flex;
           align-items: flex-end;
           width: 100%;
-
+          box-sizing: border-box;
           .price1 {
             color: #B1771A;
             font-size: 16px;
