@@ -146,7 +146,8 @@ export default {
       color: #C89761;
       font-size: 14px;
       font-weight: 500;
-      .icon{
+
+      .icon {
         margin-right: 8px;
       }
     }

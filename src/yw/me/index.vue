@@ -51,13 +51,52 @@
       </view>
     </view>
 
-    <!-- order -->
-
     <view class="modeView">
       <view class="header">
         <view class="txt">
           我的订单
         </view>
+      </view>
+      <view class="content">
+        <view class="contentItem" v-for="(item, index) in orderType" :key="index" @click="item.request()">
+          <view class="icon" hover-class="none" hover-stop-propagation="false">
+            <img class="iconImg" :src="item.icon">
+          </view>
+          <view class="name" hover-class="none" hover-stop-propagation="false">
+            {{ item.name }}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="modeView fx">
+      <view class="header">
+        <view class="txt">
+          分销中心
+        </view>
+        <u-icon name="arrow-right" size="12" />
+      </view>
+      <view class="content">
+        <view class="contentItem" v-for="(item, index) in fxType" :key="index" @click="item.request()">
+          <view class="icon" hover-class="none" hover-stop-propagation="false">
+            <img class="iconImg" :src="item.icon">
+          </view>
+          <view class="name" hover-class="none" hover-stop-propagation="false">
+            {{ item.name }}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="mainInfo">
+      <view class="infoItem" v-for="(item, index) in infoType" :key="index" @click="item.request()">
+        <img class="iconImg" :src="item.icon">
+        <view class="name" hover-class="none" hover-stop-propagation="false">
+          {{ item.name }}
+
+        </view>
+        <u-icon name="arrow-right" size="12" />
+
       </view>
     </view>
 
@@ -78,42 +117,65 @@ export default {
         username: 'aa啊啊凡凡',
         djIcon: require("@/static/yw/hyicon.png"),
         djName: '金粉'
-      }, 
+      },
       priceInfo: {
         price1: 66345,
         price2: 66345,
         price3: 66345,
       },
-      orderType:[
+      orderType: [
         {
-          orderTypeName:'全部',
-          icon:require("@/static/yw/me/orderType/1.png")
+          name: '全部',
+          icon: require("@/static/yw/me/orderType/1.png")
         },
         {
-          orderTypeName:'待付款',
-          icon:require("@/static/yw/me/orderType/2.png")
+          name: '待付款',
+          icon: require("@/static/yw/me/orderType/2.png")
         },
         {
-          orderTypeName:'待发货',
-          icon:require("@/static/yw/me/orderType/3.png")
+          name: '待发货',
+          icon: require("@/static/yw/me/orderType/3.png")
         },
         {
-          orderTypeName:'已发货',
-          icon:require("@/static/yw/me/orderType/4.png")
+          name: '已发货',
+          icon: require("@/static/yw/me/orderType/4.png")
         },
-      ], 
-      fxType:[
+      ],
+      fxType: [
         {
-          orderTypeName:'我的团队',
-          icon:require("@/static/yw/me/fxType/1.png")
-        },
-        {
-          orderTypeName:'邀请用户',
-          icon:require("@/static/yw/me/fxType/2.png")
+          name: '我的团队',
+          icon: require("@/static/yw/me/fxType/1.png")
         },
         {
-          orderTypeName:'客服留言',
-          icon:require("@/static/yw/me/fxType/3.png")
+          name: '邀请用户',
+          icon: require("@/static/yw/me/fxType/2.png")
+        },
+        {
+          name: '客服留言',
+          icon: require("@/static/yw/me/fxType/3.png")
+        }
+      ],
+      infoType: [
+        {
+          name: '我的信息',
+          icon: require("@/static/yw/me/infoType/1.png")
+        },
+        {
+          name: '修改密码',
+          icon: require("@/static/yw/me/infoType/2.png")
+        },
+        {
+          name: '银行卡',
+          icon: require("@/static/yw/me/infoType/3.png")
+        },
+        {
+          name: '收货地址',
+          icon: require("@/static/yw/me/infoType/4.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/address/index?from=me' })}
+        },
+        {
+          name: '退出',
+          icon: require("@/static/yw/me/infoType/5.png")
         }
       ]
     }
@@ -127,6 +189,29 @@ export default {
 .container {
   height: 100vh;
   position: relative;
+
+  .mainInfo{
+    margin: 17px 16px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    .infoItem{
+      padding: 15px 13px;
+      display: flex;
+      align-items: center;
+      .iconImg{
+        width: 21px;
+        height: 21px;
+        margin-right: 13px;
+      }
+      .name{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        color: #222222;
+        font-size: 14px;
+      }
+    }
+  }
 
   .bgcolor {
     background: #F7F4F0;
@@ -148,7 +233,7 @@ export default {
   .haeadInfo {
     display: flex;
     padding: 30px 18px;
-    margin-bottom: 25px;
+    padding-bottom: 25px;
 
     .avatar {
       width: 70px;
@@ -195,7 +280,7 @@ export default {
       }
 
       .line2 {
-        color: #462906;
+        color: rgb(70, 41, 6, .63);
         font-size: 12px;
         font-weight: 500;
       }
@@ -205,10 +290,9 @@ export default {
   .priceInfo {
     display: flex;
     padding: 5px;
-
+    margin-bottom: 20px;
 
     .priceInfoItem {
-      margin: 0px 21px;
       flex: 1;
       display: flex;
       align-items: center;
@@ -228,6 +312,65 @@ export default {
         font-size: 14px;
       }
     }
+  }
+
+  .modeView {
+    margin: 0 16px;
+    border-radius: 10px;
+    background-color: #fff;
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(70, 41, 6, .1);
+
+      .txt {
+        color: #222222;
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+
+    .content {
+      padding: 20px 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .contentItem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .icon {
+          width: 41px;
+          height: 41px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(to bottom, #D3AC85, #C39963);
+
+          .iconImg {
+            width: 25px;
+            height: 25px;
+          }
+        }
+
+        .name {
+          margin-top: 10px;
+          color: #222222;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .fx {
+    margin-top: 15px;
   }
 }
 </style>
