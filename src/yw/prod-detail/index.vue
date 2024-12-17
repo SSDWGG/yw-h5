@@ -19,8 +19,7 @@
       </view>
     </view>
     <view class="num cell">
-      购买数量：<u-number-box integer button-size="28" color="#462906" bgColor="#F4F3F2"
-      v-model="numValue" 
+      购买数量：<u-number-box integer button-size="28" color="#462906" bgColor="#F4F3F2" v-model="numValue"
         iconStyle="color: #fff"></u-number-box>
     </view>
 
@@ -31,26 +30,26 @@
     <rich-text class="prod-detail" :nodes="yhxz"></rich-text>
 
     <!-- 底部按钮操作栏 -->
-    <view class="bottomViewPlaceholder" >
+    <view class="bottomViewPlaceholder">
 
     </view>
     <view class="bottomView">
       <view class="left first" @click="toMenu">
         <img src="@/static/yw/icon/1.png" class="icon" />
-        <view class="txt" >
+        <view class="txt">
           首页
         </view>
 
       </view>
-      <view class="left first" @click="toCar" >
+      <view class="left first" @click="toCar">
         <img src="@/static/yw/icon/2.png" class="icon" />
-        <view class="txt" >
+        <view class="txt">
           购物车
         </view>
 
       </view>
       <view class="btns">
-        <view class="car" @click="addCar" >
+        <view class="car" @click="addCar">
           加入购物车
         </view>
         <view class="buy" @click="buyNow">
@@ -67,7 +66,7 @@ export default {
 
   data() {
     return {
-      numValue:1,
+      numValue: 1,
       prodInfo: {
         title: '商品标题商品标题商品标题品标题商品标题商品标题品标商品标题商品标',
         price: 883749,
@@ -78,17 +77,18 @@ export default {
   },
 
   methods: {
-    toMenu(){
+    toMenu() {
       uni.switchTab({ url: '/yw/menu/index' })
-    }, toCar(){
+    }, toCar() {
       uni.switchTab({ url: '/yw/car/index' })
     },
-    addCar(){
+    addCar() {
       uni.showToast({
-          title: '加入购物车成功',
-          icon: 'success'
-        })
-    },buyNow(){
+        title: '加入购物车成功',
+        icon: 'success'
+      })
+    },
+     buyNow() {
       uni.navigateTo({ url: '/yw/submit/index' })
     }
 
@@ -248,8 +248,8 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-         width: 100%;
-         height: 42px;
+        width: 100%;
+        height: 42px;
 
         border: 1px solid #EF432A;
         border-radius: 0px 8px 8px 0px;

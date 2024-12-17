@@ -66,6 +66,13 @@
         "navigationBarTitleText": "收货地址"
 
 			}
+		}, {
+			"path": "yw/address-add/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "填写收货地址"
+
+			}
 		}
 	],
 	"subPackages":[],

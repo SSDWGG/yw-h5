@@ -25,7 +25,6 @@ export default {
     // }else{
     //   this.$store.dispatch('user/loginOut')
     // }
-    console.log(111);
   },
   onShow: function () {
     uni.hideTabBar()

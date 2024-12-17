@@ -1,33 +1,13 @@
 <template>
   <view class="container">
 
-    <view class="addressList">
-      <view class="addressItem" v-for="(item, index) in addressList" :key="index">
-        <view class="line1">
-          <view class="name">
-            {{ item.receiver }}
-          </view>
-          <view class="phone">
-            {{ item.mobile }}
-          </view>
-        </view>
-        <view class="line2">
-          {{ item.addr }}
-        </view>
-      </view>
-      <view class="addView" @click="toAddAdress">
-        <u-icon name="plus-circle" color="#C89761" size="20" class="icon" />
-        添加地址
-      </view>
-
+    <view class="addressList" v-for="(item,index) in addressList" :key="index">
+      
     </view>
-
-
-
-    <view class="emptyAddress" v-if="addressList.length === 0">
+    <view class="emptyAddress" v-if="addressList.length===0">
       <u-empty mode="address">
       </u-empty>
-      <view class="btn" @click="toAddAdress">
+      <view class="btn" @click="openPop">
         新建地址
       </view>
     </view>
@@ -83,11 +63,11 @@ export default {
 
       },
       addressList: [
-        {
-          receiver: 'aaaawgg',
-          mobile: '13333333333',
-          addr: '浙江省杭州市西湖区蚂蚁大厦1502',
-        }
+      // {
+      //   receiver: 'aaaawgg',
+      //   mobile: '13333333333',
+      //   addr: '浙江省杭州市西湖区蚂蚁大厦1502',
+      // }
       ],
       popShow: false,
       bannerlist: [require("@/static/yw/swiper/hb1.png"), require("@/static/yw/swiper/hb1.png")],
@@ -102,9 +82,6 @@ export default {
     closePop() {
       this.popShow = false
       // console.log('close');
-    },
-    toAddAdress() {
-      uni.navigateTo({ url: '/yw/address-add/index' })
     }
   },
 };
@@ -113,44 +90,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   padding: 15px 16px;
-  background: #F4F3F2;
+  background: #fff;
   height: 100vh;
-
-  .addressList {
-    .addressItem {
-      background: #fff;
-      padding: 12px;
-      border-radius: 10px;
-
-      .line1 {
-        color: #222222;
-        font-size: 16px;
-        display: flex;
-        margin-bottom: 13px;
-        font-weight: 500;
-
-        .name {
-          margin-right: 24px;
-        }
-      }
-
-      .line2 {
-        color: #999999;
-        font-size: 12px;
-      }
-    }
-
-    .addView {
-      margin-top: 14px;
-      display: flex;
-      color: #C89761;
-      font-size: 14px;
-      font-weight: 500;
-      .icon{
-        margin-right: 8px;
-      }
-    }
-  }
 
   .emptyAddress {
     display: flex;

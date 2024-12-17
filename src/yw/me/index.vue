@@ -7,10 +7,8 @@
 </template>
 <script>
 import Tabbar from "@/components/Tabbar.vue";
-import Card from '@/components/Card.vue'
 export default {
   components: {
-    Card,
     Tabbar
   },
   data() {
@@ -28,3 +26,4 @@ export default {
   height: 100vh;
 
 }
+</style>
