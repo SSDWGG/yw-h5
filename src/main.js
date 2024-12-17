@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 // 图标
-import './static/common/iconfont.css'
+// import './static/common/iconfont.css'
 
 // tabBar组件
 import Tabbar from '@/components/Tabbar'

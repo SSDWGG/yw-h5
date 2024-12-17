@@ -32,6 +32,13 @@
 
 			}
 		}, {
+			"path": "yw/me/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "个人中心"
+
+			}
+		} ,{
 			"path": "yw/prod-list/index",
 			"style": {
 				"navigationStyle": "custom",

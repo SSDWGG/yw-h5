@@ -1,73 +1,25 @@
 <template>
   <view class="container">
     我的
+
+    <Tabbar current="我的"></Tabbar>
   </view>
 </template>
 <script>
+import Tabbar from "@/components/Tabbar.vue";
 import Card from '@/components/Card.vue'
 export default {
   components: {
-    Card
+    Card,
+    Tabbar
   },
   data() {
     return {
-      form: {
-        username: '18158131111',
-        password: '123456'
-      },
-      isShowPassword: false,
-      jzPassWord: false
+
     }
   },
   methods: {
-    handleLogin() {
-      let phone = /^1[3456789]\d{9}$/
-      if (!this.form.username) {
-        uni.showToast({
-          title: '用户名不得为空',
-          icon: 'none'
-        })
-        return
-      }
-      // else if (!phone.test(this.form.username)) {
-      //     uni.showToast({
-      //         title: '没有该用户',
-      //         icon: 'none'
-      //     })
-      //     return
-      // }
-      if (!this.form.password) {
-        uni.showToast({
-          title: '密码不得为空',
-          icon: 'none'
-        })
-        return
-      }
-      // this.$store.dispatch('user/login', this.form).then(res => {
-      //     if (res.code == '200') {
-      //         if(res.userType == '禁毒中队') {
-      //             // uni.setStorageSync('tabBar',tabbar[0])
-      //             uni.navigateTo({ url: '/pagesPack2/home/index' })
-      //         } else {
-      //             // uni.setStorageSync('tabBar',tabbar[1])
-      //             uni.switchTab({ url: '/pages/index/index' })
-      //         }
-      //     } else {
-      //         uni.showToast({
-      //             title: res.msg,
-      //             icon: 'none'
-      //         })
-      //     }
-      // }).catch((err) => {
-      //     // console.log(err)
-      //     uni.showToast({
-      //         title: err.data,
-      //         icon: 'none'
-      //     })
-      // })
-      uni.switchTab({ url: '/yw/menu/index' })
 
-    }
   }
 }
 </script>
@@ -75,65 +27,4 @@ export default {
 .container {
   height: 100vh;
 
-  .bgcolor {
-    background: #F4F3F2;
-    z-index: -2;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .titleBg {
-    width: 100vw;
-    position: absolute;
-    top: -100px;
-    left: 0;
-    z-index: -1;
-  }
-
-  .card-box {
-    padding-top: 165px;
-    margin: 0 23px;
-    z-index: 2;
-  }
-
-  .login-title {
-    font-size: 20px;
-    font-weight: 600;
-    width: 100%;
-    text-align: center;
-    color: #CAA156;
-
-    .name {
-      border-bottom: #CAA156 2px solid;
-    }
-  }
-
-  .footer {
-    width: 100%;
-
-    .footerBtns {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      padding-top: 16px;
-
-      .btn1 {
-        display: flex;
-        color: #666666;
-      }
-
-      .btn2 {
-        color: #BB9F59;
-      }
-    }
-  }
-
-
 }
-
-// ::v-deep .u-input__content__clear{
-//       font-size: 50px !important;
-//     }</style>

@@ -1,122 +1,25 @@
 <template>
   <view class="container">
-    <view class="bgcolor">
+    购物车
 
-    </view>
-    <img class="titleBg" src="@/static/yw/registerBg.png">
-    <view class="card-box">
-      <card class="card" :isShadow="true">
-        <u--form labelPosition="left" labelWidth="0" :model="form">
-          <u-form-item>
-            <text class="login-title">
-              <span class="name">用户注册</span>
-            </text>
-          </u-form-item>
-          <u-form-item>
-            <!-- padding:12px; -->
-            <u--input v-model="form.username" style="border: 1px solid #CAA156;border-radius: 10px;"
-              prefixIcon="account" prefixIconStyle="color: #CAA156;margin-right:2px;"
-              placeholder="请输入用户名"></u--input>
-          </u-form-item>
-          <u-form-item>
-            <u--input v-model="form.password" style="border: 1px solid #CAA156;border-radius: 10px;"
-              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: #CAA156;margin-right:2px;"
-              placeholder="请输入密码">
-              <template slot="suffix">
-                <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
-                  isShowPassword = !isShowPassword
-                }">
-                  ></u-icon>
-              </template>
-            </u--input>
-          </u-form-item>
-          <u-form-item style="margin-top:118px">
-            <view class="footer" hover-class="none">
-
-
-              <u-button color="#EF432A" text="登 陆" class="btn" @click="handleLogin"></u-button>
-              <view class="footerBtns">
-                <view class="btn1" hover-class="none">
-                  <u-checkbox-group  v-model="jzPassWord">
-                    <u-checkbox size="14" labelSize="12" shape="circle" label="记住密码" activeColor="#CAA156"></u-checkbox>
-                  </u-checkbox-group>
-                </view>
-                <view class="btn2" hover-class="none">
-                  前往注册
-                </view>
-              </view>
-            </view>
-          </u-form-item>
-        </u--form>
-      </card>
-    </view>
+    <Tabbar current="购物车"></Tabbar>
   </view>
 </template>
 <script>
+import Tabbar from "@/components/Tabbar.vue";
 import Card from '@/components/Card.vue'
 export default {
   components: {
-    Card
+    Card,
+    Tabbar
   },
   data() {
     return {
-      form: {
-        username: '18158131111',
-        password: '123456'
-      },
-      isShowPassword: false,
-      jzPassWord: false
+
     }
   },
   methods: {
-    handleLogin() {
-      let phone = /^1[3456789]\d{9}$/
-      if (!this.form.username) {
-        uni.showToast({
-          title: '用户名不得为空',
-          icon: 'none'
-        })
-        return
-      }
-      // else if (!phone.test(this.form.username)) {
-      //     uni.showToast({
-      //         title: '没有该用户',
-      //         icon: 'none'
-      //     })
-      //     return
-      // }
-      if (!this.form.password) {
-        uni.showToast({
-          title: '密码不得为空',
-          icon: 'none'
-        })
-        return
-      }
-      // this.$store.dispatch('user/login', this.form).then(res => {
-      //     if (res.code == '200') {
-      //         if(res.userType == '禁毒中队') {
-      //             // uni.setStorageSync('tabBar',tabbar[0])
-      //             uni.navigateTo({ url: '/pagesPack2/home/index' })
-      //         } else {
-      //             // uni.setStorageSync('tabBar',tabbar[1])
-      //             uni.switchTab({ url: '/pages/index/index' })
-      //         }
-      //     } else {
-      //         uni.showToast({
-      //             title: res.msg,
-      //             icon: 'none'
-      //         })
-      //     }
-      // }).catch((err) => {
-      //     // console.log(err)
-      //     uni.showToast({
-      //         title: err.data,
-      //         icon: 'none'
-      //     })
-      // })
-      uni.switchTab({ url: '/yw/menu/index' })
 
-    }
   }
 }
 </script>
@@ -124,65 +27,4 @@ export default {
 .container {
   height: 100vh;
 
-  .bgcolor {
-    background: #F4F3F2;
-    z-index: -2;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .titleBg {
-    width: 100vw;
-    position: absolute;
-    top: -100px;
-    left: 0;
-    z-index: -1;
-  }
-
-  .card-box {
-    padding-top: 165px;
-    margin: 0 23px;
-    z-index: 2;
-  }
-
-  .login-title {
-    font-size: 20px;
-    font-weight: 600;
-    width: 100%;
-    text-align: center;
-    color: #CAA156;
-
-    .name {
-      border-bottom: #CAA156 2px solid;
-    }
-  }
-
-  .footer {
-    width: 100%;
-
-    .footerBtns {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      padding-top: 16px;
-
-      .btn1 {
-        display: flex;
-        color: #666666;
-      }
-
-      .btn2 {
-        color: #BB9F59;
-      }
-    }
-  }
-
-
 }
-
-// ::v-deep .u-input__content__clear{
-//       font-size: 50px !important;
-//     }</style>
