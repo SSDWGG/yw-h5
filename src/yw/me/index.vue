@@ -186,7 +186,8 @@ export default {
         },
         {
           name: '退出',
-          icon: require("@/static/yw/me/infoType/5.png")
+          icon: require("@/static/yw/me/infoType/5.png"),
+          request:()=>{ console.log('退出');}
         }
       ]
     }
