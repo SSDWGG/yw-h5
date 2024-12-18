@@ -126,19 +126,24 @@ export default {
       orderType: [
         {
           name: '全部',
-          icon: require("@/static/yw/me/orderType/1.png")
+          icon: require("@/static/yw/me/orderType/1.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/my-order/index' })}
+
         },
         {
           name: '待付款',
-          icon: require("@/static/yw/me/orderType/2.png")
+          icon: require("@/static/yw/me/orderType/2.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/my-order/index' })}
         },
         {
           name: '待发货',
-          icon: require("@/static/yw/me/orderType/3.png")
+          icon: require("@/static/yw/me/orderType/3.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/my-order/index' })}
         },
         {
           name: '已发货',
-          icon: require("@/static/yw/me/orderType/4.png")
+          icon: require("@/static/yw/me/orderType/4.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/my-order/index' })}
         },
       ],
       fxType: [

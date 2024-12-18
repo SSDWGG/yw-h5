@@ -73,6 +73,13 @@
         "navigationBarTitleText": "填写收货地址"
 
 			}
+		}, {
+			"path": "yw/my-order/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "我的订单"
+
+			}
 		}
 	],
 	"subPackages":[],

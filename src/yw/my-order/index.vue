@@ -12,26 +12,33 @@
 
     <!-- 商品卡片 -->
     <view class="prodList">
-      <view class="prod" v-for="(item, index) in prodList" :key="index">
-        <img :src="item.prodImage" class="prodImage" />
-        <view class="prodinfo" hover-class="none" hover-stop-propagation="false">
-          <view class="title">
-            {{ item.title }}
-          </view>
-          <view class="info">
-            <view class="price1">
-              ￥{{ item.price1 }}
+      <view class="prodView" v-for="(item, index) in prodList" :key="index">
+        <view class="prod" hover-class="none" hover-stop-propagation="false">
+          <img :src="item.prodImage" class="prodImage" />
+          <view class="prodinfo">
+            <view class="title">
+              {{ item.title }}
             </view>
-            <view class="price2">
-              ￥{{ item.price2 }}
+            <view class="gg">
+              规格：无
             </view>
-            <view class="buy">
-              <u-button color="linear-gradient(to bottom, #F9694C, #F22020)" text="去购买" class="btn"
-                @click="handleBuy"></u-button>
+            <view class="info">
+              <view class="price1">
+                ￥{{ item.price1 }}
+              </view>
+              <view class="price2">
+                ￥{{ item.price2 }}
+              </view>
+              <view class="buy">
+                x1
+
+              </view>
 
             </view>
-
           </view>
+        </view>
+        <view class="bottom" hover-class="none" hover-stop-propagation="false">
+          
         </view>
       </view>
     </view>
@@ -44,15 +51,18 @@ export default {
     return {
       headerList: [
         {
-          title: '综合',
+          title: '全部',
           index: 0
         },
         {
-          title: '销量',
+          title: '待付款',
           index: 1
         }, {
-          title: '价格',
+          title: '待发货',
           index: 2
+        }, {
+          title: '已发货',
+          index: 3
         }
       ],
       activeIndex: 0,
@@ -82,8 +92,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   padding: 15px 16px;
-  background: #fff;
-  height: 100%;
+  background: #F4F3F2;
+  height: 100vh;
 
   .headerList {
     display: flex;
@@ -105,11 +115,13 @@ export default {
   }
 
   .prodList {
-    margin-top: 15px;
+    margin-top: 24px;
     .prod {
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(70, 41, 6, .1);
+      padding: 11px 10px;
       display: flex;
+      border-radius: 10px;
+      background-color: #fff;
+      margin-bottom: 10px;
 
       .prodImage {
         width: 107px;
@@ -131,7 +143,7 @@ export default {
           color: #222222;
           font-size: 14px;
           width: 100%;
-          font-weight: Medium;
+          font-weight: 500;
           overflow: hidden;
           /* 隐藏溢出的内容 */
           text-overflow: ellipsis;
@@ -144,10 +156,16 @@ export default {
           /* 限制在两行文本 */
         }
 
+        .gg {
+          color: #999999;
+          font-size: 14px;
+        }
+
         .info {
           display: flex;
           align-items: flex-end;
           width: 100%;
+          box-sizing: border-box;
 
           .price1 {
             color: #B1771A;
@@ -160,10 +178,9 @@ export default {
           .price2 {
             font-family: Source Han Serif CN-Sem;
             color: #999999;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: SemiBold;
             text-decoration: line-through;
-            font-size: 14px;
           }
 
           .buy {
@@ -171,13 +188,8 @@ export default {
             display: flex;
             align-items: center;
             justify-content: flex-end;
-
-            .btn {
-              margin: 0;
-              width: 66px;
-              height: 28px;
-            }
-
+            color: #666666;
+            font-size: 12px;
           }
         }
       }

@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     handleTabClick(index) {
-      console.log(index);
       if (index == '我的') {
         uni.switchTab({
           url: '/yw/me/index',
@@ -47,7 +46,7 @@ export default {
           url: '/yw/menu/index',
         });
        
-      } else {
+      } else if (index == '购物车') {
         uni.switchTab({
           url: '/yw/car/index',
         });

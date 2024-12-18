@@ -1,8 +1,13 @@
 <template>
   <view class="container">
-      <!-- 商品卡片 -->
-      <view class="prodList">
+
+
+
+    <!-- 商品卡片 -->
+    <view class="prodList">
       <view class="prod" v-for="(item, index) in prodList" :key="index">
+        <u-checkbox :checked="item.checked" size="20" shape="circle" activeColor="#EF432A"></u-checkbox>
+
         <img :src="item.prodImage" class="prodImage" />
         <view class="prodinfo">
           <view class="title">
@@ -28,15 +33,38 @@
       </view>
     </view>
 
+    <!-- 结算栏 -->
+    <view class="jsTabbar">
+      <u-checkbox :checked="checkedAll" size="20" shape="circle" activeColor="#EF432A"></u-checkbox>
+      <view class="checkedAllTxt">
+        全选
+      </view>
+      <view class="info">
+        <view class="info1">
+          已选1件
+        </view>
+        <view class="info2">
+          <view class="hj" hover-class="none" hover-stop-propagation="false">
+            合计:
+          </view>
+          <view class="num" hover-class="none" hover-stop-propagation="false">
+            ￥9999
+          </view>
+
+        </view>
+      </view>
+      <view class="btn">
+        结算
+      </view>
+    </view>
+
     <Tabbar current="购物车"></Tabbar>
   </view>
 </template>
 <script>
 import Tabbar from "@/components/Tabbar.vue";
-import Card from '@/components/Card.vue'
 export default {
   components: {
-    Card,
     Tabbar
   },
   data() {
@@ -47,11 +75,42 @@ export default {
         price2: 55644,
         prodImage: require("@/static/yw/prodDetail.png")
       }, {
+        title: '精品燕窝精品燕窝商品标题',
+        price1: 55644,
+        price2: 55644,
+        prodImage: require("@/static/yw/prodDetail.png")
+      }, {
+        title: '精品燕窝精品燕窝商品标题',
+        price1: 55644,
+        price2: 55644,
+        prodImage: require("@/static/yw/prodDetail.png")
+      }, {
+        title: '精品燕窝精品燕窝商品标题',
+        price1: 55644,
+        price2: 55644,
+        prodImage: require("@/static/yw/prodDetail.png")
+      }, {
+        title: '精品燕窝精品燕窝商品标题',
+        price1: 55644,
+        price2: 55644,
+        prodImage: require("@/static/yw/prodDetail.png")
+      }, {
+        title: '精品燕窝精品燕窝商品标题',
+        price1: 55644,
+        price2: 55644,
+        prodImage: require("@/static/yw/prodDetail.png")
+      }, {
+        title: '精品燕窝精品燕窝商品标题',
+        price1: 55644,
+        price2: 55644,
+        prodImage: require("@/static/yw/prodDetail.png")
+      }, {
         title: '精品燕窝商品标题商品标精品燕窝商品标题精品燕窝商品品标题精品燕窝精品燕窝商品标题商品标题商品标题',
         price1: 55644,
         price2: 55644,
         prodImage: require("@/static/yw/prodDetail.png")
       }],
+      checkedAll: false
     }
   },
   methods: {
@@ -61,22 +120,87 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  height: 100vh;
+  min-height: 100vh;
   padding: 10px;
   background-color: #F4F3F2;
   box-sizing: border-box;
+  position: relative;
+  padding-bottom: calc(50px + env(safe-area-inset-bottom));
+
+  .jsTabbar {
+    position: fixed;
+    bottom: calc(50px + env(safe-area-inset-bottom));
+    left: 0;
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    background-color: #fff;
+
+    .checkedAllTxt {
+      margin-left: 12px;
+      color: #462906;
+      font-size: 14px;
+    }
+
+    .info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: 16px;
+
+      .info1 {
+        color: rgba(34, 34, 34, .6);
+        font-size: 12px;
+        margin-right: 10px;
+
+      }
+
+      .info2 {
+        display: flex;
+        align-items: center;
+
+        .hj {
+          color: #B1771A;
+          font-size: 12px;
+        }
+
+        .num {
+          color: #B1771A;
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .btn {
+      padding: 11px 34px;
+      border-radius: 6px;
+      background-color: #EF432A;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
   .prodList {
     .prod {
       padding: 11px 10px;
       display: flex;
       border-radius: 10px;
       background-color: #fff;
-      margin-top: 10px;
+      margin-bottom: 10px;
 
       .prodImage {
         width: 107px;
         height: 107px;
         margin-right: 16px;
+        margin-left: 4px;
       }
 
       .prodinfo {
@@ -116,6 +240,7 @@ export default {
           align-items: flex-end;
           width: 100%;
           box-sizing: border-box;
+
           .price1 {
             color: #B1771A;
             font-size: 16px;
