@@ -3,38 +3,72 @@
 
     <view class="block">
 
-      <view class="item">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          收货人
+      <view class="item last">
+        <view class="lable">
+          会员编号
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-input v-model="form.receiver" placeholder="请输入收货人" />
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="请输入会员编号" />
 
         </view>
       </view>
-      <view class="item">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          手机号码
+
+    </view>
+    <view class="block">
+
+      <view class="item ">
+        <view class="lable">
+          昵称
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-input v-model="form.receiver" placeholder="请输入手机号码" />
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="请输入昵称" />
 
         </view>
       </view>
-      <view class="item">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          所在地区
+      <view class="item ">
+        <view class="lable">
+          姓名
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-input v-model="form.receiver" placeholder="请输入所在地区" />
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="请输入姓名" />
+
+        </view>
+      </view>
+      <view class="item ">
+        <view class="lable">
+          手机号
+        </view>
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="请输入手机号" />
 
         </view>
       </view>
       <view class="item last">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
+        <view class="lable">
+          身份证
+        </view>
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="请输入身份证" />
+
+        </view>
+      </view>
+    </view>
+    <view class="block">
+
+      <view class="item">
+        <view class="lable">
+          所在地区
+        </view>
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="例如：杭州" />
+
+        </view>
+      </view>
+      <view class="item last">
+        <view class="lable">
           详细地址
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
+        <view class="content">
           <u-textarea v-model="form.receiver" placeholder="请输入详细地址" />
 
         </view>
@@ -44,6 +78,9 @@
       <view class="btn">保存</view>
     </view>
 
+    <view class="placeHoldBottom" >
+      
+    </view>
   </view>
 </template>
 
@@ -76,6 +113,7 @@ export default {
     padding: 12px 16px;
     background-color: #FFFFFF;
     border-radius: 10px;
+    margin-bottom: 16px;
 
     .item {
       margin-bottom: 30px;
@@ -90,9 +128,13 @@ export default {
 
       .content {}
     }
-    .last{
+
+    .last {
       margin-bottom: 16px;
     }
+  }
+  .placeHoldBottom{
+    height: calc(100px + env(safe-area-inset-bottom));
   }
 
   .add-footer {

@@ -4,38 +4,42 @@
     <view class="block">
 
       <view class="item">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          收货人
+        <view class="lable">
+          持卡人
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-input v-model="form.receiver" placeholder="请输入收货人" />
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="请输入您的姓名" />
 
         </view>
       </view>
       <view class="item">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          手机号码
+        <view class="lable">
+          银行
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-input v-model="form.receiver" placeholder="请输入手机号码" />
+        <view class="content">
 
+          <view class="chooseYh" @click="show = true">
+           {{ !!form.yhName?form.yhName:'请选择银行'}} 
+          </view>
+          <u-picker :show="show" :columns="columns" @confirm="handleConfirmPicker"
+            @cancel="handleCalcelPicker"></u-picker>
         </view>
       </view>
       <view class="item">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          所在地区
+        <view class="lable">
+          支行名称
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-input v-model="form.receiver" placeholder="请输入所在地区" />
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="请输入支行名称" />
 
         </view>
       </view>
       <view class="item last">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          详细地址
+        <view class="lable">
+          卡号
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-textarea v-model="form.receiver" placeholder="请输入详细地址" />
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="请输入卡号" />
 
         </view>
       </view>
@@ -54,13 +58,24 @@ export default {
   data() {
     return {
       form: {
-        receiver: ''
-      }
+        receiver: '',
+        yhName:''
+      },
+      show: false,
+      columns: [
+        ['银行1', '银行2', '银行3']
+      ],
     };
   },
 
   methods: {
-
+    handleConfirmPicker(chooseVal) {
+      this.form.yhName = chooseVal.value[0]
+      this.handleCalcelPicker()
+    },
+    handleCalcelPicker() {
+      this.show = false
+    }
   },
 };
 </script>
@@ -88,9 +103,20 @@ export default {
         margin-left: 4px;
       }
 
-      .content {}
+      .content {
+
+        .chooseYh{
+          border: 1px solid #dadbde;
+          border-radius: 4px;
+          padding: 10px 9px;
+          font-size: 14px;
+          color: #F54927;
+          font-weight: 500;
+        }
+      }
     }
-    .last{
+
+    .last {
       margin-bottom: 16px;
     }
   }

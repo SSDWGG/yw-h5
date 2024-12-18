@@ -4,41 +4,45 @@
     <view class="block">
 
       <view class="item">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          收货人
+        <view class="lable">
+          账号
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-input v-model="form.receiver" placeholder="请输入收货人" />
+        <view class="content">
+          <u-input v-model="form.receiver" placeholder="请输入账号" />
 
         </view>
       </view>
       <view class="item">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          手机号码
+        <view class="lable">
+          原始密码
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-input v-model="form.receiver" placeholder="请输入手机号码" />
-
+        <view class="content">
+          <u-input v-model="form.password" :password="isShowPassword" placeholder="请输入原始密码">
+            <template slot="suffix">
+              <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
+                isShowPassword = !isShowPassword
+              }">
+                ></u-icon>
+            </template>
+          </u-input>
         </view>
       </view>
       <view class="item">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          所在地区
+        <view class="lable">
+          新密码
         </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-input v-model="form.receiver" placeholder="请输入所在地区" />
-
-        </view>
-      </view>
-      <view class="item last">
-        <view class="lable" hover-class="none" hover-stop-propagation="false">
-          详细地址
-        </view>
-        <view class="content" hover-class="none" hover-stop-propagation="false">
-          <u-textarea v-model="form.receiver" placeholder="请输入详细地址" />
-
+        <view class="content">
+          <u-input v-model="form.passwordAganin" :password="isShowPassword" placeholder="请确认密码">
+            <template slot="suffix">
+              <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
+                isShowPassword = !isShowPassword
+              }">
+                ></u-icon>
+            </template>
+          </u-input>
         </view>
       </view>
+
     </view>
     <view class="add-footer">
       <view class="btn">保存</view>
@@ -55,7 +59,9 @@ export default {
     return {
       form: {
         receiver: ''
-      }
+      },
+      isShowPassword: true,
+
     };
   },
 
@@ -90,7 +96,8 @@ export default {
 
       .content {}
     }
-    .last{
+
+    .last {
       margin-bottom: 16px;
     }
   }

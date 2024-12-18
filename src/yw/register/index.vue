@@ -31,7 +31,7 @@
             </u--input>
           </u-form-item>
           <u-form-item>
-            <u--input v-model="form.passwordAganin" style="border: 1px solid #CAA156;border-radius: 10px;"
+            <u-input v-model="form.passwordAganin" style="border: 1px solid #CAA156;border-radius: 10px;"
               :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: #CAA156;margin-right:2px;"
               placeholder="请确认密码">
               <template slot="suffix">
@@ -40,7 +40,7 @@
                 }">
                   ></u-icon>
               </template>
-            </u--input>
+            </u-input>
           </u-form-item>
           <u-form-item>
             <u--input v-model="form.phone" style="border: 1px solid #CAA156;border-radius: 10px;"
