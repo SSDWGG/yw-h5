@@ -163,15 +163,21 @@ export default {
       infoType: [
         {
           name: '我的信息',
-          icon: require("@/static/yw/me/infoType/1.png")
+          icon: require("@/static/yw/me/infoType/1.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/edit-info/index' })}
+
         },
         {
           name: '修改密码',
-          icon: require("@/static/yw/me/infoType/2.png")
+          icon: require("@/static/yw/me/infoType/2.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/edit-password/index' })}
+
         },
         {
           name: '银行卡',
-          icon: require("@/static/yw/me/infoType/3.png")
+          icon: require("@/static/yw/me/infoType/3.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/yh-card/index' })}
+
         },
         {
           name: '收货地址',

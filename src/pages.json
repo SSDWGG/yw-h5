@@ -80,6 +80,27 @@
         "navigationBarTitleText": "我的订单"
 
 			}
+		}, {
+			"path": "yw/edit-info/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "我的信息"
+
+			}
+		}, {
+			"path": "yw/edit-password/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "修改密码"
+
+			}
+		}, {
+			"path": "yw/yh-card/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "银行卡"
+
+			}
 		}
 	],
 	"subPackages":[],

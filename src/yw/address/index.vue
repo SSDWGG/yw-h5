@@ -3,16 +3,23 @@
 
     <view class="addressList">
       <view class="addressItem" v-for="(item, index) in addressList" :key="index">
-        <view class="line1">
-          <view class="name">
-            {{ item.receiver }}
+        <view class="info" >
+          <view class="line1">
+            <view class="name">
+              {{ item.receiver }}
+            </view>
+            <view class="phone">
+              {{ item.mobile }}
+            </view>
           </view>
-          <view class="phone">
-            {{ item.mobile }}
+          <view class="line2">
+            {{ item.addr }}
           </view>
         </view>
-        <view class="line2">
-          {{ item.addr }}
+        <view class="edit"  @click="toAddAdress">
+         
+          <u-icon name="edit-pen" color="#999999" size="24" class="icon" />
+
         </view>
       </view>
       <view class="addView" @click="toAddAdress">
@@ -34,7 +41,7 @@
 
 
     <u-popup :show="popShow" :catch-move="false" mode="bottom" :round="10" closeOnClickOverlay>
-      <view class="popContent" hover-class="none" hover-stop-propagation="false">
+      <view class="popContent" >
 
 
         <view class="header">
@@ -121,6 +128,10 @@ export default {
       background: #fff;
       padding: 12px;
       border-radius: 10px;
+      display: flex;
+      .info{
+        flex: 1;
+        
 
       .line1 {
         color: #222222;
@@ -138,6 +149,12 @@ export default {
         color: #999999;
         font-size: 12px;
       }
+       }
+       .edit{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       }
     }
 
     .addView {
