@@ -101,6 +101,48 @@
         "navigationBarTitleText": "银行卡"
 
 			}
+		}, {
+			"path": "yw/send-kf/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "客服留言"
+
+			}
+		}, {
+			"path": "yw/fx-center/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "分销中心"
+
+			}
+		}, {
+			"path": "yw/fx-mytd/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "我的团队"
+
+			}
+		}, {
+			"path": "yw/fx-mytgm/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "我的推广码"
+
+			}
+		}, {
+			"path": "yw/tx-record/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "提现记录"
+
+			}
+		}, {
+			"path": "yw/tx-detail/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "收益明细"
+
+			}
 		}
 	],
 	"subPackages":[],

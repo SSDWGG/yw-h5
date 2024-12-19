@@ -74,7 +74,7 @@
         <view class="txt">
           分销中心
         </view>
-        <u-icon name="arrow-right" size="12" />
+        <u-icon name="arrow-right" size="12"  @click="toFxCenter"/>
       </view>
       <view class="content">
         <view class="contentItem" v-for="(item, index) in fxType" :key="index" @click="item.request()">
@@ -149,15 +149,18 @@ export default {
       fxType: [
         {
           name: '我的团队',
-          icon: require("@/static/yw/me/fxType/1.png")
+          icon: require("@/static/yw/me/fxType/1.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/fx-mytd/index' })}
         },
         {
           name: '邀请用户',
-          icon: require("@/static/yw/me/fxType/2.png")
+          icon: require("@/static/yw/me/fxType/2.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/fx-mytgm/index' })}
         },
         {
           name: '客服留言',
-          icon: require("@/static/yw/me/fxType/3.png")
+          icon: require("@/static/yw/me/fxType/3.png"),
+          request:()=>{ uni.navigateTo({ url: '/yw/send-kf/index' })}
         }
       ],
       infoType: [
@@ -193,7 +196,9 @@ export default {
     }
   },
   methods: {
-
+    toFxCenter(){
+      uni.navigateTo({ url: '/yw/fx-center/index' })
+    }
   }
 }
 </script>

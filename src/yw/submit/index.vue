@@ -55,7 +55,7 @@
           -￥{{ orderObj.yh }}
         </view>
       </view>
-      <view class="infoItem">
+      <!-- <view class="infoItem">
         <view class="lab">
           运费
         </view>
@@ -80,7 +80,7 @@
         <view class="value">
           -￥{{ orderObj.djqPrice }}
         </view>
-      </view>
+      </view> -->
       <view class="infoItem">
         <view class="lab">
           支付方式
