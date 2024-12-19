@@ -1,8 +1,6 @@
 <template>
   <view class="container">
-    <view class="bgcolor">
-
-    </view>
+    <view class="bgcolor"/> 
     <img class="titleBg" src="@/static/yw/loginBg.png">
     <view class="card-box">
       <card class="card" :isShadow="true">
