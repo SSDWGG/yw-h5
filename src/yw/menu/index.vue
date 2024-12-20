@@ -21,7 +21,7 @@
         <u-icon name="arrow-right" color="#B1742F" size="12">
           ></u-icon>
       </view> -->
-      <img src="@/static/yw/hycardrk.png" class="hyiconAll" />
+      <img src="@/static/yw/hycardrk.png" class="hyiconAll" @click="toHy" />
     </view>
     <!-- 商品卡片 -->
     <view class="prodList">
@@ -93,6 +93,9 @@ export default {
     },
     handleBuy() {
       uni.navigateTo({ url: '/yw/prod-detail/index' })
+    },
+    toHy() {
+      uni.navigateTo({ url: '/yw/hy/index' })
     },
   },
 };

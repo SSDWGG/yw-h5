@@ -6,10 +6,13 @@
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prod" v-for="(item, index) in prodList" :key="index">
-        <u-checkbox :checked="item.checked" size="20" shape="circle" activeColor="#EF432A"></u-checkbox>
+        <u-checkbox-group v-model="item.checkedValArr" name="prodCheckbox">
+          <u-checkbox name="prodCheck" :checked="item.checked" size="20" shape="circle"
+            activeColor="#EF432A"></u-checkbox>
+        </u-checkbox-group>
+        <img :src="item.prodImage" class="prodImage" @click="handleBuy" />
 
-        <img :src="item.prodImage" class="prodImage" />
-        <view class="prodinfo">
+        <view class="prodinfo" @click="handleBuy">
           <view class="title">
             {{ item.title }}
           </view>
@@ -35,7 +38,9 @@
 
     <!-- 结算栏 -->
     <view class="jsTabbar">
-      <u-checkbox :checked="checkedAll" size="20" shape="circle" activeColor="#EF432A"></u-checkbox>
+      <u-checkbox-group v-model="checkedAll" @change="handleChangeCheckedAll" name="jsCheckboxGroup">
+        <u-checkbox size="20" shape="circle" activeColor="#EF432A" name="jsCheckbox" />
+      </u-checkbox-group>
       <view class="checkedAllTxt">
         全选
       </view>
@@ -44,10 +49,10 @@
           已选1件
         </view>
         <view class="info2">
-          <view class="hj" hover-class="none" hover-stop-propagation="false">
+          <view class="hj">
             合计:
           </view>
-          <view class="num" hover-class="none" hover-stop-propagation="false">
+          <view class="num">
             ￥9999
           </view>
 
@@ -110,11 +115,24 @@ export default {
         price2: 55644,
         prodImage: require("@/static/yw/prodDetail.png")
       }],
-      checkedAll: false
+      checkedAll: []
     }
   },
   methods: {
-
+    handleBuy() {
+      uni.navigateTo({ url: '/yw/prod-detail/index' })
+    },
+    handleChangeCheckedAll(arr) {
+      if (arr.length > 0) {
+        this.prodList.forEach(item => {
+          item.checked = true
+        })
+      } else {
+        this.prodList.forEach(item => {
+          item.checked = false
+        })
+      }
+    }
   }
 }
 </script>

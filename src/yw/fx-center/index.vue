@@ -111,7 +111,6 @@ export default {
           name: '我的团队',
           icon: require("@/static/yw/fx/1.png"),
           request: () => { uni.navigateTo({ url: '/yw/fx-mytd/index' }) }
-
         },
         {
           name: '收益明细',

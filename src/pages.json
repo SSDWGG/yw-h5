@@ -150,6 +150,13 @@
         "navigationBarTitleText": "提现"
 
 			}
+		}, {
+			"path": "yw/hy/index",
+			"style": {
+				"navigationStyle": "custom",
+        "navigationBarTitleText": "会员权益"
+
+			}
 		}
 	],
 	"subPackages":[],

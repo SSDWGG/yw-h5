@@ -1,24 +1,27 @@
 <template>
   <view class="container">
 
-    <view class="block">
 
-      <view class="item">
-        <view class="lable">
-          留言
-        </view>
-        <view class="content">
-          <u-textarea v-model="form.receiver" placeholder="请输入你想说的话" />
+    <view class="line3">
+
+      <view class="list">
+        <view :class="['item',index===list.length-1?'last':'']" v-for="(item, index) in list" :key="index">
+          <view class="left" >
+            <view class="time" >
+              {{ item.time }}
+            </view>
+            <view class="tip" >
+              {{ item.content }}
+            </view>
+          </view>
+          <view class="content" >
+           帮我收益 <span>{{ item.syPrice }}</span>元
+          </view>
 
         </view>
+
       </view>
-   
-
     </view>
-    <view class="add-footer">
-      <view class="btn">发送</view>
-    </view>
-
   </view>
 </template>
 
@@ -28,10 +31,32 @@ export default {
 
   data() {
     return {
-      form: {
-        receiver: ''
-      },
-      isShowPassword: true,
+
+      list: [{
+        time: '2024.12.01 20:00:00',
+        content: 'xxxx卖出100件',
+        syPrice:20
+      },{
+        time: '2024.12.01 20:00:00',
+        content: 'xxxx卖出100件',
+        syPrice:20
+      },{
+        time: '2024.12.01 20:00:00',
+        content: 'xxxx卖出100件',
+        syPrice:20
+      },{
+        time: '2024.12.01 20:00:00',
+        content: 'xxxx卖出100件',
+        syPrice:20
+      },{
+        time: '2024.12.01 20:00:00',
+        content: 'xxxx卖出100件',
+        syPrice:20
+      },{
+        time: '2024.12.01 20:00:00',
+        content: 'xxxx卖出100件',
+        syPrice:20
+      },]
 
     };
   },
@@ -44,58 +69,63 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  padding: 13px 10px;
+  padding: 20px;
   background: #F4F3F2;
   height: 100vh;
   box-sizing: border-box;
 
-  .block {
-    padding: 12px 16px;
+
+
+  .line3 {
     background-color: #FFFFFF;
     border-radius: 10px;
 
-    .item {
-      margin-bottom: 30px;
 
-      .lable {
-        color: #999999;
+
+    .list {
+      padding: 16px;
+      background-color: #FFFFFF;
+      border-radius: 10px;
+     
+
+      .item {
+        display: flex;
+        align-items: flex-end;
+        color: #666666;
         font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 12px;
-        margin-left: 4px;
+        margin-bottom: 16px;
+        border-bottom: 0.5px solid rgba(70, 41, 6,.1);
+
+        .left {
+          .time{
+            color: #999999;
+          }
+          .tip{
+            color: #1D1D1D;
+            margin-top: 8px;
+          }
+         
+          margin-bottom: 16px;
+        }
+
+        .content {
+          margin-bottom: 16px;
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          color: #222222;
+          span{
+            color: #FF4646;
+          }
+        }
+
+
       }
-
-      .content {}
-    }
-
-    .last {
-      margin-bottom: 16px;
-    }
-  }
-
-  .add-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    background-color: #F4F3F2;
-    width: 100%;
-    padding: 10px;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom));
-    box-sizing: border-box;
-
-    .btn {
-      background-color: #EF432A;
-      color: #FFFFFF;
-      font-size: 14px;
-      font-weight: 500;
-
-      width: 100%;
-      height: 42px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 6px;
-
+      .last{
+        margin-bottom: 0;
+        border-bottom: none;
+      }
     }
   }
 
