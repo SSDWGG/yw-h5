@@ -131,10 +131,10 @@ export default {
     .price {
       color: #B1771A;
       font-size: 26px;
-      font-weight: Heavy;
       font-family: Source Han Serif CN-Heavy;
       margin-top: 16px;
       margin-bottom: 8px;
+      font-weight: 500;
     }
 
     .line3 {

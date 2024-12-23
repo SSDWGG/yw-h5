@@ -24,7 +24,7 @@
           <view class="icon">
             ￥
           </view>
-          <u-input border="none" v-model="txPrice" />
+          <u-input border="none" v-model="txPrice" fontSize="36px" style=" height: 36px;" />
           <view class="tip" @click="() => { txPrice = allPrice }">
             全部提现
           </view>
@@ -61,7 +61,7 @@ export default {
     return {
 
       allPrice: 994732,
-      txPrice: 0,
+      txPrice: null,
       yhName: '',
       show: false,
       columns: [
@@ -204,6 +204,11 @@ export default {
 
 
   }
+
+  // ::v-deep .uni-input-input{
+  //   font-size: 36px;
+  //   font-weight: 500;
+  // }
 
 
 }

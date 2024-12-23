@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <view class="bgcolor"/> 
+    <view class="bgcolor" />
     <img class="titleBg" src="@/static/yw/loginBg.png">
     <view class="card-box">
       <card class="card" :isShadow="true">
@@ -12,15 +12,15 @@
           </u-form-item>
           <u-form-item>
             <!-- padding:12px; -->
-            <u--input v-model="form.username" style="border: 1px solid #CAA156;border-radius: 10px;"
-              prefixIcon="account" prefixIconStyle="color: #CAA156;margin-right:2px;" placeholder="请输入用户名"></u--input>
+            <u--input v-model="form.username" style="border: 1px solid #CAA156;border-radius: 10px;padding: 8px 9px;"
+              prefixIcon="account" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;" placeholder="请输入用户名"></u--input>
           </u-form-item>
           <u-form-item>
-            <u--input v-model="form.password" style="border: 1px solid #CAA156;border-radius: 10px;"
-              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: #CAA156;margin-right:2px;"
-              placeholder="请输入密码">
+            <u--input v-model="form.password"
+              style="border: 1px solid #CAA156;border-radius: 10px;padding: 8px 9px;" :password="isShowPassword"
+              prefixIcon="lock" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;" placeholder="请输入密码">
               <template slot="suffix">
-                <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
+                <u-icon name="eye-fill" color="#E7CD93" size="18" @click="() => {
                   isShowPassword = !isShowPassword
                 }">
                   ></u-icon>
@@ -29,12 +29,12 @@
           </u-form-item>
           <u-form-item style="margin-top:118px">
             <view class="footer" hover-class="none">
-              <u-button color="#EF432A" text="登 陆" class="btn" @click="handleLogin"></u-button>
+              <u-button customStyle="border-radius: 6px;" color="#EF432A" text="登 陆" class="btn" @click="handleLogin"></u-button>
               <view class="footerBtns">
                 <view class="btn1" hover-class="none">
                   <u-checkbox-group>
                     <u-checkbox checked size="14" labelSize="12" shape="circle" label="保存密码"
-                      activeColor="#CAA156"></u-checkbox>
+                      activeColor="#EF432A"></u-checkbox>
                   </u-checkbox-group>
                 </view>
                 <view class="btn2" hover-class="none" @click="toRegister">
@@ -152,7 +152,6 @@ export default {
     padding-top: 190px;
     margin: 0 23px;
     z-index: 2;
-
     .bottomTip {
       display: flex;
       width: 100%;

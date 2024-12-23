@@ -19,7 +19,7 @@
         <view class="content">
           <u-input v-model="form.password" :password="isShowPassword" placeholder="请输入原始密码">
             <template slot="suffix">
-              <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
+              <u-icon name="eye-fill" color="#E7CD93" size="18" @click="() => {
                 isShowPassword = !isShowPassword
               }">
                 ></u-icon>
@@ -34,7 +34,7 @@
         <view class="content">
           <u-input v-model="form.passwordAganin" :password="isShowPassword" placeholder="请确认密码">
             <template slot="suffix">
-              <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
+              <u-icon name="eye-fill" color="#E7CD93" size="18" @click="() => {
                 isShowPassword = !isShowPassword
               }">
                 ></u-icon>

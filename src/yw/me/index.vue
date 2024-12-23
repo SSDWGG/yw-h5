@@ -7,6 +7,7 @@
 
     <view class="haeadInfo">
       <img class="avatar" :src="userInfo.avatar">
+
       <view class="info">
         <view class="line1">
           <view class="name">
@@ -59,10 +60,10 @@
       </view>
       <view class="content">
         <view class="contentItem" v-for="(item, index) in orderType" :key="index" @click="item.request()">
-          <view class="icon" hover-class="none" hover-stop-propagation="false">
+          <view class="icon" >
             <img class="iconImg" :src="item.icon">
           </view>
-          <view class="name" hover-class="none" hover-stop-propagation="false">
+          <view class="name" >
             {{ item.name }}
           </view>
         </view>
@@ -78,10 +79,10 @@
       </view>
       <view class="content">
         <view class="contentItem" v-for="(item, index) in fxType" :key="index" @click="item.request()">
-          <view class="icon" hover-class="none" hover-stop-propagation="false">
+          <view class="icon" >
             <img class="iconImg" :src="item.icon">
           </view>
-          <view class="name" hover-class="none" hover-stop-propagation="false">
+          <view class="name" >
             {{ item.name }}
           </view>
         </view>
@@ -91,7 +92,7 @@
     <view class="mainInfo">
       <view class="infoItem" v-for="(item, index) in infoType" :key="index" @click="item.request()">
         <img class="iconImg" :src="item.icon">
-        <view class="name" hover-class="none" hover-stop-propagation="false">
+        <view class="name" >
           {{ item.name }}
 
         </view>
@@ -251,13 +252,15 @@ export default {
     display: flex;
     padding: 30px 18px;
     padding-bottom: 25px;
-
     .avatar {
       width: 70px;
       height: 70px;
       border-radius: 50%;
       margin-right: 23px;
+      border: 2px solid #fff;
     }
+
+   
 
     .info {
       display: flex;

@@ -14,16 +14,16 @@
           </u-form-item>
           <u-form-item>
             <!-- padding:12px; -->
-            <u--input v-model="form.username" style="border: 1px solid #CAA156;border-radius: 10px;"
-              prefixIcon="account" prefixIconStyle="color: #CAA156;margin-right:2px;"
+            <u--input v-model="form.username" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
+              prefixIcon="account" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请输入您的真实姓名"></u--input>
           </u-form-item>
           <u-form-item>
-            <u--input v-model="form.password" style="border: 1px solid #CAA156;border-radius: 10px;"
-              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: #CAA156;margin-right:2px;"
+            <u--input v-model="form.password" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
+              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请输入密码">
               <template slot="suffix">
-                <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
+                <u-icon name="eye-fill" color="#E7CD93" size="18" @click="() => {
                   isShowPassword = !isShowPassword
                 }">
                   ></u-icon>
@@ -31,11 +31,11 @@
             </u--input>
           </u-form-item>
           <u-form-item>
-            <u-input v-model="form.passwordAganin" style="border: 1px solid #CAA156;border-radius: 10px;"
-              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: #CAA156;margin-right:2px;"
+            <u-input v-model="form.passwordAganin" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
+              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请确认密码">
               <template slot="suffix">
-                <u-icon name="eye-fill" color="#CAA156" size="18" @click="() => {
+                <u-icon name="eye-fill" color="#E7CD93" size="18" @click="() => {
                   isShowPassword = !isShowPassword
                 }">
                   ></u-icon>
@@ -43,26 +43,26 @@
             </u-input>
           </u-form-item>
           <u-form-item>
-            <u--input v-model="form.phone" style="border: 1px solid #CAA156;border-radius: 10px;"
-              prefixIcon="phone-fill" prefixIconStyle="color: #CAA156;margin-right:2px;" placeholder="请输入手机号">
+            <u--input v-model="form.phone" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
+              prefixIcon="phone-fill" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;" placeholder="请输入手机号">
 
             </u--input>
           </u-form-item>
           <u-form-item>
-            <u--input v-model="form.code" style="border: 1px solid #CAA156;border-radius: 10px;"
-              prefixIcon="fingerprint" prefixIconStyle="color: #CAA156;margin-right:2px;" placeholder="请输入验证码">
+            <u--input v-model="form.code" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
+              prefixIcon="fingerprint" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;" placeholder="请输入验证码">
               <!-- <template slot="suffix">
                 <u-button text="发送验证码"></u-button>
               </template> -->
             </u--input>
-            <u-button class="code" :disabled="canSendTime > 0" @click="sendSms" :text="canSendTime > 0 ? `重发${canSendTime}秒` : '发送验证码'
+            <u-button class="code" customStyle="border: none;" :disabled="canSendTime > 0" @click="sendSms" :text="canSendTime > 0 ? `重发${canSendTime}秒` : '发送验证码'
               "></u-button>
           </u-form-item>
           <u-form-item style="margin-top:20px">
             <view class="footer" hover-class="none">
 
 
-              <u-button color="#EF432A" text="立即注册" class="btn" @click="handleLogin"></u-button>
+              <u-button customStyle="border-radius: 6px;" color="#EF432A" text="立即注册" class="btn" @click="handleLogin"></u-button>
 
             </view>
           </u-form-item>

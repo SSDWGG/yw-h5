@@ -131,8 +131,8 @@ export default {
       }
 
       .bg {
-        width: 90px;
-        height: 90px;
+        width: 100px;
+        height: 100px;
       }
     }
   }
@@ -199,16 +199,15 @@ export default {
         .price1 {
           color: #B1771A;
           font-size: 16px;
-          font-weight: SemiBold;
+          font-weight: 600;
           margin-right: 13px;
           font-family: Source Han Serif CN-Sem;
         }
 
         .price2 {
           font-family: Source Han Serif CN-Sem;
-          color: #999999;
-          font-size: 14px;
-          font-weight: SemiBold;
+          color: rgba(70, 41, 6,.3);
+          font-weight: 400;
           text-decoration: line-through;
           font-size: 14px;
         }
