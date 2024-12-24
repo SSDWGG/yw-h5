@@ -13,12 +13,13 @@
           <u-form-item>
             <!-- padding:12px; -->
             <u--input v-model="form.username" style="border: 1px solid #CAA156;border-radius: 10px;padding: 8px 9px;"
-              prefixIcon="account" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;" placeholder="请输入用户名"></u--input>
+              prefixIcon="account" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
+              placeholder="请输入用户名"></u--input>
           </u-form-item>
           <u-form-item>
-            <u--input v-model="form.password"
-              style="border: 1px solid #CAA156;border-radius: 10px;padding: 8px 9px;" :password="isShowPassword"
-              prefixIcon="lock" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;" placeholder="请输入密码">
+            <u--input v-model="form.password" style="border: 1px solid #CAA156;border-radius: 10px;padding: 8px 9px;"
+              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
+              placeholder="请输入密码">
               <template slot="suffix">
                 <u-icon name="eye-fill" color="#E7CD93" size="18" @click="() => {
                   isShowPassword = !isShowPassword
@@ -27,9 +28,28 @@
               </template>
             </u--input>
           </u-form-item>
+          <u-form-item>
+            <u--input v-model="form.phone" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
+              prefixIcon="phone-fill" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
+              placeholder="请输入手机号">
+
+            </u--input>
+          </u-form-item>
+          <u-form-item>
+            <u--input v-model="form.code" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
+              prefixIcon="fingerprint" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
+              placeholder="请输入验证码">
+              <!-- <template slot="suffix">
+                <u-button text="发送验证码"></u-button>
+              </template> -->
+            </u--input>
+            <u-button class="code" customStyle="border: none;" :disabled="canSendTime > 0" @click="sendSms" :text="canSendTime > 0 ? `重发${canSendTime}秒` : '发送验证码'
+              "></u-button>
+          </u-form-item>
           <u-form-item style="margin-top:118px">
             <view class="footer" hover-class="none">
-              <u-button customStyle="border-radius: 6px;" color="#EF432A" text="登 陆" class="btn" @click="handleLogin"></u-button>
+              <u-button customStyle="border-radius: 6px;" color="#EF432A" text="登 陆" class="btn"
+                @click="handleLogin"></u-button>
               <view class="footerBtns">
                 <view class="btn1" hover-class="none">
                   <u-checkbox-group>
@@ -58,6 +78,7 @@
 </template>
 <script>
 import Card from '@/components/Card.vue'
+import { getSysCode } from '@/api/login'
 export default {
   components: {
     Card
@@ -66,13 +87,37 @@ export default {
     return {
       form: {
         username: '',
-        password: ''
+        password: '',
+        phone: '',
+        code: ''
       },
       isShowPassword: true,
-      jzPassWord: []
+      jzPassWord: [],
+      canSendTime: 0,
+      intervalTimer: null,
+
     }
   },
   methods: {
+    sendSms() {
+      if (!!this.form.phone) {
+        this.canSendTime = 60;
+        this.intervalTimer = setInterval(() => {
+          if (this.canSendTime > 0) {
+            this.canSendTime--;
+          } else {
+            clearInterval(this.intervalTimer);
+          }
+        }, 1000)
+        console.log(111);
+            getSysCode(this.form.phone)
+      } else {
+        uni.showToast({
+          title: '请输入正确的手机号',
+          icon: 'none'
+        })
+      }
+    },
     toRegister() {
       uni.navigateTo({ url: '/yw/register/index' })
     },
@@ -152,6 +197,7 @@ export default {
     padding-top: 190px;
     margin: 0 23px;
     z-index: 2;
+
     .bottomTip {
       display: flex;
       width: 100%;
@@ -198,6 +244,15 @@ export default {
         color: #BB9F59;
       }
     }
+  }
+
+  .code {
+    background: #E5C57F;
+    color: #fff;
+    width: 97px;
+    border-radius: 6px;
+    height: 40px;
+    margin-left: 13px;
   }
 
 
