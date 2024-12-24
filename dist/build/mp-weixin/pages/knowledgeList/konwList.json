@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "禁毒知识",
-  "navigationBarBackgroundColor": "#205BA9",
-  "navigationBarTextStyle": "white",
-  "usingComponents": {
-    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
-    "card": "/components/Card"
-  }
-}

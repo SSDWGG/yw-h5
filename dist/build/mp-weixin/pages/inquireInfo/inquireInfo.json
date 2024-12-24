@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "信息查询",
-  "navigationBarBackgroundColor": "#205BA9",
-  "navigationBarTextStyle": "white",
-  "usingComponents": {
-    "u-notify": "/node-modules/uview-ui/components/u-notify/u-notify",
-    "card": "/components/Card"
-  }
-}

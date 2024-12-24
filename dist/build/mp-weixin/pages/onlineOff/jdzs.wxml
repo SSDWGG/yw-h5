@@ -1,1 +1,0 @@
-<view class="ql-editor container data-v-f5717d22"><block wx:for="{{form}}" wx:for-item="it" wx:for-index="index" wx:key="index"><view class="nr data-v-f5717d22"><view class="title data-v-f5717d22">{{it.title||''}}</view><view class="content data-v-f5717d22"><rich-text nodes="{{it.content}}"></rich-text></view></view></block></view>

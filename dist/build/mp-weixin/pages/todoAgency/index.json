@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "待办事项",
-  "navigationBarBackgroundColor": "#205BA9",
-  "navigationBarTextStyle": "white",
-  "usingComponents": {
-    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
-    "card": "/components/Card"
-  }
-}

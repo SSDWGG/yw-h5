@@ -1,1 +1,0 @@
-<view class="echart-container data-v-4a8f21a9"><view class="data-v-4a8f21a9">社会状态统计图</view><l-echart class="card-content data-v-4a8f21a9 vue-ref" vue-id="fb6150b2-1" data-ref="chart" bind:__l="__l"></l-echart></view>
