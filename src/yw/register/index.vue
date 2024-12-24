@@ -6,19 +6,19 @@
     <img class="titleBg" src="@/static/yw/registerBg.png">
     <view class="card-box">
       <card class="card" :isShadow="true">
-        <u--form labelPosition="left" labelWidth="0" :model="form">
+        <u--form labelPosition="left" labelWidth="0" :model="form" :rules="rules" ref="uForm">
           <u-form-item>
             <text class="login-title">
               <span class="name">用户注册</span>
             </text>
           </u-form-item>
-          <u-form-item>
+          <u-form-item prop="username">
             <!-- padding:12px; -->
             <u--input v-model="form.username" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
               prefixIcon="account" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请输入您的真实姓名"></u--input>
           </u-form-item>
-          <u-form-item>
+          <u-form-item prop="password">
             <u--input v-model="form.password" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
               :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请输入密码">
@@ -30,10 +30,10 @@
               </template>
             </u--input>
           </u-form-item>
-          <u-form-item>
-            <u-input v-model="form.passwordAganin" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
-              :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
-              placeholder="请确认密码">
+          <u-form-item prop="passwordAganin">
+            <u-input v-model="form.passwordAganin"
+              style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;" :password="isShowPassword"
+              prefixIcon="lock" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;" placeholder="请确认密码">
               <template slot="suffix">
                 <u-icon name="eye-fill" color="#E7CD93" size="18" @click="() => {
                   isShowPassword = !isShowPassword
@@ -42,15 +42,16 @@
               </template>
             </u-input>
           </u-form-item>
-          <u-form-item>
+          <u-form-item prop="phone">
             <u--input v-model="form.phone" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
-              prefixIcon="phone-fill" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;" placeholder="请输入手机号">
-
+              prefixIcon="phone-fill" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
+              placeholder="请输入手机号">
             </u--input>
           </u-form-item>
-          <u-form-item>
+          <u-form-item prop="code">
             <u--input v-model="form.code" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
-              prefixIcon="fingerprint" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;" placeholder="请输入验证码">
+              prefixIcon="fingerprint" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
+              placeholder="请输入验证码">
               <!-- <template slot="suffix">
                 <u-button text="发送验证码"></u-button>
               </template> -->
@@ -62,7 +63,8 @@
             <view class="footer" hover-class="none">
 
 
-              <u-button customStyle="border-radius: 6px;" color="#EF432A" text="立即注册" class="btn" @click="handleLogin"></u-button>
+              <u-button customStyle="border-radius: 6px;" color="#EF432A" text="立即注册" class="btn"
+                @click="handleRegister"></u-button>
 
             </view>
           </u-form-item>
@@ -83,6 +85,8 @@
 </template>
 <script>
 import Card from '@/components/Card.vue'
+import { appRegister } from '@/api/login'
+
 export default {
   components: {
     Card
@@ -95,6 +99,68 @@ export default {
         passwordAganin: '',
         phone: '',
         code: ''
+      },
+      rules: {
+        username: [{
+          required: true,
+          message: '请填写姓名',
+          trigger: ['blur', 'change']
+        }, {
+          min: 2,
+          max: 20,
+          message: '长度在2-20个字符之间'
+        }
+        ],
+        password: [{
+          required: true,
+          message: '请填写密码',
+          trigger: ['blur', 'change']
+        }, {
+          min: 5,
+          max: 20,
+          message: '长度在5-20个字符之间'
+        }
+        ],
+        passwordAganin: [{
+          required: true,
+          message: '请填写密码',
+          trigger: ['blur', 'change']
+        }, {
+          min: 5,
+          max: 20,
+          message: '长度在5-20个字符之间'
+        },
+        {
+          validator: (rule, value, callback) => {
+            return value === this.form.password;
+          },
+          message: '两次输入的密码不一致'
+        },
+        ],
+        phone: [{
+          required: true,
+          message: '请输入手机号',
+          trigger: ['change', 'blur'],
+        },
+
+        {
+          // 自定义验证函数，见上说明
+          validator: (rule, value, callback) => {
+            // 上面有说，返回true表示校验通过，返回false表示不通过
+            // uni.$u.test.mobile()就是返回true或者false的
+            return uni.$u.test.mobile(value);
+          },
+          message: '手机号码不正确',
+          // 触发器可以同时用blur和change
+          trigger: ['change', 'blur'],
+        }
+        ],
+        code: [{
+          type: 'string',
+          required: true,
+          message: '请填写验证码',
+          trigger: ['blur', 'change']
+        }],
       },
       canSendTime: 0,
       isShowPassword: true,
@@ -123,31 +189,19 @@ export default {
     handleToLogin() {
       uni.navigateTo({ url: '/yw/login/index' })
     },
-    handleLogin() {
-      let phone = /^1[3456789]\d{9}$/
-      if (!this.form.username) {
-        uni.showToast({
-          title: '用户名不得为空',
-          icon: 'none'
+    handleRegister() {
+      this.$refs.uForm.validate().then(async () => {
+        appRegister(this.form).then(() => {
+          uni.$u.toast('注册成功')
+          setTimeout(() => {
+            uni.navigateTo({ url: '/yw/login/index' })
+          }, 1000)
+        }).catch(errors => {
+          uni.$u.toast(errors)
         })
-        return
-      }
-      if (!this.form.password) {
-        uni.showToast({
-          title: '密码不得为空',
-          icon: 'none'
-        })
-        return
-      }
 
-      if (this.form.password !== this.form.passwordAganin) {
-        uni.showToast({
-          title: '密码不一致',
-          icon: 'none'
-        })
-        return
-      }
-      uni.switchTab({ url: '/yw/menu/index' })
+      })
+
 
     }
   }

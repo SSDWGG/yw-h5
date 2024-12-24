@@ -14,7 +14,15 @@ export function getSysCode(phonenumber) {
 export function appRegister(data) {
   return request({
     url: '/auth/appRegister' ,
-    method: 'get',
+    method: 'post',
+    data
+  })
+}
+
+export function appLogin(data) {
+  return request({
+    url: '/auth/appLogin' ,
+    method: 'post',
     data
   })
 }

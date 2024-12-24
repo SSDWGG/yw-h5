@@ -4,19 +4,19 @@
     <img class="titleBg" src="@/static/yw/loginBg.png">
     <view class="card-box">
       <card class="card" :isShadow="true">
-        <u--form labelPosition="left" labelWidth="0" :model="form">
+        <u--form labelPosition="left" labelWidth="0" :model="form" :rules="rules" ref="uForm">
           <u-form-item>
             <text class="login-title">
               <span class="name">用户登陆</span>
             </text>
           </u-form-item>
-          <u-form-item>
+          <u-form-item prop="username">
             <!-- padding:12px; -->
             <u--input v-model="form.username" style="border: 1px solid #CAA156;border-radius: 10px;padding: 8px 9px;"
               prefixIcon="account" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请输入用户名"></u--input>
           </u-form-item>
-          <u-form-item>
+          <u-form-item prop="password">
             <u--input v-model="form.password" style="border: 1px solid #CAA156;border-radius: 10px;padding: 8px 9px;"
               :password="isShowPassword" prefixIcon="lock" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请输入密码">
@@ -28,14 +28,14 @@
               </template>
             </u--input>
           </u-form-item>
-          <u-form-item>
+          <u-form-item prop="phone">
             <u--input v-model="form.phone" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
               prefixIcon="phone-fill" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请输入手机号">
 
             </u--input>
           </u-form-item>
-          <u-form-item>
+          <u-form-item prop="code">
             <u--input v-model="form.code" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
               prefixIcon="fingerprint" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请输入验证码">
@@ -46,7 +46,7 @@
             <u-button class="code" customStyle="border: none;" :disabled="canSendTime > 0" @click="sendSms" :text="canSendTime > 0 ? `重发${canSendTime}秒` : '发送验证码'
               "></u-button>
           </u-form-item>
-          <u-form-item style="margin-top:118px">
+          <u-form-item style="margin-top:18px">
             <view class="footer" hover-class="none">
               <u-button customStyle="border-radius: 6px;" color="#EF432A" text="登 陆" class="btn"
                 @click="handleLogin"></u-button>
@@ -78,7 +78,7 @@
 </template>
 <script>
 import Card from '@/components/Card.vue'
-import { getSysCode } from '@/api/login'
+import { getSysCode, appLogin } from '@/api/login'
 export default {
   components: {
     Card
@@ -95,7 +95,52 @@ export default {
       jzPassWord: [],
       canSendTime: 0,
       intervalTimer: null,
+      rules: {
+        username: [{
+          required: true,
+          message: '请填写姓名',
+          trigger: ['blur', 'change']
+        }, {
+          min: 2,
+          max: 20,
+          message: '长度在2-20个字符之间'
+        }
+        ],
+        password: [{
+          required: true,
+          message: '请填写密码',
+          trigger: ['blur', 'change']
+        }, {
+          min: 5,
+          max: 20,
+          message: '长度在5-20个字符之间'
+        }
+        ],
+        phone: [{
+          required: true,
+          message: '请输入手机号',
+          trigger: ['change', 'blur'],
+        },
 
+        {
+          // 自定义验证函数，见上说明
+          validator: (rule, value, callback) => {
+            // 上面有说，返回true表示校验通过，返回false表示不通过
+            // uni.$u.test.mobile()就是返回true或者false的
+            return uni.$u.test.mobile(value);
+          },
+          message: '手机号码不正确',
+          // 触发器可以同时用blur和change
+          trigger: ['change', 'blur'],
+        }
+        ],
+        code: [{
+          type: 'string',
+          required: true,
+          message: '请填写验证码',
+          trigger: ['blur', 'change']
+        }],
+      },
     }
   },
   methods: {
@@ -110,7 +155,7 @@ export default {
           }
         }, 1000)
         console.log(111);
-            getSysCode(this.form.phone)
+        getSysCode(this.form.phone)
       } else {
         uni.showToast({
           title: '请输入正确的手机号',
@@ -122,51 +167,20 @@ export default {
       uni.navigateTo({ url: '/yw/register/index' })
     },
     handleLogin() {
-      let phone = /^1[3456789]\d{9}$/
-      if (!this.form.username) {
-        uni.showToast({
-          title: '用户名不得为空',
-          icon: 'none'
+
+      this.$refs.uForm.validate().then(async () => {
+        appLogin(this.form).then(() => {
+          console.log(666);
+          uni.$u.toast('登录成功')
+          uni.switchTab({ url: '/yw/menu/index' })
         })
-        return
-      }
-      // else if (!phone.test(this.form.username)) {
-      //     uni.showToast({
-      //         title: '没有该用户',
-      //         icon: 'none'
-      //     })
-      //     return
-      // }
-      if (!this.form.password) {
-        uni.showToast({
-          title: '密码不得为空',
-          icon: 'none'
-        })
-        return
-      }
-      // this.$store.dispatch('user/login', this.form).then(res => {
-      //     if (res.code == '200') {
-      //         if(res.userType == '禁毒中队') {
-      //             // uni.setStorageSync('tabBar',tabbar[0])
-      //             uni.navigateTo({ url: '/pagesPack2/home/index' })
-      //         } else {
-      //             // uni.setStorageSync('tabBar',tabbar[1])
-      //             uni.switchTab({ url: '/pages/index/index' })
-      //         }
-      //     } else {
-      //         uni.showToast({
-      //             title: res.msg,
-      //             icon: 'none'
-      //         })
-      //     }
-      // }).catch((err) => {
-      //     // console.log(err)
-      //     uni.showToast({
-      //         title: err.data,
-      //         icon: 'none'
-      //     })
-      // })
-      uni.switchTab({ url: '/yw/menu/index' })
+          .catch(errors => {
+            uni.$u.toast(errors)
+          })
+
+
+      })
+
 
     }
   }
