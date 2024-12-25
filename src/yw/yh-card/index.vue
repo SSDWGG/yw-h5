@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { getBankList } from '@/api/info'
 
 export default {
 
@@ -66,6 +67,12 @@ export default {
         ['银行1', '银行2', '银行3']
       ],
     };
+  },
+  created(){
+    getBankList().then((res)=>{
+     console.log(res);
+    })
+   
   },
 
   methods: {

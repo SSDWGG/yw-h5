@@ -22,13 +22,14 @@ const Instance = axios.create({
 Instance.interceptors.request.use(
   (config) => {
     // 如果已登录 则获取token
-    // if (store.getters.isLogin) {
-    // let token = store.getters.token
-    // // let token = uni.getStorageSync('token')
-    // config.headers['Authorization'] = token
-    // token 不存在 则退出登录
-    // !token && store.dispatch('user/loginOut')
-    // }
+    const token  = uni.getStorageSync('access_token')
+    const isLogin  = uni.getStorageSync('isLogin')
+    if (isLogin) {
+      // let token = uni.getStorageSync('token')
+      config.headers["Authorization"] = "Bearer " + token;
+      // token 不存在 则退出登录
+      !token && store.dispatch("user/loginOut");
+    }
 
     if (config.method === "post") {
       // if (config.contentType === 'json') {
@@ -51,7 +52,6 @@ Instance.interceptors.request.use(
 Instance.interceptors.response.use(
   (response) => {
     const { code, msg } = response.data;
-    console.log(code, 999);
     if (code === 200) {
       return Promise.resolve(response.data);
     } else if (response.code === 500) {

@@ -7,16 +7,21 @@ const state={
         username:'',
         nikeName:'',
     },
-     qd:''
+     qd:'',
+     access_token:'',
 }
 
 const mutations={
-    SET_TOKEN(state,token){
-        state.token = token;
+    SET_ACCESS_TOKEN(state, access_token){
+        state. access_token =  access_token;
     },
     SET_LOGIN_STATUS(state,status){
         state.isLogin = status;
-    }
+    },
+
+    SET_TOKEN(state,token){
+      state.token = token;
+  },
 }
 function getInfor(){
     Service.login.getInfo().then(res=>{
@@ -51,7 +56,6 @@ const actions = {
             })
         })
     },
-    
     setUserInfo({commit},data){
         return new Promise((resolve, reject) => {
             commit('SET_TOKEN', data.accessToken)
@@ -59,19 +63,32 @@ const actions = {
             resolve()
         })
     },
+
+    
     loginOut({commit}){
         return new Promise((resolve) => {
-            commit('SET_TOKEN', '')
+            commit('SET_ACCESS_TOKEN', '')
             commit('SET_LOGIN_STATUS','') 
-            // uni.clearStorageSync();
-            uni.removeStorageSync('token')
-            uni.removeStorageSync('userType')
-            uni.removeStorageSync('userInfor')
+            uni.removeStorageSync('access_token')
+            uni.removeStorageSync('isLogin')
             uni.reLaunch({
-                url:'/pages/yw/login/index'
+                url:'/yw/login/index'
             })
             resolve()
         })
+    },
+
+    setAccessToken({ commit }, access_token){
+      return new Promise((resolve, reject) => {
+        console.log(access_token);
+        commit('SET_ACCESS_TOKEN', access_token)
+        commit('SET_LOGIN_STATUS',true) 
+
+        uni.setStorageSync('access_token', access_token)
+        uni.setStorageSync('isLogin', true)
+
+        resolve()
+    })
     }
 }
 

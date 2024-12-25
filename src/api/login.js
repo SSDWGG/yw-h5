@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import { data } from 'uview-ui/libs/mixin/mixin'
 
 export function getSysCode(phonenumber) {
   return request({
@@ -22,6 +21,19 @@ export function appRegister(data) {
 export function appLogin(data) {
   return request({
     url: '/auth/appLogin' ,
+    method: 'post',
+    data
+  })
+}
+export function applogout() {
+  return request({
+    url: '/auth/logout' ,
+    method: 'post'
+  })
+}
+export function appResetPwd(data) {
+  return request({
+    url: '/auth/resetPwd' ,
     method: 'post',
     data
   })

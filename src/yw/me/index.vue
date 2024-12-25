@@ -106,6 +106,8 @@
 </template>
 <script>
 import Tabbar from "@/components/Tabbar.vue";
+import {  applogout } from '@/api/login'
+
 export default {
   components: {
     Tabbar
@@ -191,7 +193,14 @@ export default {
         {
           name: '退出',
           icon: require("@/static/yw/me/infoType/5.png"),
-          request:()=>{ console.log('退出');}
+          request:()=>{
+            
+            applogout().then(()=>{
+              this.$store.dispatch('user/loginOut')
+            console.log('退出');
+            })
+         
+          }
         }
       ]
     }

@@ -1,14 +1,14 @@
 <template>
   <view class="container">
-    <u-swiper :list="bannerlist" indicator height='220px'></u-swiper>
+    <u-swiper :list="bannerlist" indicator height='220px'  keyName="bannerImageUrl"></u-swiper>
 
     <!-- 入口 -->
     <view class="rkList">
       <view class="rkItem" v-for="(item, index) in rkList" :key=index @click="toProdList">
         <view class="txt">
-          {{ item.title }}
+          {{ item.cateName }}
         </view>
-        <img :src="item.bg" class="bg" />
+        <img :src="item.picUrl" class="bg" />
       </view>
     </view>
     <!-- 会员 -->
@@ -26,16 +26,16 @@
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prod" v-for="(item,index) in prodList" :key="index">
-        <img :src="item.prodImage" class="prodImage" />
+        <img :src="item.imageUrl" class="prodImage" />
         <view class="title">
-          {{ item.title }}
+          {{ item.storeName }}
         </view>
         <view class="info">
           <view class="price1">
-            ￥{{item.price1}}
+            ￥{{item.price}}
           </view>
           <view class="price2">
-            ￥{{item.price2}}
+            ￥{{item.otPrice}}
           </view>
           <view class="buy">
             <u-button color="linear-gradient(to bottom, #F9694C, #F22020)" text="立即购买" class="btn"
@@ -53,6 +53,8 @@
 <script>
 import Tabbar from "@/components/Tabbar.vue";
 import Card from "@/components/Card.vue";
+import { getBannerList,getProdList,getCategoryAll } from '@/api/info'
+
 export default {
   components: {
     Card,
@@ -60,31 +62,22 @@ export default {
   },
   data() {
     return {
-      rkList: [
-        {
-          title: '零售专区',
-          bg: require("@/static/yw/rkbg.png")
-        }, {
-          title: '复购专区',
-          bg: require("@/static/yw/rkbg.png")
-        }, {
-          title: '配件专区',
-          bg: require("@/static/yw/rkbg.png")
-        }
-      ],
-      prodList:[{
-        title:'商品标题商品标题商品标题商品品标题商品标题商品标题商品标题',
-        price1:55644,
-        price2:55644,
-        prodImage:require("@/static/yw/prod1.png")
-      },{
-        title:'商品标题商品标题商品标题商品品标题商品标题商品标题商品标题',
-        price1:55644,
-        price2:55644,
-        prodImage:require("@/static/yw/prod2.png")
-      }],
-      bannerlist: [require("@/static/yw/swiper/hb1.png"), require("@/static/yw/swiper/hb1.png")],
+      rkList: [],
+      prodList:[],
+      bannerlist: [],
     };
+  },
+  created(){
+    getBannerList().then((res)=>{
+      this.bannerlist = res.data
+    })
+    getProdList({isVip:1}).then((res)=>{
+      this.prodList = res.rows
+    })
+    getCategoryAll().then((res)=>{
+      console.log(res);
+      this.rkList = res.data
+    })
   },
 
   methods: {

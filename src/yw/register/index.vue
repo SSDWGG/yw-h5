@@ -85,7 +85,7 @@
 </template>
 <script>
 import Card from '@/components/Card.vue'
-import { appRegister } from '@/api/login'
+import { appRegister,appResetPwd } from '@/api/login'
 
 export default {
   components: {
@@ -190,16 +190,28 @@ export default {
       uni.navigateTo({ url: '/yw/login/index' })
     },
     handleRegister() {
-      this.$refs.uForm.validate().then(async () => {
-        appRegister(this.form).then(() => {
-          uni.$u.toast('注册成功')
-          setTimeout(() => {
-            uni.navigateTo({ url: '/yw/login/index' })
-          }, 1000)
-        }).catch(errors => {
-          uni.$u.toast(errors)
-        })
 
+      this.$refs.uForm.validate().then(async () => {
+
+        if (!!this.$mp.query.reset) {
+          appResetPwd(this.form).then(() => {
+            uni.$u.toast('重置成功')
+            setTimeout(() => {
+              uni.navigateTo({ url: '/yw/login/index' })
+            }, 1000)
+          }).catch(errors => {
+            uni.$u.toast(errors)
+          })
+        } else {
+          appRegister(this.form).then(() => {
+            uni.$u.toast('注册成功')
+            setTimeout(() => {
+              uni.navigateTo({ url: '/yw/login/index' })
+            }, 1000)
+          }).catch(errors => {
+            uni.$u.toast(errors)
+          })
+        }
       })
 
 

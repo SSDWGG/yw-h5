@@ -57,7 +57,7 @@
                       activeColor="#EF432A"></u-checkbox>
                   </u-checkbox-group>
                 </view>
-                <view class="btn2" hover-class="none" @click="toRegister">
+                <view class="btn2" hover-class="none" @click="toRegister2">
                   忘记密码
                 </view>
               </view>
@@ -166,11 +166,14 @@ export default {
     toRegister() {
       uni.navigateTo({ url: '/yw/register/index' })
     },
+    toRegister2() {
+      uni.navigateTo({ url: '/yw/register/index?reset=true' })
+    },
     handleLogin() {
 
       this.$refs.uForm.validate().then(async () => {
-        appLogin(this.form).then(() => {
-          console.log(666);
+        appLogin(this.form).then((res) => {
+          this.$store.dispatch('user/setAccessToken', res.data.access_token)
           uni.$u.toast('登录成功')
           uni.switchTab({ url: '/yw/menu/index' })
         })
