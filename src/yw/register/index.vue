@@ -9,7 +9,7 @@
         <u--form labelPosition="left" labelWidth="0" :model="form" :rules="rules" ref="uForm">
           <u-form-item>
             <text class="login-title">
-              <span class="name">用户注册</span>
+              <span class="name"> {{!!this.$mp.query.reset?'重置密码':'用户注册'}}</span>
             </text>
           </u-form-item>
           <u-form-item prop="username">

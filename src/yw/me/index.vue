@@ -60,10 +60,10 @@
       </view>
       <view class="content">
         <view class="contentItem" v-for="(item, index) in orderType" :key="index" @click="item.request()">
-          <view class="icon" >
+          <view class="icon">
             <img class="iconImg" :src="item.icon">
           </view>
-          <view class="name" >
+          <view class="name">
             {{ item.name }}
           </view>
         </view>
@@ -75,14 +75,14 @@
         <view class="txt">
           分销中心
         </view>
-        <u-icon name="arrow-right" size="12"  @click="toFxCenter"/>
+        <u-icon name="arrow-right" size="12" @click="toFxCenter" />
       </view>
       <view class="content">
         <view class="contentItem" v-for="(item, index) in fxType" :key="index" @click="item.request()">
-          <view class="icon" >
+          <view class="icon">
             <img class="iconImg" :src="item.icon">
           </view>
-          <view class="name" >
+          <view class="name">
             {{ item.name }}
           </view>
         </view>
@@ -92,7 +92,7 @@
     <view class="mainInfo">
       <view class="infoItem" v-for="(item, index) in infoType" :key="index" @click="item.request()">
         <img class="iconImg" :src="item.icon">
-        <view class="name" >
+        <view class="name">
           {{ item.name }}
 
         </view>
@@ -106,7 +106,7 @@
 </template>
 <script>
 import Tabbar from "@/components/Tabbar.vue";
-import {  applogout } from '@/api/login'
+import { applogout } from '@/api/login'
 
 export default {
   components: {
@@ -130,82 +130,84 @@ export default {
         {
           name: '全部',
           icon: require("@/static/yw/me/orderType/1.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/my-order/index' })}
+          request: () => { uni.navigateTo({ url: '/yw/my-order/index' }) }
 
         },
         {
           name: '待付款',
           icon: require("@/static/yw/me/orderType/2.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/my-order/index' })}
+          request: () => { uni.navigateTo({ url: '/yw/my-order/index' }) }
         },
         {
           name: '待发货',
           icon: require("@/static/yw/me/orderType/3.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/my-order/index' })}
+          request: () => { uni.navigateTo({ url: '/yw/my-order/index' }) }
         },
         {
           name: '已发货',
           icon: require("@/static/yw/me/orderType/4.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/my-order/index' })}
+          request: () => { uni.navigateTo({ url: '/yw/my-order/index' }) }
         },
       ],
       fxType: [
         {
           name: '我的团队',
           icon: require("@/static/yw/me/fxType/1.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/fx-mytd/index' })}
+          request: () => { uni.navigateTo({ url: '/yw/fx-mytd/index' }) }
         },
         {
           name: '邀请用户',
           icon: require("@/static/yw/me/fxType/2.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/fx-mytgm/index' })}
+          request: () => { uni.navigateTo({ url: '/yw/fx-mytgm/index' }) }
         },
         {
           name: '客服留言',
           icon: require("@/static/yw/me/fxType/3.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/send-kf/index' })}
+          request: () => { uni.navigateTo({ url: '/yw/send-kf/index' }) }
         }
       ],
       infoType: [
         {
           name: '我的信息',
           icon: require("@/static/yw/me/infoType/1.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/edit-info/index' })}
+          request: () => { uni.navigateTo({ url: '/yw/edit-info/index' }) }
 
         },
         {
           name: '修改密码',
           icon: require("@/static/yw/me/infoType/2.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/edit-password/index' })}
-
+          request: () => {
+            // uni.navigateTo({ url: '/yw/edit-password/index' })
+            uni.navigateTo({ url: '/yw/register/index?reset=true' })
+          }
         },
         {
           name: '银行卡',
           icon: require("@/static/yw/me/infoType/3.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/yh-card/index' })}
+          request: () => { uni.navigateTo({ url: '/yw/yh-card/index' }) }
 
         },
         {
           name: '收货地址',
           icon: require("@/static/yw/me/infoType/4.png"),
-          request:()=>{ uni.navigateTo({ url: '/yw/address/index?from=me' })}
+          request: () => { uni.navigateTo({ url: '/yw/address/index?from=me' }) }
         },
         {
           name: '退出',
           icon: require("@/static/yw/me/infoType/5.png"),
-          request:()=>{
-            
-            applogout().then(()=>{
+          request: () => {
+
+            applogout().then(() => {
               this.$store.dispatch('user/loginOut')
             })
-         
+
           }
         }
       ]
     }
   },
   methods: {
-    toFxCenter(){
+    toFxCenter() {
       uni.navigateTo({ url: '/yw/fx-center/index' })
     }
   }
@@ -216,20 +218,23 @@ export default {
   height: 100vh;
   position: relative;
 
-  .mainInfo{
+  .mainInfo {
     margin: 17px 16px;
     border-radius: 10px;
     background-color: #FFFFFF;
-    .infoItem{
+
+    .infoItem {
       padding: 15px 13px;
       display: flex;
       align-items: center;
-      .iconImg{
+
+      .iconImg {
         width: 21px;
         height: 21px;
         margin-right: 13px;
       }
-      .name{
+
+      .name {
         flex: 1;
         display: flex;
         align-items: center;
@@ -260,6 +265,7 @@ export default {
     display: flex;
     padding: 30px 18px;
     padding-bottom: 25px;
+
     .avatar {
       width: 70px;
       height: 70px;
@@ -268,7 +274,7 @@ export default {
       border: 2px solid #fff;
     }
 
-   
+
 
     .info {
       display: flex;

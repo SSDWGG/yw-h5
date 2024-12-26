@@ -52,12 +52,10 @@
 
 <script>
 import Tabbar from "@/components/Tabbar.vue";
-import Card from "@/components/Card.vue";
 import { getBannerList,getProdList,getCategoryAll } from '@/api/info'
 
 export default {
   components: {
-    Card,
     Tabbar
   },
   data() {
