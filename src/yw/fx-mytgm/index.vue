@@ -29,7 +29,7 @@
     <view class="bottom">
       <view class="item" v-for="(item, index) in bottomList" :key="index">
         <img class="icon" :src="item.icon">
-        <view class="tip" hover-class="none" hover-stop-propagation="false">
+        <view class="tip" >
           {{ item.tip }}
         </view>
       </view>

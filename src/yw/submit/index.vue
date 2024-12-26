@@ -30,7 +30,7 @@
     <!-- 收货地址 -->
     <view class="address" @click="toAddress">
       <img class="icon" src="@/static/yw/address.png" alt="">
-      <view class="content" hover-class="none" hover-stop-propagation="false">
+      <view class="content" >
         收货地址
       </view>
       <u-icon class="go" name="arrow-right" color="#666666" size="12">
@@ -99,7 +99,7 @@
         实付款：￥{{ orderObj.sfk }}
       </view>
 
-      <view class="right" hover-class="none" hover-stop-propagation="false">
+      <view class="right" >
         提交订单
       </view>
     </view>

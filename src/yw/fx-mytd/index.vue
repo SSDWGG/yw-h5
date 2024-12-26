@@ -24,14 +24,14 @@
       </view>
       <view class="list">
         <view class="item" v-for="(item, index) in list" :key="index">
-          <view class="index" hover-class="none" hover-stop-propagation="false">
+          <view class="index" >
             {{ index + 1 }}
 
           </view>
-          <view class="name" hover-class="none" hover-stop-propagation="false">
+          <view class="name" >
             {{ item.name }}
           </view>
-          <view class="price" hover-class="none" hover-stop-propagation="false">
+          <view class="price" >
             ￥{{ item.price }}
           </view>
         </view>

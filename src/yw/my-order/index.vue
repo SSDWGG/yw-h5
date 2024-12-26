@@ -13,7 +13,7 @@
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prodView" v-for="(item, index) in prodList" :key="index">
-        <view class="prod" hover-class="none" hover-stop-propagation="false">
+        <view class="prod" >
           <img :src="item.prodImage" class="prodImage" />
           <view class="prodinfo">
             <view class="title">
@@ -38,7 +38,7 @@
           </view>
         </view>
         <view class="jsTabbar">
-          <view class="tip" hover-class="none" hover-stop-propagation="false">
+          <view class="tip" >
             待付款
           </view>
 
@@ -48,7 +48,7 @@
             </view>
             <view class="info2">
               
-              <view class="num" hover-class="none" hover-stop-propagation="false">
+              <view class="num" >
                 ￥9999
               </view>
 

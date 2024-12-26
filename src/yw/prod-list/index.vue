@@ -13,21 +13,21 @@
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prod" v-for="(item, index) in prodList" :key="index">
-        <img :src="item.prodImage" class="prodImage" />
-        <view class="prodinfo" hover-class="none" hover-stop-propagation="false">
+        <img :src="item.imageUrl" class="prodImage" />
+        <view class="prodinfo" >
           <view class="title">
-            {{ item.title }}
+            {{ item.storeName }}
           </view>
           <view class="info">
             <view class="price1">
-              ￥{{ item.price1 }}
+              ￥{{ item.price }}
             </view>
             <view class="price2">
-              ￥{{ item.price2 }}
+              ￥{{ item.otPrice }}
             </view>
             <view class="buy">
               <u-button color="linear-gradient(to bottom, #F9694C, #F22020)" text="去购买" class="btn"
-                @click="handleBuy"></u-button>
+                @click="handleBuy(item.storeProductId)"></u-button>
 
             </view>
 
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { getProdList } from '@/api/info'
+
 export default {
   data() {
     return {
@@ -56,24 +58,27 @@ export default {
         }
       ],
       activeIndex: 0,
-      prodList: [{
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝商品标题商品标精品燕窝商品标题精品燕窝商品品标题精品燕窝精品燕窝商品标题商品标题商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }],
+      prodList: [],
     };
   },
-
+  created() {
+    console.log(!!this.$mp.query.isVip);
+    // if(!!this.$mp.query.isVip){
+    //   getAddressItem(this.$mp.query.userAddressId).then(res => {
+    //     this.form = res.data
+    // })
+    // }
+    const vipParams = {isVip:1}
+    getProdList(
+      !!this.$mp.query.isVip?  vipParams:{}
+    ).then((res)=>{
+      this.prodList = res.rows
+    })
+  },
   methods: {
 
-    handleBuy() {
-      uni.navigateTo({ url: '/yw/prod-detail/index' })
+    handleBuy(storeProductId) {
+      uni.navigateTo({ url: `/yw/prod-detail/index?storeProductId=${storeProductId}` })
     },
   },
 };
@@ -106,6 +111,7 @@ export default {
 
   .prodList {
     margin-top: 15px;
+
     .prod {
       padding: 16px 0;
       border-bottom: 1px solid rgba(70, 41, 6, .1);

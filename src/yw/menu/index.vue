@@ -4,7 +4,7 @@
 
     <!-- 入口 -->
     <view class="rkList">
-      <view class="rkItem" v-for="(item, index) in rkList" :key=index @click="toProdList">
+      <view class="rkItem" v-for="(item, index) in rkList" :key=index @click="toProdList(item)">
         <view class="txt">
           {{ item.cateName }}
         </view>
@@ -17,7 +17,7 @@
       <view class="txt">
         会员终身制 享¥46/盒
       </view>
-      <view class="go" hover-class="none" hover-stop-propagation="false">
+      <view class="go" >
         <u-icon name="arrow-right" color="#B1742F" size="12">
           ></u-icon>
       </view> -->
@@ -80,8 +80,14 @@ export default {
   },
 
   methods: {
-    toProdList(){
-      uni.navigateTo({ url: '/yw/prod-list/index' })
+    toProdList(item){
+      console.log(item.isVip);
+      if(item.isVip==='1'){
+        uni.navigateTo({ url: '/yw/prod-list/index?isVip=true' })
+      }else{
+        uni.navigateTo({ url: '/yw/prod-list/index' })
+      }
+     
     },
     handleBuy(storeProductId) {
       uni.navigateTo({ url: `/yw/prod-detail/index?storeProductId=${storeProductId}` })
