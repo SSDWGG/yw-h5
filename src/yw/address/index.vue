@@ -2,7 +2,7 @@
   <view class="container">
 
     <view class="addressList" v-if="addressList.length > 0">
-      <view class="addressItem" v-for="(item, index) in addressList" :key="index" @click="selAddrToOrder(item)" >
+      <view class="addressItem" v-for="(item, index) in addressList" :key="index" @click="selAddrToOrder(item)">
         <view class="info">
           <view class="line1">
             <view class="name">
@@ -16,7 +16,7 @@
             {{ item.district + item.detail }}
           </view>
         </view>
-        <view class="edit" @click="toAddAdress(item.userAddressId)">
+        <view class="edit" v-if="$mp.query.from" @click="toAddAdress(item.userAddressId)">
 
           <u-icon name="edit-pen" color="#999999" size="24" class="icon" />
 
@@ -108,27 +108,25 @@ export default {
     toAddAdress(userAddressId) {
       if (!!userAddressId) {
         uni.navigateTo({ url: `/yw/address-add/index?userAddressId=${userAddressId}` })
-
       } else {
         uni.navigateTo({ url: `/yw/address-add/index` })
-
       }
     },
-    selAddrToOrder(item){
+    selAddrToOrder(item) {
       if (!this.$mp.query.from) {
-      const pages = getCurrentPages();// 当前页面
-      const prevPage = pages[pages.length - 2];// 上一页面
-      console.log(pages,prevPage);
-      prevPage.item = item
-      prevPage.selAddress = 'yes'
-      // prevPage.setData({// 直接给上移页面赋值
-      //   item: item,
-      //   selAddress: 'yes'
-      // });
-      uni.navigateBack({// 返回
-        delta: 1
-      });
-    }
+        const pages = getCurrentPages();// 当前页面
+        pages.forEach((prevPage) => {
+          if (prevPage.route.includes('yw/submit/index')) {
+            prevPage.item = item
+            prevPage.selAddress = 'yes'
+            console.log(prevPage);
+            // 做成路径参数直接跳转
+            uni.navigateBack({// 返回
+              delta: 1
+            });
+          }
+        })
+      }
     }
   },
 };

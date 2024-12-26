@@ -3,21 +3,20 @@
 
     <view class="block">
 
-      <view class="item">
+      <!-- <view class="item">
         <view class="lable">
           账号
         </view>
         <view class="content">
           <u-input v-model="form.receiver" placeholder="请输入账号" />
-
         </view>
-      </view>
+      </view> -->
       <view class="item">
         <view class="lable">
           原始密码
         </view>
         <view class="content">
-          <u-input v-model="form.password" :password="isShowPassword" placeholder="请输入原始密码">
+          <u-input v-model="form.oldPassword" :password="isShowPassword" placeholder="请输入原始密码">
             <template slot="suffix">
               <u-icon name="eye-fill" color="#E7CD93" size="18" @click="() => {
                 isShowPassword = !isShowPassword
@@ -32,7 +31,7 @@
           新密码
         </view>
         <view class="content">
-          <u-input v-model="form.passwordAganin" :password="isShowPassword" placeholder="请确认密码">
+          <u-input v-model="form.newPassword" :password="isShowPassword" placeholder="请确认密码">
             <template slot="suffix">
               <u-icon name="eye-fill" color="#E7CD93" size="18" @click="() => {
                 isShowPassword = !isShowPassword
@@ -45,20 +44,22 @@
 
     </view>
     <view class="add-footer">
-      <view class="btn">保存</view>
+      <view class="btn" @click = 'edit'>保存</view>
     </view>
 
   </view>
 </template>
 
 <script>
+import { editPwd} from '@/api/info'
 
 export default {
 
   data() {
     return {
       form: {
-        receiver: ''
+        oldPassword: '',
+        newPassword: ''
       },
       isShowPassword: true,
 
@@ -66,7 +67,11 @@ export default {
   },
 
   methods: {
-
+    edit(){
+      editPwd(this.form).then((res)=>{
+        this.$store.dispatch('user/loginOut')
+      })
+    }
   },
 };
 </script>

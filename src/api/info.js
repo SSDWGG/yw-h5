@@ -102,3 +102,42 @@ export function deleteAddress(userAddressIds) {
     method: 'delete'
   })
 }
+
+
+// 购物车
+export function getCarList() {
+  return request({
+    url: '/system/storeCart/list' ,
+    method: 'get'
+  })
+}
+export function addToCar(data) {
+  return request({
+    url: '/system/storeCart' ,
+    method: 'post',
+    data
+  })
+}
+
+// 用户信息
+export function getYwUserInfo() {
+  return request({
+    url: '/app/user/info' ,
+    method: 'get'
+  })
+}
+
+export function editUserInfo(data) {
+  return request({
+    url: '/app/user/update' ,
+    method: 'put',
+    data
+  })
+}
+export function editPwd(data) {
+  return request({
+    url: '/app/user/updatePwd' ,
+    method: 'put',
+    data
+  })
+}

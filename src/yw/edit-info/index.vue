@@ -8,7 +8,7 @@
           会员编号
         </view>
         <view class="content">
-          <u-input v-model="form.receiver" placeholder="请输入会员编号" />
+          <u-input v-model="userInfo.appUserId" disabled placeholder="请输入会员编号" />
 
         </view>
       </view>
@@ -21,7 +21,7 @@
           昵称
         </view>
         <view class="content">
-          <u-input v-model="form.receiver" placeholder="请输入昵称" />
+          <u-input v-model="userInfo.nikeName" placeholder="请输入昵称" />
 
         </view>
       </view>
@@ -30,7 +30,7 @@
           姓名
         </view>
         <view class="content">
-          <u-input v-model="form.receiver" placeholder="请输入姓名" />
+          <u-input v-model="userInfo.realName" placeholder="请输入姓名" />
 
         </view>
       </view>
@@ -39,7 +39,7 @@
           手机号
         </view>
         <view class="content">
-          <u-input v-model="form.receiver" placeholder="请输入手机号" />
+          <u-input v-model="userInfo.phone" placeholder="请输入手机号" />
 
         </view>
       </view>
@@ -48,7 +48,7 @@
           身份证
         </view>
         <view class="content">
-          <u-input v-model="form.receiver" placeholder="请输入身份证" />
+          <u-input v-model="userInfo.idCard" placeholder="请输入身份证" />
 
         </view>
       </view>
@@ -60,7 +60,7 @@
           所在地区
         </view>
         <view class="content">
-          <u-input v-model="form.receiver" placeholder="例如：杭州" />
+          <u-input v-model="userInfo.address" placeholder="例如：杭州" />
 
         </view>
       </view>
@@ -69,34 +69,46 @@
           详细地址
         </view>
         <view class="content">
-          <u-textarea v-model="form.receiver" placeholder="请输入详细地址" />
+          <u-textarea v-model="userInfo.district" placeholder="请输入详细地址" />
 
         </view>
       </view>
     </view>
     <view class="add-footer">
-      <view class="btn">保存</view>
+      <view class="btn" @click="edit">保存</view>
     </view>
 
-    <view class="placeHoldBottom" >
-      
+    <view class="placeHoldBottom">
+
     </view>
   </view>
 </template>
 
 <script>
+import { getYwUserInfo, editUserInfo } from '@/api/info'
 
 export default {
 
   data() {
     return {
-      form: {
-        receiver: ''
-      }
+      userInfo: {},
     };
+  },
+  created() {
+    getYwUserInfo().then((res) => {
+      this.userInfo = res.data
+    })
   },
 
   methods: {
+    edit() {
+      editUserInfo(this.userInfo).then(() => {
+        uni.$u.toast('修改成功')
+        uni.switchTab({
+          url: '/yw/me/index',
+        });
+      })
+    }
 
   },
 };
@@ -133,7 +145,8 @@ export default {
       margin-bottom: 16px;
     }
   }
-  .placeHoldBottom{
+
+  .placeHoldBottom {
     height: calc(100px + env(safe-area-inset-bottom));
   }
 

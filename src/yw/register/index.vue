@@ -62,8 +62,7 @@
           <u-form-item style="margin-top:20px">
             <view class="footer" hover-class="none">
 
-
-              <u-button customStyle="border-radius: 6px;" color="#EF432A" text="立即注册" class="btn"
+              <u-button customStyle="border-radius: 6px;" color="#EF432A" :text="!!this.$mp.query.reset?'重置':'立即注册'" class="btn"
                 @click="handleRegister"></u-button>
 
             </view>

@@ -22,8 +22,8 @@
           <!-- <view class="chooseYh" @click="show = true">
            {{ !!form.yhName?form.yhName:'请选择银行'}} 
           </view> -->
-          <u-picker :show="show" :columns="columns" @confirm="handleConfirmPicker"
-            @cancel="handleCalcelPicker"></u-picker>
+          <!-- <u-picker :show="show" :columns="columns" @confirm="handleConfirmPicker"
+            @cancel="handleCalcelPicker"></u-picker> -->
         </view>
       </view>
 
@@ -61,6 +61,7 @@
         </view>
       </view>
     </view>
+
     <view class="add-footer">
       <view class="btn" @click="handleSave">保存</view>
     </view>
@@ -69,7 +70,7 @@
 </template>
 
 <script>
-import { addUserBank } from '@/api/info'
+import { addUserBank, getBankList } from '@/api/info'
 
 export default {
 
@@ -77,26 +78,38 @@ export default {
     return {
       form: {
         cardHolderName: '',
-        bankName:'',
-        bankNumber:'',
-        branchName:'',
-        cardNumber:'',
+        bankName: '',
+        bankNumber: '',
+        branchName: '',
+        cardNumber: '',
       },
       show: false,
       columns: [
-        ['银行1', '银行2', '银行3']
+        []
       ],
+      userBackList: []
     };
   },
- 
+  created() {
+    getBankList().then((res) => {
+      this.userBackList = res.data
+      // this.form = this.userBackList[0]
+      // console.log(this.userBackList);
+    })
+
+
+  },
 
   methods: {
-    handleSave(){
-      addUserBank(this.form).then(res=>{
+    handleSave() {
+      addUserBank(this.form).then(res => {
         uni.showToast({
           title: '绑定成功',
           icon: 'none'
         })
+        uni.switchTab({
+          url: '/yw/me/index',
+        });
       })
     },
     handleConfirmPicker(chooseVal) {
@@ -135,7 +148,7 @@ export default {
 
       .content {
 
-        .chooseYh{
+        .chooseYh {
           border: 1px solid #dadbde;
           border-radius: 4px;
           padding: 10px 9px;

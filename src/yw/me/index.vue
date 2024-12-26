@@ -6,17 +6,17 @@
     <img class="titleBg" src="@/static/yw/me/headerBg.png">
 
     <view class="haeadInfo">
-      <img class="avatar" :src="userInfo.avatar">
+      <img class="avatar" :src="!!userInfo.avatar?userInfo.avatar:defaultImg">
 
       <view class="info">
         <view class="line1">
           <view class="name">
-            {{ userInfo.username }}
+            {{ userInfo.nikeName }}
 
           </view>
-          <view class="dj">
-            <img class="djIcon" :src="userInfo.djIcon">
-            {{ userInfo.djName }}
+          <view class="dj" v-if=" userInfo.level">
+            <img class="djIcon" :src="djIcon">
+            {{ userInfo.level }}
           </view>
         </view>
         <view class="line2">
@@ -28,7 +28,7 @@
     <view class="priceInfo">
       <view class="priceInfoItem">
         <view class="price">
-          {{ priceInfo.price1 }}
+          {{ userInfo.todayIncome }}
         </view>
         <view class="name">
           今日收益(元)
@@ -36,7 +36,7 @@
       </view>
       <view class="priceInfoItem">
         <view class="price">
-          {{ priceInfo.price2 }}
+          {{ userInfo.totalIncome }}
         </view>
         <view class="name">
           总收益(元)
@@ -44,7 +44,7 @@
       </view>
       <view class="priceInfoItem">
         <view class="price">
-          {{ priceInfo.price3 }}
+          {{ userInfo.nowMoney }}
         </view>
         <view class="name">
           钱包余额(元)
@@ -107,6 +107,7 @@
 <script>
 import Tabbar from "@/components/Tabbar.vue";
 import { applogout } from '@/api/login'
+import { getYwUserInfo } from '@/api/info'
 
 export default {
   components: {
@@ -114,18 +115,11 @@ export default {
   },
   data() {
     return {
-      userInfo: {
-        avatar: require("@/static/yw/prodDetail.png"),
-        phone: 13333333333,
-        username: 'aa啊啊凡凡',
-        djIcon: require("@/static/yw/hyicon.png"),
-        djName: '金粉'
-      },
-      priceInfo: {
-        price1: 66345,
-        price2: 66345,
-        price3: 66345,
-      },
+      defaultImg:require("@/static/yw/prodDetail.png"),
+      djIcon: require("@/static/yw/hyicon.png"),
+
+      userInfo: {},
+     
       orderType: [
         {
           name: '全部',
@@ -177,8 +171,8 @@ export default {
           name: '修改密码',
           icon: require("@/static/yw/me/infoType/2.png"),
           request: () => {
-            // uni.navigateTo({ url: '/yw/edit-password/index' })
-            uni.navigateTo({ url: '/yw/register/index?reset=true' })
+            uni.navigateTo({ url: '/yw/edit-password/index' })
+            // uni.navigateTo({ url: '/yw/register/index?reset=true' })
           }
         },
         {
@@ -210,6 +204,11 @@ export default {
     toFxCenter() {
       uni.navigateTo({ url: '/yw/fx-center/index' })
     }
+  },
+  onShow(){
+    getYwUserInfo().then((res) => {
+      this.userInfo = res.data
+    })
   }
 }
 </script>

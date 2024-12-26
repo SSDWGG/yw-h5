@@ -68,6 +68,8 @@
 </template>
 <script>
 import Tabbar from "@/components/Tabbar.vue";
+import { getCarList } from '@/api/info'
+
 export default {
   components: {
     Tabbar
@@ -79,44 +81,15 @@ export default {
         price1: 55644,
         price2: 55644,
         prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝商品标题商品标精品燕窝商品标题精品燕窝商品品标题精品燕窝精品燕窝商品标题商品标题商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
       }],
       checkedAll: []
     }
+  },
+  onShow(){
+    getCarList().then((res) => {
+      console.log(res);
+      // this.userInfo = res.data
+    })
   },
   methods: {
     handleBuy() {

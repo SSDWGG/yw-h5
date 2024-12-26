@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <u-swiper :list="[prodInfo.sliderImageUrl,prodInfo.sliderImageUrl]" indicator height='220px'></u-swiper>
+    <u-swiper :list="[prodInfo.sliderImageUrl, prodInfo.sliderImageUrl]" indicator height='220px'></u-swiper>
 
     <view class="info cell">
       <view class="title">
@@ -63,6 +63,7 @@
 
 <script>
 import { getProdItem } from '@/api/info'
+import { addToCar } from '@/api/info'
 
 export default {
 
@@ -75,7 +76,7 @@ export default {
   created() {
     getProdItem(this.$mp.query.storeProductId).then(res => {
       this.prodInfo = res.data
-      this.prodInfo.description = this.prodInfo.description.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ') 
+      this.prodInfo.description = this.prodInfo.description.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ')
     })
   },
   methods: {
@@ -85,10 +86,13 @@ export default {
       uni.switchTab({ url: '/yw/car/index' })
     },
     addCar() {
-      uni.showToast({
-        title: '加入购物车成功',
-        icon: 'success'
+      addToCar({}).then(res => {
+        uni.showToast({
+          title: '加入购物车成功',
+          icon: 'success'
+        })
       })
+
     },
     buyNow() {
       uni.navigateTo({ url: '/yw/submit/index' })
