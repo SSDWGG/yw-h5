@@ -23,12 +23,7 @@ const mutations={
       state.token = token;
   },
 }
-function getInfor(){
-    Service.login.getInfo().then(res=>{
-        // console.log(res);
-        uni.setStorageSync('userInfor',res.user )
-    })
-}
+
 const actions = {
     login({ commit }, params) {
         return new Promise((resolve, reject) => {
@@ -80,7 +75,6 @@ const actions = {
 
     setAccessToken({ commit }, access_token){
       return new Promise((resolve, reject) => {
-        console.log(access_token);
         commit('SET_ACCESS_TOKEN', access_token)
         commit('SET_LOGIN_STATUS',true) 
 

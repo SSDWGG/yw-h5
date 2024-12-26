@@ -25,7 +25,7 @@
     </view>
     <!-- 商品卡片 -->
     <view class="prodList">
-      <view class="prod" v-for="(item,index) in prodList" :key="index">
+      <view class="prod" v-for="(item,index) in prodList" :key="index" @click="handleBuy(item.storeProductId)">
         <img :src="item.imageUrl" class="prodImage" />
         <view class="title">
           {{ item.storeName }}
@@ -39,7 +39,7 @@
           </view>
           <view class="buy">
             <u-button color="linear-gradient(to bottom, #F9694C, #F22020)" text="立即购买" class="btn"
-              @click="handleBuy"></u-button>
+              ></u-button>
 
           </view>
 
@@ -75,7 +75,6 @@ export default {
       this.prodList = res.rows
     })
     getCategoryAll().then((res)=>{
-      console.log(res);
       this.rkList = res.data
     })
   },
@@ -84,8 +83,8 @@ export default {
     toProdList(){
       uni.navigateTo({ url: '/yw/prod-list/index' })
     },
-    handleBuy() {
-      uni.navigateTo({ url: '/yw/prod-detail/index' })
+    handleBuy(storeProductId) {
+      uni.navigateTo({ url: `/yw/prod-detail/index?storeProductId=${storeProductId}` })
     },
     toHy() {
       uni.navigateTo({ url: '/yw/hy/index' })

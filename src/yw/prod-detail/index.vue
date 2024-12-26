@@ -4,17 +4,17 @@
 
     <view class="info cell">
       <view class="title">
-        {{ prodInfo.title }}
+        {{ prodInfo.storeName }}
       </view>
       <view class="price">
         ￥{{ prodInfo.price }}
       </view>
-      <view class="line3">
+      <view class="line3" v-if="prodInfo.isVip">
         <view class="left">
-          当前优惠 ￥0.00
+          当前优惠 ￥{{ prodInfo.vipPrice }}
         </view>
         <view class="kc">
-          库存：993739
+          库存：{{ prodInfo.stock }}
         </view>
       </view>
     </view>
@@ -27,7 +27,8 @@
       产品详情
     </view>
 
-    <rich-text class="prod-detail" :nodes="yhxz"></rich-text>
+    <rich-text class="prod-detail" :nodes="prodInfo.description
+      "></rich-text>
 
     <!-- 底部按钮操作栏 -->
     <view class="bottomViewPlaceholder">
@@ -61,21 +62,23 @@
 </template>
 
 <script>
+import { getProdItem } from '@/api/info'
 
 export default {
 
   data() {
     return {
       numValue: 1,
-      prodInfo: {
-        title: '商品标题商品标题商品标题品标题商品标题商品标题品标商品标题商品标',
-        price: 883749,
-      },
-      yhxz: '<p><img src="https://lwzx.wuchuangroup.com/img/2024/12/4e7f2c3a5cb8460085b9e53bf75b3c9a.png" alt=""></p>'.replace(/\<img/gi, '<img style="max-width:100%;height:auto" '),
+      prodInfo: {},
       bannerlist: [require("@/static/yw/swiper/hb1.png"), require("@/static/yw/swiper/hb1.png")],
     };
   },
-
+  created() {
+    getProdItem(this.$mp.query.storeProductId).then(res => {
+      this.prodInfo = res.data
+      this.prodInfo.description = this.prodInfo.description.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ') 
+    })
+  },
   methods: {
     toMenu() {
       uni.switchTab({ url: '/yw/menu/index' })
@@ -88,7 +91,7 @@ export default {
         icon: 'success'
       })
     },
-     buyNow() {
+    buyNow() {
       uni.navigateTo({ url: '/yw/submit/index' })
     }
 

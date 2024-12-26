@@ -1,28 +1,28 @@
 <template>
   <view class="container">
 
-    <view class="addressList">
+    <view class="addressList" v-if="addressList.length > 0">
       <view class="addressItem" v-for="(item, index) in addressList" :key="index">
-        <view class="info" >
+        <view class="info">
           <view class="line1">
             <view class="name">
-              {{ item.receiver }}
+              {{ item.realName }}
             </view>
             <view class="phone">
-              {{ item.mobile }}
+              {{ item.phone }}
             </view>
           </view>
           <view class="line2">
-            {{ item.addr }}
+            {{ item.district + item.detail }}
           </view>
         </view>
-        <view class="edit"  @click="toAddAdress">
-         
+        <view class="edit" @click="toAddAdress(item.userAddressId)">
+
           <u-icon name="edit-pen" color="#999999" size="24" class="icon" />
 
         </view>
       </view>
-      <view class="addView" @click="toAddAdress">
+      <view class="addView" @click="toAddAdress()">
         <u-icon name="plus-circle" color="#C89761" size="20" class="icon" />
         添加地址
       </view>
@@ -31,17 +31,17 @@
 
 
 
-    <view class="emptyAddress" v-if="addressList.length === 0">
+    <view class="emptyAddress" v-else>
       <u-empty mode="address">
       </u-empty>
-      <view class="btn" @click="toAddAdress">
+      <view class="btn" @click="toAddAdress()">
         新建地址
       </view>
     </view>
 
 
     <u-popup :show="popShow" :catch-move="false" mode="bottom" :round="10" closeOnClickOverlay>
-      <view class="popContent" >
+      <view class="popContent">
 
 
         <view class="header">
@@ -60,7 +60,7 @@
             </div>
             <div class="cell">
               <view class="label">联系方式</view>
-              <u-input border="none" v-model="addressObg.mobile" placeholder="请填写手机号" />
+              <u-input border="none" v-model="addressObg.phone" placeholder="请填写手机号" />
             </div>
             <div class="cell">
               <view class="label">详细地址</view>
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import { getAddressList } from '@/api/info'
 
 export default {
 
@@ -85,33 +86,35 @@ export default {
     return {
       addressObg: {
         receiver: '',
-        mobile: '',
+        phone: '',
         addr: '',
-
       },
-      addressList: [
-        {
-          receiver: 'aaaawgg',
-          mobile: '13333333333',
-          addr: '浙江省杭州市西湖区蚂蚁大厦1502',
-        }
-      ],
+      addressList: [],
       popShow: false,
-      bannerlist: [require("@/static/yw/swiper/hb1.png"), require("@/static/yw/swiper/hb1.png")],
     };
   },
+  created() {
+    getAddressList().then((res) => {
+      this.addressList = res.data
+    })
 
+
+  },
   methods: {
     openPop() {
       this.popShow = true
-      // console.log('close');
     },
     closePop() {
       this.popShow = false
-      // console.log('close');
     },
-    toAddAdress() {
-      uni.navigateTo({ url: '/yw/address-add/index' })
+    toAddAdress(userAddressId) {
+      if (!!userAddressId) {
+        uni.navigateTo({ url: `/yw/address-add/index?userAddressId=${userAddressId}` })
+
+      } else {
+        uni.navigateTo({ url: `/yw/address-add/index` })
+
+      }
     }
   },
 };
@@ -129,32 +132,35 @@ export default {
       padding: 12px;
       border-radius: 10px;
       display: flex;
-      .info{
+      margin-bottom: 12px;
+
+      .info {
         flex: 1;
-        
 
-      .line1 {
-        color: #222222;
-        font-size: 16px;
-        display: flex;
-        margin-bottom: 13px;
-        font-weight: 500;
 
-        .name {
-          margin-right: 24px;
+        .line1 {
+          color: #222222;
+          font-size: 16px;
+          display: flex;
+          margin-bottom: 13px;
+          font-weight: 500;
+
+          .name {
+            margin-right: 24px;
+          }
+        }
+
+        .line2 {
+          color: #999999;
+          font-size: 12px;
         }
       }
 
-      .line2 {
-        color: #999999;
-        font-size: 12px;
-      }
-       }
-       .edit{
+      .edit {
         display: flex;
         align-items: center;
         justify-content: center;
-       }
+      }
     }
 
     .addView {

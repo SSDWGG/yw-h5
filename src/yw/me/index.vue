@@ -197,7 +197,6 @@ export default {
             
             applogout().then(()=>{
               this.$store.dispatch('user/loginOut')
-            console.log('退出');
             })
          
           }

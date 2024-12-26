@@ -49,11 +49,13 @@
 
 
     </view>
-    <u-picker :show="show" :columns="columns" @confirm="handleConfirmPicker" @cancel="handleCalcelPicker"></u-picker>
+    <u-picker keyName="bankName" :show="show" :columns="columns" @confirm="handleConfirmPicker"
+      @cancel="handleCalcelPicker"></u-picker>
   </view>
 </template>
 
 <script>
+import { getBankList } from '@/api/info'
 
 export default {
 
@@ -64,15 +66,19 @@ export default {
       txPrice: null,
       yhName: '',
       show: false,
-      columns: [
-        ['银行1', '银行2', '银行3']
-      ],
+      columns: [],
     };
   },
+  created() {
+    getBankList().then((res) => {
+      this.columns = [res.data]
+    })
 
+
+  },
   methods: {
     handleConfirmPicker(chooseVal) {
-      this.yhName = chooseVal.value[0]
+      this.yhName = chooseVal.value[0].bankName
       this.handleCalcelPicker()
     },
     handleCalcelPicker() {

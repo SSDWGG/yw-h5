@@ -8,7 +8,7 @@
           持卡人
         </view>
         <view class="content">
-          <u-input v-model="form.receiver" placeholder="请输入您的姓名" />
+          <u-input v-model="form.cardHolderName" placeholder="请输入您的姓名" />
 
         </view>
       </view>
@@ -17,20 +17,37 @@
           银行
         </view>
         <view class="content">
+          <u-input v-model="form.bankName" placeholder="请输入银行名称" />
 
-          <view class="chooseYh" @click="show = true">
+          <!-- <view class="chooseYh" @click="show = true">
            {{ !!form.yhName?form.yhName:'请选择银行'}} 
-          </view>
+          </view> -->
           <u-picker :show="show" :columns="columns" @confirm="handleConfirmPicker"
             @cancel="handleCalcelPicker"></u-picker>
         </view>
       </view>
+
+      <view class="item">
+        <view class="lable">
+          银行行号
+        </view>
+        <view class="content">
+          <u-input v-model="form.bankNumber" placeholder="请输入银行行号" />
+
+          <!-- <view class="chooseYh" @click="show = true">
+           {{ !!form.yhName?form.yhName:'请选择银行'}} 
+          </view> -->
+          <!-- <u-picker :show="show" :columns="columns" @confirm="handleConfirmPicker"
+            @cancel="handleCalcelPicker"></u-picker> -->
+        </view>
+      </view>
+
       <view class="item">
         <view class="lable">
           支行名称
         </view>
         <view class="content">
-          <u-input v-model="form.receiver" placeholder="请输入支行名称" />
+          <u-input v-model="form.branchName" placeholder="请输入支行名称" />
 
         </view>
       </view>
@@ -39,28 +56,31 @@
           卡号
         </view>
         <view class="content">
-          <u-input v-model="form.receiver" placeholder="请输入卡号" />
+          <u-input v-model="form.cardNumber" placeholder="请输入卡号" />
 
         </view>
       </view>
     </view>
     <view class="add-footer">
-      <view class="btn">保存</view>
+      <view class="btn" @click="handleSave">保存</view>
     </view>
 
   </view>
 </template>
 
 <script>
-import { getBankList } from '@/api/info'
+import { addUserBank } from '@/api/info'
 
 export default {
 
   data() {
     return {
       form: {
-        receiver: '',
-        yhName:''
+        cardHolderName: '',
+        bankName:'',
+        bankNumber:'',
+        branchName:'',
+        cardNumber:'',
       },
       show: false,
       columns: [
@@ -68,14 +88,17 @@ export default {
       ],
     };
   },
-  created(){
-    getBankList().then((res)=>{
-     console.log(res);
-    })
-   
-  },
+ 
 
   methods: {
+    handleSave(){
+      addUserBank(this.form).then(res=>{
+        uni.showToast({
+          title: '绑定成功',
+          icon: 'none'
+        })
+      })
+    },
     handleConfirmPicker(chooseVal) {
       this.form.yhName = chooseVal.value[0]
       this.handleCalcelPicker()

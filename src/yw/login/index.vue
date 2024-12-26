@@ -154,7 +154,6 @@ export default {
             clearInterval(this.intervalTimer);
           }
         }, 1000)
-        console.log(111);
         getSysCode(this.form.phone)
       } else {
         uni.showToast({
