@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <u-swiper :list="bannerlist" indicator height='220px'></u-swiper>
+    <u-swiper :list="[prodInfo.sliderImageUrl,prodInfo.sliderImageUrl]" indicator height='220px'></u-swiper>
 
     <view class="info cell">
       <view class="title">
@@ -70,7 +70,6 @@ export default {
     return {
       numValue: 1,
       prodInfo: {},
-      bannerlist: [require("@/static/yw/swiper/hb1.png"), require("@/static/yw/swiper/hb1.png")],
     };
   },
   created() {

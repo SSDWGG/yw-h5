@@ -30,8 +30,13 @@
     <!-- 收货地址 -->
     <view class="address" @click="toAddress">
       <img class="icon" src="@/static/yw/address.png" alt="">
-      <view class="content" >
-        收货地址
+      <view class="content">
+        
+        {{ !!userAddr.realName? userAddr.realName + ' '+ userAddr.phone :'收货地址' }}
+
+      </view>
+      <view>
+        {{ !!userAddr.district? userAddr.district + userAddr.detail :'' }}
       </view>
       <u-icon class="go" name="arrow-right" color="#666666" size="12">
         ></u-icon>
@@ -95,11 +100,11 @@
     <!-- 底部按钮操作栏 -->
     <view class="bottomViewPlaceholder" />
     <view class="bottomView">
-      <view class="left" >
+      <view class="left">
         实付款：￥{{ orderObj.sfk }}
       </view>
 
-      <view class="right" >
+      <view class="right">
         提交订单
       </view>
     </view>
@@ -129,15 +134,28 @@ export default {
         yf: 0.00,
         djq: true,
         djqPrice: 0.00,
-        sfk:56588
+        sfk: 56588
 
-      }
+      },
+      userAddr: {}
     };
+  },
+  onShow() {
+    const pages = getCurrentPages();
+    const currPage = pages[pages.length - 1];
+    console.log(999, currPage);
+    if (currPage.selAddress === 'yes') {
+      this.userAddr = currPage.item;
+      console.log(this.userAddr);
+    } else {
+      console.log('获取默认地址');
+      // await getAddress();
+    }
   },
 
   methods: {
 
-    toAddress(){
+    toAddress() {
       uni.navigateTo({ url: '/yw/address/index' })
 
     }
@@ -202,6 +220,7 @@ export default {
           align-items: flex-end;
           width: 100%;
           box-sizing: border-box;
+
           .price1 {
             color: #B1771A;
             font-size: 16px;
@@ -295,7 +314,8 @@ export default {
   .bottomViewPlaceholder {
     height: calc(70px + env(safe-area-inset-bottom));
   }
-  .bottomView{
+
+  .bottomView {
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -306,14 +326,16 @@ export default {
     left: 0;
     width: 100%;
     background-color: #fff;
-    .left{
+
+    .left {
       flex: 1;
       color: #B1771A;
       font-size: 16px;
       margin-left: 20px;
       font-family: PingFang SC-Regular;
     }
-    .right{
+
+    .right {
       padding: 11px 25px;
       border-radius: 6px;
       background-color: #EF432A;

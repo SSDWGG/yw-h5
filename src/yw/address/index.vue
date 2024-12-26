@@ -2,7 +2,7 @@
   <view class="container">
 
     <view class="addressList" v-if="addressList.length > 0">
-      <view class="addressItem" v-for="(item, index) in addressList" :key="index">
+      <view class="addressItem" v-for="(item, index) in addressList" :key="index" @click="selAddrToOrder(item)" >
         <view class="info">
           <view class="line1">
             <view class="name">
@@ -97,8 +97,6 @@ export default {
     getAddressList().then((res) => {
       this.addressList = res.data
     })
-
-
   },
   methods: {
     openPop() {
@@ -115,6 +113,22 @@ export default {
         uni.navigateTo({ url: `/yw/address-add/index` })
 
       }
+    },
+    selAddrToOrder(item){
+      if (!this.$mp.query.from) {
+      const pages = getCurrentPages();// 当前页面
+      const prevPage = pages[pages.length - 2];// 上一页面
+      console.log(pages,prevPage);
+      prevPage.item = item
+      prevPage.selAddress = 'yes'
+      // prevPage.setData({// 直接给上移页面赋值
+      //   item: item,
+      //   selAddress: 'yes'
+      // });
+      uni.navigateBack({// 返回
+        delta: 1
+      });
+    }
     }
   },
 };
