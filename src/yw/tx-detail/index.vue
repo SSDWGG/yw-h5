@@ -8,14 +8,14 @@
         <view :class="['item',index===list.length-1?'last':'']" v-for="(item, index) in list" :key="index">
           <view class="left" >
             <view class="time" >
-              {{ item.time }}
+              {{ item.createTime }}
             </view>
             <view class="tip" >
-              {{ item.appUserName }}卖出{{ item.number }}件
+              {{ item.title }}
             </view>
           </view>
           <view class="content" >
-           帮我收益 <span>{{ item.balance }}</span>元
+           帮我收益 <span>{{ item.number }}</span>元
           </view>
 
         </view>

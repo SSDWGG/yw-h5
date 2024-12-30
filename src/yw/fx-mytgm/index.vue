@@ -19,7 +19,7 @@
       <view class="line4">
         您的推荐码为
         <view class="tip">
-          {{ userInfo.tjm }}
+          {{ userInfo.spreadCode }}
 
         </view>
       </view>

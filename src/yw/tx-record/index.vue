@@ -7,11 +7,11 @@
       <view class="list">
         <view class="item" v-for="(item, index) in list" :key="index">
           <view class="time" >
-            {{ item.time }}
+            {{ item.createTime }}
 
-          </view>
+          </view> 
           <view class="content" >
-            {{ item.content }}
+            {{ item.mark }}
           </view>
 
         </view>
@@ -29,18 +29,14 @@ export default {
   data() {
     return {
 
-      list: [{
-        time: '2024.12.01 20:00:00',
-        content: '我提现了100元'
-      }]
+      list: []
 
     };
   },
   created() {
-    // getAppExtract().then((res) => {
-    //   this.list = res.rows
-    // })
-
+    getAppExtract().then((res) => {
+      this.list = res.rows
+    })
   },
   methods: {
 

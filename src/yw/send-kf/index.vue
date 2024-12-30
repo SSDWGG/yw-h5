@@ -16,7 +16,7 @@
 
     </view>
     <view class="add-footer">
-      <view class="btn">发送</view>
+      <view class="btn" @click="send">发送</view>
     </view>
 
   </view>
@@ -37,7 +37,9 @@ export default {
   },
 
   methods: {
-
+    send(){
+      uni.$u.toast('留言成功')
+    }
   },
 };
 </script>
