@@ -1,40 +1,46 @@
 <template>
   <view class="container">
-
-
-
     <!-- 商品卡片 -->
-    <view class="prodList">
-      <view class="prod" v-for="(item, index) in prodList" :key="index">
-        <u-checkbox-group v-model="item.checkedValArr" name="prodCheckbox">
-          <u-checkbox name="prodCheck" :checked="item.checked" size="20" shape="circle"
-            activeColor="#EF432A"></u-checkbox>
-        </u-checkbox-group>
-        <img :src="item.prodImage" class="prodImage" @click="handleBuy" />
+    <u-swipe-action class="prodList">
+      <u-swipe-action-item @click="clickSwipe" class="prodItem" v-for="(item, index) in prodList"
+        :key="item.storeCartId" :name="item.storeCartId" :options="options1">
+        <view class="prod" v-if="!!item.product">
+          <!-- <u-checkbox-group v-model="item.checkedValArr" name="prodCheckbox"> -->
+          <!-- <u-checkbox name="prodCheck" :checked="item.checked" size="20" shape="circle"
+              activeColor="#EF432A"></u-checkbox> -->
+          <!-- </u-checkbox-group> -->
 
-        <view class="prodinfo" @click="handleBuy">
-          <view class="title">
-            {{ item.title }}
+          <view class="myCheckDiv" @click="item.checked = !item.checked">
+            <view class="myCheck" v-if="!item.checked" />
+            <u-icon v-else name="checkmark-circle-fill" color="#EF432A" size="24" class="icon" />
           </view>
-          <view class="gg">
-            规格：无
-          </view>
-          <view class="info">
-            <view class="price1">
-              ￥{{ item.price1 }}
+          <img :src="item.product.imageUrl" class="prodImage" @click="handleToDetail(item.product.storeProductId)" />
+
+          <view class="prodinfo" @click="handleToDetail(item.product.storeProductId)">
+            <view class="title">
+              {{ item.product.storeName }}
             </view>
-            <view class="price2">
-              ￥{{ item.price2 }}
+            <view class="gg">
+              规格：无
             </view>
-            <view class="buy">
-              x1
+            <view class="info">
+              <view class="price1">
+                ￥{{ item.product.price }}
+              </view>
+              <view class="price2">
+                ￥{{ item.product.otPrice }}
+              </view>
+              <view class="buy">
+                x{{ item.cartNum }}
+
+              </view>
 
             </view>
-
           </view>
         </view>
-      </view>
-    </view>
+      </u-swipe-action-item>
+
+    </u-swipe-action>
 
     <!-- 结算栏 -->
     <view class="jsTabbar">
@@ -46,19 +52,19 @@
       </view>
       <view class="info">
         <view class="info1">
-          已选1件
+          已选{{ num }}件
         </view>
         <view class="info2">
           <view class="hj">
             合计:
           </view>
           <view class="num">
-            ￥9999
+            ￥{{ price }}
           </view>
 
         </view>
       </view>
-      <view class="btn">
+      <view class="btn" @click="handleBuy">
         结算
       </view>
     </view>
@@ -68,32 +74,64 @@
 </template>
 <script>
 import Tabbar from "@/components/Tabbar.vue";
-import { getCarList } from '@/api/info'
+import { getCarList, deleteToCar } from '@/api/info'
 
 export default {
   components: {
     Tabbar
   },
-  data() {
-    return {
-      prodList: [{
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }],
-      checkedAll: []
+  computed: {
+    num() {
+      return this.prodList.filter(item => !!item.checked).length
+    },
+    price() {
+      return this.prodList.filter(item => !!item.checked).reduce((prev, curr) => prev + curr.product.price*curr.cartNum, 0)
     }
   },
-  onShow(){
-    getCarList().then((res) => {
-      console.log(res);
-      // this.userInfo = res.data
-    })
+  data() {
+    return {
+      prodList: [],
+      checkedAll: [],
+      options1: [{
+        text: '删除'
+      }]
+    }
+  },
+  onShow() {
+    this.initList()
   },
   methods: {
-    handleBuy() {
-      uni.navigateTo({ url: '/yw/prod-detail/index' })
+    handleBuy(){
+      const list = this.prodList.filter(item => !!item.checked)
+      if(list.length===0){
+        uni.$u.toast('请先选择商品')
+      }else{
+        list.forEach(item=>{
+          item.product.count = item.cartNum
+        })
+      uni.setStorageSync('orderInfoArr', list.map(item=>item.product))
+      // storeCartId
+      uni.navigateTo({ url: '/yw/submit/index?car=car' })
+      }
+      
+     
+    },
+    initList() {
+      getCarList().then((res) => {
+        this.prodList = res.data
+        this.prodList.forEach(item => {
+          this.$set(item, 'checked', false)
+        })
+      })
+    },
+    clickSwipe(params) {
+      deleteToCar(params.name).then(res => {
+        uni.$u.toast('删除成功')
+        this.initList()
+      })
+    },
+    handleToDetail(storeProductId) {
+      uni.navigateTo({ url: `/yw/prod-detail/index?storeProductId=${storeProductId}` })
     },
     handleChangeCheckedAll(arr) {
       if (arr.length > 0) {
@@ -180,85 +218,118 @@ export default {
   }
 
   .prodList {
-    .prod {
-      padding: 11px 10px;
-      display: flex;
-      border-radius: 10px;
-      background-color: #fff;
+    ::v-deep .u-swipe-action-item__content {
+      background-color: #F4F3F2;
+      padding: 0;
+    }
+
+    .prodItem {
       margin-bottom: 10px;
 
-      .prodImage {
-        width: 107px;
-        height: 107px;
-        margin-right: 16px;
-        margin-left: 4px;
-      }
-
-      .prodinfo {
-
-        flex: 1;
-        padding: 3px 0;
-        box-sizing: border-box;
+      .prod {
+        width: 100%;
+        padding: 11px 10px;
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-between;
+        border-radius: 10px;
+        background-color: #fff;
+        box-sizing: border-box;
 
-        .title {
-          color: #222222;
-          font-size: 14px;
-          width: 100%;
-          font-weight: 500;
-          overflow: hidden;
-          /* 隐藏溢出的内容 */
-          text-overflow: ellipsis;
-          /* 使用省略号表示溢出的文本 */
-          display: -webkit-box;
-          /* 将对象作为弹性伸缩盒子模型显示 */
-          -webkit-box-orient: vertical;
-          /* 垂直排列子元素 */
-          -webkit-line-clamp: 2;
-          /* 限制在两行文本 */
-        }
-
-        .gg {
-          color: #999999;
-          font-size: 14px;
-        }
-
-        .info {
+        .myCheckDiv {
+          height: 107px;
           display: flex;
-          align-items: flex-end;
-          width: 100%;
-          box-sizing: border-box;
+          align-items: center;
+          justify-content: center;
 
-          .price1 {
-            color: #B1771A;
-            font-size: 16px;
-            font-weight: 500;
-            margin-right: 8px;
-            font-family: Source Han Serif CN-Sem;
-          }
-
-          .price2 {
-            font-family: Source Han Serif CN-Sem;
-            color: rgba(70, 41, 6,.3);
-            font-size: 12px;
-            font-weight: SemiBold;
-            text-decoration: line-through;
-          }
-
-          .buy {
-            flex: 1;
+          .myCheck {
+            border: 2px solid #E2E2E2;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            color: #666666;
-            font-size: 12px;
+            justify-content: center;
+          }
+        }
+
+
+        .prodImage {
+          width: 107px;
+          height: 107px;
+          margin-right: 16px;
+          margin-left: 10px;
+          box-sizing: border-box;
+        }
+
+        .prodinfo {
+
+          flex: 1;
+          padding: 3px 0;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+
+          .title {
+            color: #222222;
+            font-size: 14px;
+            width: 100%;
+            font-weight: 500;
+            overflow: hidden;
+            /* 隐藏溢出的内容 */
+            text-overflow: ellipsis;
+            /* 使用省略号表示溢出的文本 */
+            display: -webkit-box;
+            /* 将对象作为弹性伸缩盒子模型显示 */
+            -webkit-box-orient: vertical;
+            /* 垂直排列子元素 */
+            -webkit-line-clamp: 2;
+            /* 限制在两行文本 */
+          }
+
+          .gg {
+            color: #999999;
+            font-size: 14px;
+          }
+
+          .info {
+            display: flex;
+            align-items: flex-end;
+            width: 100%;
+            box-sizing: border-box;
+
+            .price1 {
+              color: #B1771A;
+              font-size: 16px;
+              font-weight: 500;
+              margin-right: 8px;
+              font-family: Source Han Serif CN-Sem;
+            }
+
+            .price2 {
+              font-family: Source Han Serif CN-Sem;
+              color: rgba(70, 41, 6, .3);
+              font-size: 12px;
+              font-weight: SemiBold;
+              text-decoration: line-through;
+            }
+
+            .buy {
+              flex: 1;
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              color: #666666;
+              font-size: 12px;
+            }
           }
         }
       }
     }
+
+
+
+
   }
 }
 </style>

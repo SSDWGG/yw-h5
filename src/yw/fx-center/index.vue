@@ -6,7 +6,7 @@
 
     <view class="allprice">
       <view class="num">
-        {{ allPrice }}
+        {{ obj.brokeragePrice }}
       </view>
       <view class="txt">
         总收益
@@ -18,7 +18,7 @@
       <view class="content">
         <view class="contentItem">
           <view class="icon">
-            ￥{{ allPrice }}
+            ￥{{ obj.balance }}
           </view>
           <view class="name">
             可提现金额
@@ -33,12 +33,28 @@
     <view class="modeView">
 
       <view class="content">
-        <view class="contentItem" v-for="(item, index) in priceList" :key="index">
+        <view class="contentItem">
           <view class="icon">
-            ￥{{ item.price }}
+            ￥{{ obj.todayBrokerage }}
           </view>
           <view class="name">
-            {{ item.name }}
+            今日收益
+          </view>
+        </view>
+        <view class="contentItem">
+          <view class="icon">
+            ￥{{ obj.todaySubOrderCount }}
+          </view>
+          <view class="name">
+            今日订单
+          </view>
+        </view>
+        <view class="contentItem">
+          <view class="icon">
+            ￥{{ obj.todaySubUserCount }}
+          </view>
+          <view class="name">
+            今日新增客户
           </view>
         </view>
       </view>
@@ -82,30 +98,13 @@
 </template>
 
 <script>
+import { getBrokerageCenter } from '@/api/info'
 
 export default {
 
   data() {
     return {
-
-      allPrice: 994732,
-
-      priceList: [
-        {
-          name: '今日收益',
-          price: '2289',
-
-        },
-        {
-          name: '今日订单',
-          price: '2289',
-        },
-        {
-          name: '今日新增客户',
-          price: '2289',
-        },
-
-      ],
+      obj: {},
       typeList: [
         {
           name: '我的团队',
@@ -130,7 +129,12 @@ export default {
       ],
     };
   },
+  created() {
+    getBrokerageCenter().then((res) => {
+      this.obj = res.data
+    })
 
+  },
   methods: {
     toTxPage() {
       uni.navigateTo({ url: '/yw/tx/index' })

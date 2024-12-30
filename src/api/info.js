@@ -107,7 +107,7 @@ export function deleteAddress(userAddressIds) {
 // 购物车
 export function getCarList() {
   return request({
-    url: '/system/storeCart/list' ,
+    url: '/system/storeCart/app/list' ,
     method: 'get'
   })
 }
@@ -115,6 +115,19 @@ export function addToCar(data) {
   return request({
     url: '/system/storeCart' ,
     method: 'post',
+    data
+  })
+}
+export function deleteToCar(storeCartIds) {
+  return request({
+    url: '/system/storeCart/'+storeCartIds,
+    method: 'delete'
+  })
+}
+export function editToCar(data) {
+  return request({
+    url: '/system/storeOrderCartInfo' ,
+    method: 'put',
     data
   })
 }
@@ -139,5 +152,49 @@ export function editPwd(data) {
     url: '/app/user/updatePwd' ,
     method: 'put',
     data
+  })
+}
+
+// 订单
+export function createOrder(data) {
+  return request({
+    url: '/app/storeOrder/createOrder' ,
+    method: 'POST',
+    data
+  })
+}
+export function getOrderList(params) {
+  return request({
+    url: '/app/storeOrder/app/list' ,
+    method: 'get',
+    params
+  })
+}
+// 获取二维码
+export function getQR() {
+  return request({
+    url: '/app/user/spreadQr' ,
+    method: 'get'
+  })
+}
+// 获取分销中心数据
+export function getBrokerageCenter() {
+  return request({
+    url: '/app/user/brokerageCenter' ,
+    method: 'get'
+  })
+}
+// 获取收益数据
+export function getAppIncome() {
+  return request({
+    url: '/system/userBill/appIncome' ,
+    method: 'get'
+  })
+}
+// 获取提现数据
+export function getAppExtract() {
+  return request({
+    url: '/system/userExtract/appExtract' ,
+    method: 'get'
   })
 }

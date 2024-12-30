@@ -86,7 +86,10 @@ export default {
       uni.switchTab({ url: '/yw/car/index' })
     },
     addCar() {
-      addToCar({}).then(res => {
+      addToCar({
+        productId:this.$mp.query.storeProductId,
+        cartNum: this.numValue
+      }).then(res => {
         uni.showToast({
           title: '加入购物车成功',
           icon: 'success'
@@ -95,6 +98,8 @@ export default {
 
     },
     buyNow() {
+      this.prodInfo.count =  this.numValue
+      uni.setStorageSync('orderInfoArr', [this.prodInfo])
       uni.navigateTo({ url: '/yw/submit/index' })
     }
 

@@ -2,9 +2,9 @@
   <view class="container">
     <!-- header -->
     <view class="headerList">
-      <view :class="[activeIndex === index ? 'activeIndex' : '']" class="headerItem" v-for="(item, index) in headerList"
+      <view :class="[Number(activeIndex)  === item.index ? 'activeIndex' : '']" class="headerItem" v-for="(item, index) in headerList"
         :key="index" @click="() => {
-          activeIndex = index
+          activeIndex = item.index
         }">
         {{ item.title }}
       </view>
@@ -12,26 +12,28 @@
 
     <!-- 商品卡片 -->
     <view class="prodList">
-      <view class="prodView" v-for="(item, index) in prodList" :key="index">
+      <view class="prodView" v-for="(prodItem, index) in prodList" :key="index">
+        <view class="" v-for="(item, index) in prodItem.cartInfoList" v-if=" !!prodItem.cartInfoList" :key="index">
+          
+    
         <view class="prod" >
-          <img :src="item.prodImage" class="prodImage" />
+          <img :src="item.product.imageUrl" class="prodImage" />
           <view class="prodinfo">
             <view class="title">
-              {{ item.title }}
+              {{ item.product.storeName }}
             </view>
             <view class="gg">
               规格：无
             </view>
             <view class="info">
               <view class="price1">
-                ￥{{ item.price1 }}
+                ￥{{ item.product.price }}
               </view>
               <view class="price2">
-                ￥{{ item.price2 }}
+                ￥{{ item.product.otPrice }}
               </view>
               <view class="buy">
-                x1
-
+                x{{ JSON.parse(item.cartInfo).count }}
               </view>
 
             </view>
@@ -39,7 +41,8 @@
         </view>
         <view class="jsTabbar">
           <view class="tip" >
-            待付款
+            {{ statusMap[item.status] }}
+            
           </view>
 
           <view class="info">
@@ -59,47 +62,68 @@
           </view>
         </view>
       </view>
+      </view>
     </view>
   </view>
 </template>
 
 <script>
+import { getOrderList } from '@/api/info'
+
 export default {
   data() {
     return {
       headerList: [
         {
           title: '全部',
-          index: 0
+          index: 99
         },
         {
           title: '待付款',
-          index: 1
+          index: 0
         }, {
           title: '待发货',
-          index: 2
+          index: 1
         }, {
           title: '已发货',
-          index: 3
+          index: 2
         }
       ],
-      activeIndex: 0,
-      prodList: [{
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝商品标题商品标精品燕窝商品标题精品燕窝商品品标题精品燕窝精品燕窝商品标题商品标题商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }],
+      activeIndex: 99,
+      prodList: [],
+      statusMap:{
+        0:'待付款',
+        1:'待发货',
+        2:'已发货',
+      }
     };
   },
-
+  computed: {
+		
+		},
+  watch: {
+    activeIndex: {
+            handler (val) {
+                const params  = {
+                  pageSize:99,
+                  pageNum:1
+                }
+                if( Number(val)!==99){
+                  params.status = val
+                }
+                getOrderList(params).then(res=>{
+                  this.prodList = res.rows
+                  console.log(res);
+                })
+            },
+            immediate: true,
+        },
+    },
+  onShow() {
+    this.activeIndex =   this.$mp.query.type
+    console.log(this.activeIndex);
+  },
   methods: {
-
     handleBuy() {
       uni.navigateTo({ url: '/yw/prod-detail/index' })
     },

@@ -124,23 +124,23 @@ export default {
         {
           name: '全部',
           icon: require("@/static/yw/me/orderType/1.png"),
-          request: () => { uni.navigateTo({ url: '/yw/my-order/index' }) }
+          request: () => { uni.navigateTo({ url: '/yw/my-order/index?type=99' }) }
 
         },
         {
           name: '待付款',
           icon: require("@/static/yw/me/orderType/2.png"),
-          request: () => { uni.navigateTo({ url: '/yw/my-order/index' }) }
+          request: () => { uni.navigateTo({ url: '/yw/my-order/index?type=0' }) }
         },
         {
           name: '待发货',
           icon: require("@/static/yw/me/orderType/3.png"),
-          request: () => { uni.navigateTo({ url: '/yw/my-order/index' }) }
+          request: () => { uni.navigateTo({ url: '/yw/my-order/index?type=1' }) }
         },
         {
           name: '已发货',
           icon: require("@/static/yw/me/orderType/4.png"),
-          request: () => { uni.navigateTo({ url: '/yw/my-order/index' }) }
+          request: () => { uni.navigateTo({ url: '/yw/my-order/index?type=2' }) }
         },
       ],
       fxType: [

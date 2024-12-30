@@ -1,19 +1,20 @@
 <template>
   <view class="container">
-    <view class="bgcolor"/> 
+    <view class="bgcolor" />
     <img class="titleBg" src="@/static/yw/shareBg.png">
     <view class="block">
       <view class="avatar">
-        <img class="avatarImg" :src="userInfo.avatar">
+        <img class="avatarImg" :src="!!userInfo.avatar ? userInfo.avatar : defaultImg">
       </view>
       <view class="line1">
-        {{ userInfo.username }}
+        {{ userInfo.nikeName }}
       </view>
       <view class="line2">
         {{ userInfo.phone }}
       </view>
       <view class="line3">
-        <img class="qrCode" :src="userInfo.avatar">
+        <img class="qrCode" :src="!!imgUrl ? imgUrl : defaultImg
+          ">
       </view>
       <view class="line4">
         您的推荐码为
@@ -29,7 +30,7 @@
     <view class="bottom">
       <view class="item" v-for="(item, index) in bottomList" :key="index">
         <img class="icon" :src="item.icon">
-        <view class="tip" >
+        <view class="tip">
           {{ item.tip }}
         </view>
       </view>
@@ -39,18 +40,15 @@
 </template>
 
 <script>
+import { getQR, getYwUserInfo } from '@/api/info'
 
 export default {
 
   data() {
     return {
-
-      userInfo: {
-        avatar: require("@/static/yw/prodDetail.png"),
-        phone: 13333333333,
-        username: 'aa啊啊凡凡',
-        tjm: '56648JHIKLKO'
-      },
+      userInfo: {},
+      imgUrl: '',
+      defaultImg: require("@/static/yw/prodDetail.png"),
       bottomList: [
         {
           tip: '微信好友',
@@ -66,7 +64,14 @@ export default {
 
     };
   },
-
+  created() {
+    getQR().then((res) => {
+      this.imgUrl = res.data.imgBase64
+    })
+    getYwUserInfo().then((res) => {
+      this.userInfo = res.data
+    })
+  },
   methods: {
 
   },
@@ -78,6 +83,7 @@ export default {
   box-sizing: border-box;
   padding: 0 42px;
   padding-top: 120px;
+
   .bgcolor {
     background: #F4F3F2;
     z-index: -2;
@@ -94,6 +100,7 @@ export default {
     left: 0;
     z-index: -1;
   }
+
   .block {
     background-color: #FFFFFF;
     border-radius: 20px;
@@ -173,11 +180,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     .item {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
+
       .icon {
         width: 47px;
         height: 47px;

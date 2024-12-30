@@ -3,23 +3,23 @@
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prod" v-for="(item, index) in prodList" :key="index">
-        <img :src="item.prodImage" class="prodImage" />
+        <img :src="item.imageUrl" class="prodImage" />
         <view class="prodinfo">
           <view class="title">
-            {{ item.title }}
+            {{ item.storeName }}
           </view>
           <view class="gg">
             规格：无
           </view>
           <view class="info">
             <view class="price1">
-              ￥{{ item.price1 }}
+              ￥{{ item.price }}
             </view>
             <view class="price2">
-              ￥{{ item.price2 }}
+              ￥{{ item.otPrice }}
             </view>
             <view class="buy">
-              x1
+              x{{ item.count }}
 
             </view>
 
@@ -27,16 +27,17 @@
         </view>
       </view>
     </view>
+
     <!-- 收货地址 -->
     <view class="address" @click="toAddress">
       <img class="icon" src="@/static/yw/address.png" alt="">
       <view class="content">
-        
-        {{ !!userAddr.realName? userAddr.realName + ' '+ userAddr.phone :'收货地址' }}
+
+        {{ !!userAddr.realName ? userAddr.realName + ' ' + userAddr.phone : '收货地址' }}
 
       </view>
       <view>
-        {{ !!userAddr.district? userAddr.district + userAddr.detail :'' }}
+        {{ !!userAddr.district ? userAddr.district + userAddr.detail : '' }}
       </view>
       <u-icon class="go" name="arrow-right" color="#666666" size="12">
         ></u-icon>
@@ -49,7 +50,7 @@
           商品金额
         </view>
         <view class="value price">
-          ￥{{ orderObj.price }}
+          ￥{{ price }}
         </view>
       </view>
       <view class="infoItem">
@@ -57,7 +58,7 @@
           优惠
         </view>
         <view class="value">
-          -￥{{ orderObj.yh }}
+          -￥{{ yhPrice }}
         </view>
       </view>
       <!-- <view class="infoItem">
@@ -101,10 +102,10 @@
     <view class="bottomViewPlaceholder" />
     <view class="bottomView">
       <view class="left">
-        实付款：￥{{ orderObj.sfk }}
+        实付款：￥{{ price - yhPrice }}
       </view>
 
-      <view class="right">
+      <view class="right" @click="submitOrder">
         提交订单
       </view>
     </view>
@@ -112,49 +113,63 @@
 </template>
 
 <script>
+import { getAddressList, createOrder } from '@/api/info'
 
 export default {
 
   data() {
     return {
-      prodList: [{
-        title: '精品燕窝精品燕窝商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }, {
-        title: '精品燕窝商品标题商品标精品燕窝商品标题精品燕窝商品品标题精品燕窝精品燕窝商品标题商品标题商品标题',
-        price1: 55644,
-        price2: 55644,
-        prodImage: require("@/static/yw/prodDetail.png")
-      }],
-      orderObj: {
-        price: 56588,
-        yh: 0.00,
-        yf: 0.00,
-        djq: true,
-        djqPrice: 0.00,
-        sfk: 56588
+      prodList: [],
 
-      },
       userAddr: {}
     };
   },
+  computed: {
+
+    price() {
+      return this.prodList.reduce((prev, curr) => prev + curr.price * curr.count, 0)
+    },
+    yhPrice() {
+      return this.prodList.reduce((prev, curr) => prev + (curr.price - curr.otPrice) * curr.count, 0)
+    },
+  },
   onShow() {
+    // if (!this.$mp.query.car) 
+    this.prodList = uni.getStorageSync('orderInfoArr')
     const pages = getCurrentPages();
     const currPage = pages[pages.length - 1];
-    console.log(999, currPage);
     if (currPage.selAddress === 'yes') {
       this.userAddr = currPage.item;
       console.log(this.userAddr);
     } else {
-      console.log('获取默认地址');
-      // await getAddress();
+      getAddressList().then((res) => {
+        if (res.data.length > 0) {
+          this.userAddr = res.data[0]
+        }
+      })
     }
   },
 
   methods: {
+    submitOrder() {
+      if (this.userAddr.userAddressId) {
+        const params = {}
+        params.bos = this.prodList.map(item => {
+          return {
+            productId: item.storeProductId,
+            count: item.count,
+          }
+        })
+        params.userAddressId =  this.userAddr.userAddressId
+        // console.log(params);
 
+        createOrder(params).then(res => {
+          console.log(res);
+        })
+      } else {
+        uni.$u.toast('请选择地址');
+      }
+    },
     toAddress() {
       uni.navigateTo({ url: '/yw/address/index' })
 
@@ -220,6 +235,7 @@ export default {
           align-items: flex-end;
           width: 100%;
           box-sizing: border-box;
+          padding-left: 0;
 
           .price1 {
             color: #B1771A;

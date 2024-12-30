@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { getAppExtract } from '@/api/info'
 
 export default {
 
@@ -31,23 +32,16 @@ export default {
       list: [{
         time: '2024.12.01 20:00:00',
         content: '我提现了100元'
-      }, {
-        time: '2024.12.01 20:00:00',
-        content: '我提现了100元'
-      }, {
-        time: '2024.12.01 20:00:00',
-        content: '我提现了100元'
-      }, {
-        time: '2024.12.01 20:00:00',
-        content: '我提现了100元'
-      }, {
-        time: '2024.12.01 20:00:00',
-        content: '我提现了100元'
-      },]
+      }]
 
     };
   },
+  created() {
+    // getAppExtract().then((res) => {
+    //   this.list = res.rows
+    // })
 
+  },
   methods: {
 
   },

@@ -11,11 +11,11 @@
               {{ item.time }}
             </view>
             <view class="tip" >
-              {{ item.content }}
+              {{ item.appUserName }}卖出{{ item.number }}件
             </view>
           </view>
           <view class="content" >
-           帮我收益 <span>{{ item.syPrice }}</span>元
+           帮我收益 <span>{{ item.balance }}</span>元
           </view>
 
         </view>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { getAppIncome } from '@/api/info'
 
 export default {
 
@@ -60,7 +61,13 @@ export default {
 
     };
   },
+  created() {
+    getAppIncome().then((res) => {
+      console.log(res);
+      this.list = res.rows
+    })
 
+  },
   methods: {
 
   },
