@@ -2,73 +2,72 @@
   <view class="container">
     <!-- header -->
     <view class="headerList">
-      <view :class="[Number(activeIndex)  === item.index ? 'activeIndex' : '']" class="headerItem" v-for="(item, index) in headerList"
-        :key="index" @click="() => {
+      <view :class="[Number(activeIndex) === item.index ? 'activeIndex' : '']" class="headerItem"
+        v-for="(item, index) in headerList" :key="index" @click="() => {
           activeIndex = item.index
         }">
         {{ item.title }}
       </view>
     </view>
-
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prodView" v-for="(prodItem, index) in prodList" :key="index">
-        <view class="" v-for="(item, index) in prodItem.cartInfoList" v-if=" !!prodItem.cartInfoList" :key="index">
-          
-    
-        <view class="prod" >
-          <img :src="item.product.imageUrl" class="prodImage" />
-          <view class="prodinfo">
-            <view class="title">
-              {{ item.product.storeName }}
+        <view class="" v-for="(item, index) in prodItem.cartInfoList" v-if="!!prodItem.cartInfoList" :key="index">
+          <view class="prod">
+            <img :src="item.product.imageUrl" class="prodImage" />
+            <view class="prodinfo">
+              <view class="title">
+                {{ item.product.storeName }}
+              </view>
+              <view class="gg">
+                规格：无
+              </view>
+              <view class="info">
+                <view class="price1">
+                  ￥{{ item.product.price }}
+                </view>
+                <view class="price2">
+                  ￥{{ item.product.otPrice }}
+                </view>
+                <view class="buy">
+                  x{{ JSON.parse(item.cartInfo).count }}
+                </view>
+
+              </view>
             </view>
-            <view class="gg">
-              规格：无
+          </view>
+          <view class="jsTabbar">
+            <view class="tip">
+              {{ statusMap[prodItem.status] }}
+
             </view>
+
             <view class="info">
-              <view class="price1">
-                ￥{{ item.product.price }}
+              <view class="info1">
+                实付款
               </view>
-              <view class="price2">
-                ￥{{ item.product.otPrice }}
-              </view>
-              <view class="buy">
-                x{{ JSON.parse(item.cartInfo).count }}
-              </view>
+              <view class="info2">
 
+                <view class="num">
+                  ￥{{ prodItem.payPrice }}
+                </view>
+              </view>
+            </view>
+            <view class="btn" v-if="prodItem.status === 0">
+              立即付款
+            </view>
+            <view class="btn" v-if="prodItem.status === 2" @click="handleSh(prodItem.orderId)">
+              确认收货
             </view>
           </view>
         </view>
-        <view class="jsTabbar">
-          <view class="tip" >
-            {{ statusMap[item.status] }}
-            
-          </view>
-
-          <view class="info">
-            <view class="info1">
-              实付款
-            </view>
-            <view class="info2">
-              
-              <view class="num" >
-                ￥9999
-              </view>
-
-            </view>
-          </view>
-          <view class="btn">
-            立即付款
-          </view>
-        </view>
-      </view>
       </view>
     </view>
   </view>
 </template>
 
 <script>
-import { getOrderList } from '@/api/info'
+import { getOrderList, takeOrder } from '@/api/info'
 
 export default {
   data() {
@@ -91,39 +90,52 @@ export default {
       ],
       activeIndex: 99,
       prodList: [],
-      statusMap:{
-        0:'待付款',
-        1:'待发货',
-        2:'已发货',
+      statusMap: {
+        0: '待付款',
+        1: '待发货',
+        2: '已发货',
       }
     };
   },
   computed: {
-		
-		},
+
+  },
   watch: {
     activeIndex: {
-            handler (val) {
-                const params  = {
-                  pageSize:99,
-                  pageNum:1
-                }
-                if( Number(val)!==99){
-                  params.status = val
-                }
-                getOrderList(params).then(res=>{
-                  this.prodList = res.rows
-                  console.log(res);
-                })
-            },
-            immediate: true,
-        },
+      handler(val) {
+        const params = {
+          pageSize: 99,
+          pageNum: 1
+        }
+        if (Number(val) !== 99) {
+          params.status = val
+        }
+        getOrderList(params).then(res => {
+          this.prodList = res.rows
+        })
+      }
+
     },
-  onShow() {
-    this.activeIndex =   this.$mp.query.type
-    console.log(this.activeIndex);
+  },
+  created() {
+    // 不再直接赋值，而是通过 $nextTick 确保 DOM 更新后再处理
+    this.$nextTick(() => {
+      this.activeIndex = this.$mp.query.type || 99; // 提供默认值以防 undefined
+    });
   },
   methods: {
+    handleSh(orderId) {
+      takeOrder({
+        orderId
+      }).then(res => {
+        uni.$u.toast('收货成功');
+        getOrderList({
+          status:2
+        }).then(res => {
+          this.prodList = res.rows
+        })
+      })
+    },
     handleBuy() {
       uni.navigateTo({ url: '/yw/prod-detail/index' })
     },
@@ -173,8 +185,9 @@ export default {
         box-sizing: border-box;
         align-items: center;
         background-color: #fff;
-        .tip{
-          color: rgba(177, 119, 26,.6);
+
+        .tip {
+          color: rgba(177, 119, 26, .6);
           font-size: 14px;
           font-weight: 500;
         }
@@ -193,7 +206,7 @@ export default {
           margin-right: 13px;
 
           .info1 {
-            
+
             color: #666666;
             font-size: 16px;
             font-weight: 500;
@@ -205,7 +218,7 @@ export default {
             display: flex;
             align-items: center;
 
-           
+
 
             .num {
               color: #B1771A;
@@ -233,7 +246,7 @@ export default {
 
         display: flex;
 
-       
+
 
         .prodImage {
           width: 107px;

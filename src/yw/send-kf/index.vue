@@ -8,7 +8,7 @@
           留言
         </view>
         <view class="content">
-          <u-textarea v-model="form.receiver" placeholder="请输入你想说的话" />
+          <u-textarea v-model="userContent" placeholder="请输入你想说的话" />
 
         </view>
       </view>
@@ -23,22 +23,22 @@
 </template>
 
 <script>
+import { postLY } from '@/api/info'
 
 export default {
-
   data() {
     return {
-      form: {
-        receiver: ''
-      },
-      isShowPassword: true,
-
+      userContent:'',
     };
   },
-
   methods: {
     send(){
-      uni.$u.toast('留言成功')
+      postLY({
+        userContent:this.userContent
+      }).then(res=>{
+        console.log(res);
+        uni.$u.toast('留言成功')
+      })
     }
   },
 };

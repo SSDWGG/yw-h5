@@ -2,7 +2,7 @@
   <view class="container">
 
     <view class="line1">
-      团队人数：{{ allPersonNum }} 人
+      团队人数：{{ obj.teamCount }} 人
     </view>
 
     <view class="line2">
@@ -10,7 +10,7 @@
         团队总业绩（元）
       </view>
       <view class="right">
-        {{ yjPrice }}
+        {{ obj.teamBrokerage }}
       </view>
     </view>
     <view class="line3">
@@ -22,57 +22,58 @@
           成员总业绩
         </view>
       </view>
-      <view class="list">
-        <view class="item" v-for="(item, index) in list" :key="index">
-          <view class="index" >
+      <view class="list" v-if="activeIndex === 0">
+        <view class="item" v-for="(item, index) in obj.todayTeamUserList" :key="index">
+          <view class="index">
             {{ index + 1 }}
-
           </view>
-          <view class="name" >
-            {{ item.name }}
+          <view class="name">
+            {{ item.userName }}
           </view>
-          <view class="price" >
-            ￥{{ item.price }}
+          <view class="price">
+            ￥{{ item.brokerage }}
           </view>
         </view>
-
+        <view class="empty" v-if="obj.todayTeamUserList.length===0">
+          暂无业绩
+        </view>
+      </view>
+      <view class="list" v-else>
+        <view class="item" v-for="(item, index) in obj.totalTeamUserList" :key="index">
+          <view class="index">
+            {{ index + 1 }}
+          </view>
+          <view class="name">
+            {{ item.userName }}
+          </view>
+          <view class="price">
+            ￥{{ item.brokerage }}
+          </view>
+        </view>
+        <view class="empty" v-if="obj.totalTeamUserList.length===0">
+          暂无业绩
+        </view>
       </view>
     </view>
   </view>
 </template>
 
 <script>
+import { getTeamData } from '@/api/info'
 
 export default {
 
   data() {
     return {
-      allPersonNum: 50,
-      yjPrice: 123123,
       activeIndex: 0,
-      list: [{
-        name: '赵二虎',
-        price: 200
-      }, {
-        name: '赵二虎',
-        price: 200
-      }, {
-        name: '赵二虎',
-        price: 200
-      }, {
-        name: '赵二虎',
-        price: 200
-      }, {
-        name: '赵二虎',
-        price: 200
-      }, {
-        name: '赵二虎',
-        price: 200
-      }]
-
+      obj: {}
     };
   },
- 
+  created() {
+    getTeamData().then(res => {
+      this.obj = res.data
+    })
+  },
   methods: {
 
   },
@@ -162,15 +163,21 @@ export default {
         font-size: 14px;
         margin-bottom: 12px;
 
-        .index{
+        .index {
           width: 30px;
           color: #462906;
         }
+
         .name {
           flex: 1;
         }
 
         .price {}
+      }
+      .empty{
+        text-align: center;
+        font-size: 16px;
+        padding: 20px;
       }
     }
   }

@@ -198,3 +198,24 @@ export function getAppExtract() {
     method: 'get'
   })
 }
+// 留言
+export function postLY(data) {
+  return request({
+    url: '/system/userLeave' ,
+    method: 'post',
+    data
+  })
+}
+export function getTeamData() {
+  return request({
+    url: '/app/user/teamData' ,
+    method: 'get'
+  })
+}
+export function takeOrder(data) {
+  return request({
+    url: '/app/storeOrder/takeOrder' ,
+    method: 'post',
+    data
+  })
+}
