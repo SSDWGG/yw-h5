@@ -117,7 +117,7 @@ export default {
       margin-top: 36px;
 
       .txt {
-        width: 30px;
+        width: 28px;
         z-index: 999;
         position: absolute;
         display: flex;
@@ -203,9 +203,10 @@ export default {
         .price2 {
           font-family: Source Han Serif CN-Sem;
           color: rgba(70, 41, 6,.3);
-          font-weight: 400;
           text-decoration: line-through;
           font-size: 14px;
+          font-weight: 500;
+
         }
 
         .buy {

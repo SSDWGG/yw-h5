@@ -76,6 +76,9 @@ export default {
 ::v-deep .u-tabbar-item__text{
   margin-top: 3px;
 }
+::v-deep .u-tabbar-item{
+  margin-bottom: 10px;
+}
 
 
 ::v-deep .tabbar-ios-fix {

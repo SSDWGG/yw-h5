@@ -312,6 +312,8 @@ export default {
               font-size: 12px;
               font-weight: SemiBold;
               text-decoration: line-through;
+              font-weight: 500;
+
             }
 
             .buy {

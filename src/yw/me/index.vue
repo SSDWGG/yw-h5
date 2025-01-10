@@ -357,7 +357,7 @@ export default {
       align-items: center;
       justify-content: space-between;
       padding: 10px 16px;
-      border-bottom: 1px solid rgba(70, 41, 6, .1);
+      border-bottom: 1px solid rgba(70, 41, 6,.1) ;
 
       .txt {
         color: #222222;

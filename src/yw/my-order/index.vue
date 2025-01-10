@@ -38,7 +38,8 @@
           </view>
           <view class="jsTabbar">
             <view class="tip">
-              {{ statusMap[prodItem.status] }}
+              <!-- {{ statusMap[prodItem.status] }} -->
+              {{prodItem.statusName }}
 
             </view>
 
@@ -53,10 +54,10 @@
                 </view>
               </view>
             </view>
-            <view class="btn" v-if="prodItem.status === 0">
+            <view class="btn" v-if="prodItem.statusName === '待付款'">
               立即付款
             </view>
-            <view class="btn" v-if="prodItem.status === 2" @click="handleSh(prodItem.orderId)">
+            <view class="btn" v-if="prodItem.statusName === '待收货'" @click="handleSh(prodItem.storeOrderId)">
               确认收货
             </view>
           </view>
@@ -124,9 +125,9 @@ export default {
     });
   },
   methods: {
-    handleSh(orderId) {
+    handleSh(storeOrderId) {
       takeOrder({
-        orderId
+        storeOrderId
       }).then(res => {
         uni.$u.toast('收货成功');
         getOrderList({
@@ -295,7 +296,7 @@ export default {
             .price1 {
               color: #B1771A;
               font-size: 16px;
-              font-weight: SemiBold;
+              font-weight: 500;
               margin-right: 8px;
               font-family: Source Han Serif CN-Sem;
             }
@@ -304,7 +305,7 @@ export default {
               font-family: Source Han Serif CN-Sem;
               color: #999999;
               font-size: 12px;
-              font-weight: SemiBold;
+              font-weight: 500;
               text-decoration: line-through;
             }
 

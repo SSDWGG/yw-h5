@@ -240,7 +240,7 @@ export default {
           .price1 {
             color: #B1771A;
             font-size: 16px;
-            font-weight: SemiBold;
+            font-weight: 500;
             margin-right: 8px;
             font-family: Source Han Serif CN-Sem;
           }
@@ -249,7 +249,7 @@ export default {
             font-family: Source Han Serif CN-Sem;
             color: #999999;
             font-size: 12px;
-            font-weight: SemiBold;
+            font-weight: 500;
             text-decoration: line-through;
           }
 
@@ -349,6 +349,8 @@ export default {
       font-size: 16px;
       margin-left: 20px;
       font-family: PingFang SC-Regular;
+      font-weight: 500;
+
     }
 
     .right {

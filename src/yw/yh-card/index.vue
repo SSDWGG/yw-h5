@@ -27,20 +27,20 @@
         </view>
       </view>
 
-      <view class="item">
+      <!-- <view class="item">
         <view class="lable">
           银行行号
         </view>
         <view class="content">
-          <u-input v-model="form.bankNumber" placeholder="请输入银行行号" />
+          <u-input v-model="form.bankNumber" placeholder="请输入银行行号" /> -->
 
           <!-- <view class="chooseYh" @click="show = true">
            {{ !!form.yhName?form.yhName:'请选择银行'}} 
           </view> -->
           <!-- <u-picker :show="show" :columns="columns" @confirm="handleConfirmPicker"
             @cancel="handleCalcelPicker"></u-picker> -->
-        </view>
-      </view>
+        <!-- </view>
+      </view> -->
 
       <view class="item">
         <view class="lable">
