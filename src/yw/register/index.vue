@@ -84,7 +84,7 @@
 </template>
 <script>
 import Card from '@/components/Card.vue'
-import { appRegister,appResetPwd } from '@/api/login'
+import { appRegister,appResetPwd,getSysCode } from '@/api/login'
 
 export default {
   components: {
@@ -178,6 +178,8 @@ export default {
             clearInterval(this.intervalTimer);
           }
         }, 1000)
+        getSysCode(this.form.phone)
+
       } else {
         uni.showToast({
           title: '请输入正确的手机号',

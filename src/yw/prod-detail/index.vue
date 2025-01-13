@@ -23,6 +23,33 @@
         iconStyle="color: #fff"></u-number-box>
     </view>
 
+    <view class=" cell2">
+      <view class="titleMain">
+        服务
+      </view>
+      <view class="title">
+        免费上门退
+      </view>
+
+      <view class="content">
+        商家免费赠送上门退，退换货选上门取件，可自动抵扣邮费（含续重），最高可赔25元；若选择自寄 ，理赔金额参考两地之间快递首重邮费，具体以“订单详情-退货包运费”页面为准。
+      </view>
+
+
+
+      <view class="title">
+        收货后结算
+      </view>
+
+      <view class="content">
+        该店铺交易由微信提供资金存管服务，当符合以下条件时，资金自动结算给商家：买家确认收货或到达约定的自动确认收货日期。交易资金未经微信存管的情（储存值、电子卡券等）不在本服务范围内。
+      </view>
+
+      <view class="title">
+        客服电话：15155500918
+      </view>
+    </view>
+
     <view class="prodDetailInfo">
       产品详情
     </view>
@@ -87,7 +114,7 @@ export default {
     },
     addCar() {
       addToCar({
-        productId:this.$mp.query.storeProductId,
+        productId: this.$mp.query.storeProductId,
         cartNum: this.numValue
       }).then(res => {
         uni.showToast({
@@ -98,7 +125,7 @@ export default {
 
     },
     buyNow() {
-      this.prodInfo.count =  this.numValue
+      this.prodInfo.count = this.numValue
       uni.setStorageSync('orderInfoArr', [this.prodInfo])
       uni.navigateTo({ url: '/yw/submit/index' })
     }
@@ -117,6 +144,36 @@ export default {
     padding: 15px 17px;
     background-color: #fff;
     border-radius: 6px;
+  }
+
+  .cell2 {
+    padding: 8px 16px;
+    background-color: #fff;
+    border-radius: 6px;
+
+    margin: 10px;
+
+    .titleMain {
+      color: #999999;
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 9px;
+    }
+
+    .title {
+      color: #666666;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 5px;
+
+    }
+
+    .content {
+      color: #999999;
+      font-size: 12px;
+      font-size: 400;
+      margin-bottom: 18px;
+    }
   }
 
   .info {
