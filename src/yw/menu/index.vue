@@ -46,6 +46,24 @@
         </view>
       </view>
     </view>
+
+    <view class="menuBottom">
+        <view class="line1" >
+          <view @click="previewImg" >
+            营业执照
+          </view>
+           <view class="line0" /> icp备案：皖ICP备2025072638号
+        </view>
+        <view class="line2">
+          客服热线：4180995 
+        </view>
+        <view class="line2">
+          公司名称：安徽金义源供应链有限公司 
+        </view>
+        <view class="line2">
+          地址：安徽省宣城市宁国市西津街道青龙东路津桥学苑1幢1009、2009号
+        </view>
+    </view>
     <Tabbar current="首页"></Tabbar>
   </view>
 </template>
@@ -78,6 +96,11 @@ export default {
   },
 
   methods: {
+    previewImg(){
+      uni.previewImage({
+        urls:['https://ywmall.ssdwgg.cn/mall/2025/01/20/8d64ec99576546599c726aa4d7c3893d.jpg']
+      })
+    },
     toProdList(item){
       console.log(item.isVip);
       if(item.isVip==='1'){
@@ -223,6 +246,40 @@ export default {
 
         }
       }
+    }
+  }
+  .menuBottom{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    .line1{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666666;
+      font-size: 11px;
+      font-weight: 300;
+      margin-bottom: 20px;
+      .line0{
+        border-left: 1px solid #666;
+        width: 0;
+        height: 7px;
+        margin: 0 15px;
+      }
+    }
+    .line2{
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 11px;
+      font-weight: 300;
+      text-align: center;
     }
   }
 }
