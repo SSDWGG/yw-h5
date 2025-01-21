@@ -14,8 +14,8 @@ const Instance = axios.create({
   // baseURL: process.env.NODE_ENV === 'development' ? '/api' : 'https://gayws.wuchuangroup.com:8443',
   //   baseURL: process.env.NODE_ENV === 'development' ? '/api': 'http://192.168.40.96:8896',
   // #endif
-  baseURL: "https://ywmall.ssdwgg.cn", // 正式地址
-  // baseURL: 'http://9hxpfi.natappfree.cc', // 测试
+  // baseURL: "https://ywmall.ssdwgg.cn", // 正式地址
+  baseURL: 'https://jinriyouli.cn/api/', // 测试
   timeout: 60 * 1000,
   adapter: axiosAdapterUniapp,
 });

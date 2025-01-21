@@ -52,7 +52,10 @@
           <view @click="previewImg" >
             营业执照
           </view>
-           <view class="line0" /> icp备案：皖ICP备2025072638号
+           <view class="line0" /> 
+           <a href="https://beian.miit.gov.cn/index.html#/Integrated/recordQuery">
+           icp备案：皖ICP备2025072638号
+          </a>
         </view>
         <view class="line2">
           客服热线：4180995 
@@ -97,6 +100,11 @@ export default {
 
   methods: {
     previewImg(){
+      uni.previewImage({
+        urls:['https://ywmall.ssdwgg.cn/mall/2025/01/20/8d64ec99576546599c726aa4d7c3893d.jpg']
+      })
+    },
+    previewImg2(){
       uni.previewImage({
         urls:['https://ywmall.ssdwgg.cn/mall/2025/01/20/8d64ec99576546599c726aa4d7c3893d.jpg']
       })
