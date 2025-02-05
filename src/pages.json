@@ -17,14 +17,16 @@
         "navigationBarTitleText": "注册"
 
 			}
-		}, {
+		},
+    {
 			"path": "yw/menu/index",
 			"style": {
 				"navigationStyle": "custom",
-        "navigationBarTitleText": "今日有礼"
+        "navigationBarTitleText": "金义源官网"
 
 			}
-		}, {
+		}, 
+    {
 			"path": "yw/car/index",
 			"style": {
 				"navigationStyle": "custom",
@@ -150,14 +152,37 @@
         "navigationBarTitleText": "提现"
 
 			}
-		}, {
+		},
+     {
 			"path": "yw/hy/index",
 			"style": {
 				"navigationStyle": "custom",
         "navigationBarTitleText": "会员权益"
 
 			}
-		}
+		  },
+      {
+        "path": "yw/gsjs/index",
+        "style": {
+          "navigationStyle": "custom",
+          "navigationBarTitleText": "公司介绍"
+  
+        }
+        }, {
+          "path": "yw/lxkf/index",
+          "style": {
+            "navigationStyle": "custom",
+            "navigationBarTitleText": "联系客服"
+    
+          }
+          }, {
+            "path": "yw/shfw/index",
+            "style": {
+              "navigationStyle": "custom",
+              "navigationBarTitleText": "售后服务"
+      
+            }
+            }
 	],
 	"subPackages":[],
 	"tabBar": {

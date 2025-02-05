@@ -11,8 +11,13 @@
         <img :src="item.picUrl" class="bg" />
       </view>
     </view>
-    <!-- 会员 -->
+
+    <!-- 春节活动 -->
     <view class="hy">
+      <img src="@/static/yw/announcement.png" class="hyiconAll"/>
+    </view>
+     <!-- 会员 -->
+     <!-- <view class="hy"> -->
       <!-- <img src="@/static/yw/hyicon.png" class="hyicon" />
       <view class="txt">
         会员终身制 享¥46/盒
@@ -21,8 +26,9 @@
         <u-icon name="arrow-right" color="#B1742F" size="12">
           ></u-icon>
       </view> -->
-      <img src="@/static/yw/hycardrk.png" class="hyiconAll" @click="toHy" />
-    </view>
+      <!-- <img src="@/static/yw/hycardrk.png" class="hyiconAll" @click="toHy" />
+    </view> -->
+
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prod" v-for="(item,index) in prodList" :key="index" @click="handleBuy(item.storeProductId)">
@@ -110,7 +116,7 @@ export default {
       })
     },
     toProdList(item){
-      console.log(item.isVip);
+      console.log(item);
       if(item.isVip==='1'){
         uni.navigateTo({ url: '/yw/prod-list/index?isVip=true' })
       }else{
