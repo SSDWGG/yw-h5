@@ -62,15 +62,20 @@ export default {
     };
   },
   created() {
-    console.log(!!this.$mp.query.isVip);
+    console.log(this.$mp.query.storeCategoryId);
     // if(!!this.$mp.query.isVip){
     //   getAddressItem(this.$mp.query.userAddressId).then(res => {
     //     this.form = res.data
     // })
     // }
-    const vipParams = {isVip:1}
+    // const vipParams = {isVip:1}
+    // getProdList(
+    //   !!this.$mp.query.isVip?  vipParams:{}
+    // ).then((res)=>{
+    //   this.prodList = res.rows
+    // })
     getProdList(
-      !!this.$mp.query.isVip?  vipParams:{}
+     {storeCategoryId:this.$mp.query.storeCategoryId}
     ).then((res)=>{
       this.prodList = res.rows
     })

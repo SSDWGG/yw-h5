@@ -1,14 +1,17 @@
 <template>
   <view class="container">
-    <u-swiper :list="bannerlist" indicator height='220px'  keyName="bannerImageUrl"></u-swiper>
+    <img class="titleBg" src="@/static/yw/menuImg.jpg">
+
+    <u-swiper :list="bannerlist" indicator height='220px'  keyName="bannerImageUrl" @click="handleClickBanner"></u-swiper>
 
     <!-- 入口 -->
     <view class="rkList">
       <view class="rkItem" v-for="(item, index) in rkList" :key=index @click="toProdList(item)">
+        
+        <img :src="item.picUrl" class="bg" />
         <view class="txt">
           {{ item.cateName }}
         </view>
-        <img :src="item.picUrl" class="bg" />
       </view>
     </view>
 
@@ -30,6 +33,7 @@
     </view> -->
 
     <!-- 商品卡片 -->
+    <view class="tip">店铺主推</view>
     <view class="prodList">
       <view class="prod" v-for="(item,index) in prodList" :key="index" @click="handleBuy(item.storeProductId)">
         <img :src="item.imageUrl" class="prodImage" />
@@ -105,6 +109,11 @@ export default {
   },
 
   methods: {
+    handleClickBanner(index){
+      console.log(this.bannerlist[index].bannerId);
+      uni.navigateTo({ url: `/yw/prod-detail/index?storeProductId=1886971318692491265` })
+
+    },
     previewImg(){
       uni.previewImage({
         urls:['https://ywmall.ssdwgg.cn/mall/2025/01/20/8d64ec99576546599c726aa4d7c3893d.jpg']
@@ -117,10 +126,18 @@ export default {
     },
     toProdList(item){
       console.log(item);
-      if(item.isVip==='1'){
-        uni.navigateTo({ url: '/yw/prod-list/index?isVip=true' })
-      }else{
-        uni.navigateTo({ url: '/yw/prod-list/index' })
+      if(item.cateName==='公司介绍'){
+        uni.navigateTo({ url: '/yw/gsjs/index' })
+      } else if(item.cateName==='联系客服'){
+        uni.navigateTo({ url: '/yw/lxkf/index' })
+      }else if(item.cateName==='售后服务'){
+        uni.navigateTo({ url: '/yw/shfw/index' })
+      }
+    //  else if(item.isVip==='1'){
+    //     uni.navigateTo({ url: '/yw/prod-list/index?isVip=true' })
+    //   }
+      else{
+        uni.navigateTo({ url: '/yw/prod-list/index?storeCategoryId='+item.storeCategoryId })
       }
      
     },
@@ -137,10 +154,21 @@ export default {
 <style lang="scss" scoped>
 .container {
   padding: 15px 16px;
+  padding-top: 60px;
   background: #fff;
+  height: 100vh;
+
+  .titleBg {
+    width: 100vw;
+    position: absolute;
+    top: -100px;
+    left: 0;
+    // z-index: -1;
+  }
 
   .rkList {
     display: flex;
+    flex-wrap: wrap;
 
     .rkItem {
       flex: 1;
@@ -149,18 +177,21 @@ export default {
       font-size: 14px;
       position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      margin-top: 36px;
+      // justify-content: center;
+      margin-top: 20px;
 
       .txt {
-        width: 28px;
+        // width: 28px;
         z-index: 999;
-        position: absolute;
+        color: #222222;
+        font-weight: 500;
+        // position: absolute;
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
       }
 
       .bg {
@@ -201,6 +232,14 @@ export default {
       align-items: center;
       justify-content: flex-end;
     }
+  }
+  .tip{
+    color: #222222;
+    padding-top: 26px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-weight: 500;
+
   }
 
   .prodList {
