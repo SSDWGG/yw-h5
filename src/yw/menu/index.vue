@@ -2,12 +2,11 @@
   <view class="container">
     <img class="titleBg" src="@/static/yw/menuImg.jpg">
 
-    <u-swiper :list="bannerlist" indicator height='220px'  keyName="bannerImageUrl" @click="handleClickBanner"></u-swiper>
+    <u-swiper radius="10" :list="bannerlist" indicator height='220px'  keyName="bannerImageUrl" @click="handleClickBanner"></u-swiper>
 
     <!-- 入口 -->
     <view class="rkList">
       <view class="rkItem" v-for="(item, index) in rkList" :key=index @click="toProdList(item)">
-        
         <img :src="item.picUrl" class="bg" />
         <view class="txt">
           {{ item.cateName }}
@@ -154,21 +153,24 @@ export default {
 <style lang="scss" scoped>
 .container {
   padding: 15px 16px;
-  padding-top: 60px;
+  padding-top: 70px;
   background: #fff;
   height: 100vh;
 
   .titleBg {
     width: 100vw;
     position: absolute;
-    top: -100px;
+    top: -60px;
     left: 0;
     // z-index: -1;
   }
 
   .rkList {
-    display: flex;
-    flex-wrap: wrap;
+    // display: flex;
+    // flex-wrap: wrap;
+    display: grid;
+    grid-template-columns:  repeat(3, 1fr);;
+
 
     .rkItem {
       flex: 1;
@@ -195,8 +197,8 @@ export default {
       }
 
       .bg {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
       }
     }
   }
