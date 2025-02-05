@@ -39,8 +39,13 @@
           </view>
         </view>
       </u-swipe-action-item>
-
     </u-swipe-action>
+    <view class="empty" v-if="prodList.length===0">
+      <img src="@/static/yw/emptyCar.png" />
+      <view class="txt">
+        购物车空空如也~
+      </view>
+    </view>
 
     <!-- 结算栏 -->
     <view class="jsTabbar">
@@ -155,6 +160,21 @@ export default {
   box-sizing: border-box;
   position: relative;
   padding-bottom: calc(50px + env(safe-area-inset-bottom));
+  .empty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 150px;
+    img{
+      width: 130px;
+      height: 130px;
+    }
+    .txt{
+      color: #C5C5C5;
+      padding-top: 14px;
+    }
+  }
 
   .jsTabbar {
     position: fixed;

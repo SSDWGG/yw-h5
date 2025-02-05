@@ -132,7 +132,7 @@ export default {
     .line1 {
       color: #000000;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .line2 {
@@ -140,18 +140,18 @@ export default {
       font-weight: 400;
       font-size: 12px;
       margin-bottom: 4px;
-      margin-bottom: 30px;
+      // margin-bottom: 30px;
     }
 
     .line3 {
       .qrCode {
-        width: 140px;
-        height: 140px;
+        width: 240px;
+        height: 240px;
       }
     }
 
     .line4 {
-      margin-top: 50px;
+      margin-top: 0px;
       background-color: #FBFBFB;
       padding: 8px 0;
       display: flex;
