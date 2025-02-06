@@ -100,7 +100,7 @@
         },
         "router" : {
             "mode" : "history",
-            "base" : "./"
+            "base" : "/"
         },
         "devServer" : {
             "proxy" : {

@@ -185,6 +185,9 @@
             }
 	],
 	"subPackages":[],
+  "router": {
+    "mode": "history"
+  },
 	"tabBar": {
 		"color": "#666666",
 		"iconWidth": "12px",
