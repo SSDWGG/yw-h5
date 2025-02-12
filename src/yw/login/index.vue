@@ -35,17 +35,15 @@
 
             </u--input>
           </u-form-item>
-          <u-form-item prop="code">
+          <!-- <u-form-item prop="code">
             <u--input v-model="form.code" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
               prefixIcon="fingerprint" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
               placeholder="请输入验证码">
-              <!-- <template slot="suffix">
-                <u-button text="发送验证码"></u-button>
-              </template> -->
+            
             </u--input>
             <u-button class="code" customStyle="border: none;" :disabled="canSendTime > 0" @click="sendSms" :text="canSendTime > 0 ? `重发${canSendTime}秒` : '发送验证码'
               "></u-button>
-          </u-form-item>
+          </u-form-item> -->
           <u-form-item style="margin-top:18px">
             <view class="footer" hover-class="none">
               <u-button customStyle="border-radius: 6px;" color="#EF432A" text="登 陆" class="btn"
