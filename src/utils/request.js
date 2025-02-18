@@ -22,8 +22,8 @@ const Instance = axios.create({
 Instance.interceptors.request.use(
   (config) => {
     // 如果已登录 则获取token
-    // const token = uni.getStorageSync("access_token");
-    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhcHBfdXNlcjoxODc4NjA4MzYyOTA2Mzk0NjI2Iiwicm5TdHIiOiJDUzdnYjJwWGdOam5UV28zM2FJb1BrZFZWcGlLNTQyQyIsInRlbmFudElkIjoiMDAwMDAwIiwidXNlcklkIjoxODc4NjA4MzYyOTA2Mzk0NjI2LCJ1c2VyTmFtZSI6IndnZyJ9.crphuXPUBbDq814qItPHT_HE_2KC7I4K8wYlRt5YsHE';
+    const token = uni.getStorageSync("access_token");
+    // const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhcHBfdXNlcjoxODc4NjA4MzYyOTA2Mzk0NjI2Iiwicm5TdHIiOiJDUzdnYjJwWGdOam5UV28zM2FJb1BrZFZWcGlLNTQyQyIsInRlbmFudElkIjoiMDAwMDAwIiwidXNlcklkIjoxODc4NjA4MzYyOTA2Mzk0NjI2LCJ1c2VyTmFtZSI6IndnZyJ9.crphuXPUBbDq814qItPHT_HE_2KC7I4K8wYlRt5YsHE';
     config.headers["Authorization"] = "Bearer " + token;
     if (config.method === "post") {
       // if (config.contentType === 'json') {
