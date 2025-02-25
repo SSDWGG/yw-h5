@@ -12,7 +12,7 @@
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prodView" v-for="(prodItem, index) in prodList" :key="index">
-        <view class="" v-for="(item, index) in prodItem.cartInfoList" v-if="!!prodItem.cartInfoList" :key="index">
+        <view class="skuItem" v-for="(item, index) in prodItem.cartInfoList" v-if="!!prodItem.cartInfoList" :key="index">
           <view class="prod">
             <img :src="item.product.imageUrl" class="prodImage" />
             <view class="prodinfo">
@@ -36,7 +36,9 @@
               </view>
             </view>
           </view>
-          <view class="jsTabbar">
+         
+        </view>
+        <view class="jsTabbar">
             <view class="tip">
               <!-- {{ statusMap[prodItem.status] }} -->
               {{prodItem.statusName }}
@@ -54,21 +56,20 @@
                 </view>
               </view>
             </view>
-            <view class="btn" v-if="prodItem.statusName === '待付款'">
+            <view class="btn" v-if="prodItem.statusName === '未支付'" @click="handleBuy(prodItem.storeOrderId)">
               立即付款
             </view>
             <view class="btn" v-if="prodItem.statusName === '待收货'" @click="handleSh(prodItem.storeOrderId)">
               确认收货
             </view>
           </view>
-        </view>
       </view>
     </view>
   </view>
 </template>
 
 <script>
-import { getOrderList, takeOrder } from '@/api/info'
+import { getOrderList, takeOrder,payOrder } from '@/api/info'
 
 export default {
   data() {
@@ -137,8 +138,24 @@ export default {
         })
       })
     },
-    handleBuy() {
-      uni.navigateTo({ url: '/yw/prod-detail/index' })
+    handleBuy(storeOrderId) {
+      if ((/micromessenger/.test(navigator.userAgent.toLowerCase()))) {
+            // 带着orderId跳转到支付页逻辑
+            console.log('微信浏览器');
+            payOrder(storeOrderId).then(e => {
+              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cn/yw/pay-result/index?storeOrderId='+storeOrderId);
+              console.log(redirect_url, document.referrer, 999);
+              window.location.href = redirect_url
+            })
+          } else {
+            console.log('非微信浏览器');
+            // 执行H5支付中的创建订单之后的逻辑
+            payOrder(storeOrderId).then(e => {
+              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cn/yw/pay-result/index?storeOrderId='+storeOrderId);
+              console.log(redirect_url, document.referrer, 999);
+              window.location.href = redirect_url
+            })
+          }
     },
   },
 };
@@ -177,6 +194,9 @@ export default {
       border-radius: 10px;
       background-color: #fff;
       margin-bottom: 16px;
+      .skuItem{
+        margin-bottom: 10px;
+      }
 
       .jsTabbar {
 
