@@ -113,15 +113,15 @@
 </template>
 
 <script>
-import { getAddressList, createOrder, payOrder,jsapiPayOrder } from '@/api/info'
+import { getAddressList, createOrder, payOrder, jsapiPayOrder } from '@/api/info'
 
 export default {
 
   data() {
     return {
       prodList: [],
-
-      userAddr: {}
+      userAddr: {},
+      storeOrderId:''
     };
   },
   computed: {
@@ -151,6 +151,35 @@ export default {
   },
 
   methods: {
+    // data为网页端接口请求参数列表
+    onBridgeReady(data) {
+      let that = this
+      WeixinJSBridge.invoke(
+        "getBrandWCPayRequest",
+        {
+          // 公众号名称，由商户传入
+          appId: data.appid,
+          // 时间戳，自1970年以来的秒数
+          timeStamp: Math.floor(Date.now() / 1000),
+          // 随机串
+          nonceStr: data.nonceStr,
+          package: 'prepay_id='+data.prepayId,
+          // 微信签名方式：
+          signType: "RSA",
+          // 微信签名
+          paySign: data.sign,
+        },
+        function (res) {
+          if (res.err_msg == "get_brand_wcpay_request:ok") {
+            // 使用以上方式判断前端返回,微信团队郑重提示：
+            // res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+            console.log('支付完成',that.storeOrderId);
+            uni.navigateTo({ url: '/yw/pay-result/index?storeOrderId='+that.storeOrderId })
+
+          }
+        }
+      );
+    },
     submitOrder() {
       if (this.userAddr.userAddressId) {
         const params = {}
@@ -161,19 +190,32 @@ export default {
           }
         })
         params.userAddressId = this.userAddr.userAddressId
+
+        let that = this
         createOrder(params).then(res => {
           console.log((/micromessenger/.test(navigator.userAgent.toLowerCase())));
           if ((/micromessenger/.test(navigator.userAgent.toLowerCase()))) {
             // 带着orderId跳转到支付页逻辑
             console.log('微信浏览器');
+            this.storeOrderId = res.data.storeOrderId
             jsapiPayOrder(res.data.storeOrderId).then(e => {
-              console.log(e);
+              console.log(e.data);
+              if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                  document.addEventListener("WeixinJSBridgeReady", onBridgeReady, false);
+                } else if (document.attachEvent) {
+                  document.attachEvent("WeixinJSBridgeReady", onBridgeReady);
+                  document.attachEvent("onWeixinJSBridgeReady", onBridgeReady);
+                }
+              } else {
+                that.onBridgeReady(e.data);
+              }
             })
           } else {
             console.log('非微信浏览器');
             // 执行H5支付中的创建订单之后的逻辑
             payOrder(res.data.storeOrderId).then(e => {
-              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cn/yw/pay-result/index?storeOrderId='+res.data.storeOrderId);
+              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cn/yw/pay-result/index?storeOrderId=' + res.data.storeOrderId);
               console.log(redirect_url, document.referrer, 999);
               window.location.href = redirect_url
             })
