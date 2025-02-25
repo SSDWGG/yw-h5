@@ -151,10 +151,6 @@ export default {
   },
 
   methods: {
-    isWx() {
-      let uAgent = navigator.userAgent.toLowerCase();
-      reutrn(/micromessenger/.test(uAgent)) ? true : false;
-    },
     submitOrder() {
       if (this.userAddr.userAddressId) {
         const params = {}
@@ -166,17 +162,22 @@ export default {
         })
         params.userAddressId = this.userAddr.userAddressId
         createOrder(params).then(res => {
-
-          if (this.isWx()) {
+          console.log((/micromessenger/.test(navigator.userAgent.toLowerCase())));
+          if ((/micromessenger/.test(navigator.userAgent.toLowerCase()))) {
             // 带着orderId跳转到支付页逻辑
             console.log('微信浏览器');
+            payOrder(res.data.storeOrderId).then(e => {
+              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cnyw/pay-result/index?storeOrderId='+res.data.storeOrderId);
+              console.log(redirect_url, document.referrer, 999);
+              // window.location.href = redirect_url
+            })
           } else {
             console.log('非微信浏览器');
             // 执行H5支付中的创建订单之后的逻辑
             payOrder(res.data.storeOrderId).then(e => {
-              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cnyw/pay-result/index');
+              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cnyw/pay-result/index?storeOrderId='+res.data.storeOrderId);
               console.log(redirect_url, document.referrer, 999);
-              window.location.href = redirect_url
+              // window.location.href = redirect_url
             })
           }
         })

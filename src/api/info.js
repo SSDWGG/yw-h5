@@ -225,3 +225,12 @@ export function payOrder(storeOrderId) {
     method: 'post'
   })
 }
+export function orderDetail(storeOrderId) {
+  return request({
+    url: '/app/storeOrder/app/detail',
+    method: 'get',
+    params:{
+      storeOrderId
+    }
+  })
+}
