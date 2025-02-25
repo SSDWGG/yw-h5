@@ -62,7 +62,7 @@ export default {
   data() {
     return {
 
-      allPrice: 994732,
+      allPrice: 0,
       txPrice: null,
       yhName: '',
       show: false,

@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { getOrderList, takeOrder,payOrder } from '@/api/info'
+import { getOrderList, takeOrder,payOrder,jsapiPayOrder } from '@/api/info'
 
 export default {
   data() {
@@ -142,10 +142,8 @@ export default {
       if ((/micromessenger/.test(navigator.userAgent.toLowerCase()))) {
             // 带着orderId跳转到支付页逻辑
             console.log('微信浏览器');
-            payOrder(storeOrderId).then(e => {
-              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cn/yw/pay-result/index?storeOrderId='+storeOrderId);
-              console.log(redirect_url, document.referrer, 999);
-              window.location.href = redirect_url
+            jsapiPayOrder(res.data.storeOrderId).then(e => {
+              console.log(e);
             })
           } else {
             console.log('非微信浏览器');

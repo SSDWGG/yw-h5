@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { getAddressList, createOrder, payOrder } from '@/api/info'
+import { getAddressList, createOrder, payOrder,jsapiPayOrder } from '@/api/info'
 
 export default {
 
@@ -166,6 +166,9 @@ export default {
           if ((/micromessenger/.test(navigator.userAgent.toLowerCase()))) {
             // 带着orderId跳转到支付页逻辑
             console.log('微信浏览器');
+            jsapiPayOrder(res.data.storeOrderId).then(e => {
+              console.log(e);
+            })
           } else {
             console.log('非微信浏览器');
             // 执行H5支付中的创建订单之后的逻辑

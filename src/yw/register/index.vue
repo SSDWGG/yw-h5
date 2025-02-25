@@ -92,6 +92,7 @@ export default {
   },
   data() {
     return {
+      jsCode:'',
       form: {
         username: '',
         password: '',
@@ -167,6 +168,15 @@ export default {
       jzPassWord: []
     }
   },
+  created(){
+    console.log(1111);
+       this.jsCode = this.getUrlCode();
+      // 判断是否在微信浏览器 //  (/micromessenger/.test(navigator.userAgent.toLowerCase()))&&
+      if (!this.jsCode&&!this.$mp.query.reset){
+          console.log('不存在code，需要换取code用于注册');
+          this.getWeChatCode()
+        }
+  },
   methods: {
     sendSms() {
       if (!!this.form.phone) {
@@ -204,6 +214,7 @@ export default {
             uni.$u.toast(errors)
           })
         } else {
+          this.form.jsCode = this.jsCode
           appRegister(this.form).then(() => {
             uni.$u.toast('注册成功')
             setTimeout(() => {
@@ -211,12 +222,36 @@ export default {
             }, 1000)
           }).catch(errors => {
             uni.$u.toast(errors)
-          })
+          }) 
+        
         }
       })
 
 
-    }
+    },
+
+       // 获取code 相关  
+    // 获取url中的code
+    getUrlCode () {
+    const url = new URL(location.href);
+    const params = new URLSearchParams(url.search);
+    const code = params.get('code');
+    return code;
+  },
+    //请求微信接口，用来获取code
+     getWeChatCode () {
+    let local = encodeURIComponent(window.location.href); //获取当前页面地址作为回调地址
+    // let local = encodeURIComponent('https://jinriyouli.cn');
+    let appid = 'wx279666fdf4f01517';
+    
+    //通过微信官方接口获取code之后，会重新刷新设置的回调地址【redirect_uri】
+    window.location.href =
+      'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
+      appid +
+      '&redirect_uri=' +
+      local +
+      '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
+  }
   }
 }
 </script>

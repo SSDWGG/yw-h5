@@ -225,6 +225,12 @@ export function payOrder(storeOrderId) {
     method: 'post'
   })
 }
+export function jsapiPayOrder(storeOrderId) {
+  return request({
+    url: '/app/storeOrder/jsapiPayOrder/'+storeOrderId ,
+    method: 'post'
+  })
+}
 export function orderDetail(storeOrderId) {
   return request({
     url: '/app/storeOrder/app/detail',

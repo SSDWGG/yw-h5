@@ -167,7 +167,6 @@ export default {
       uni.navigateTo({ url: '/yw/register/index?reset=true' })
     },
     handleLogin() {
-
       this.$refs.uForm.validate().then(async () => {
         appLogin(this.form).then((res) => {
           this.$store.dispatch('user/setAccessToken', res.data.access_token)
@@ -184,33 +183,7 @@ export default {
 
     },
 
-    // 获取code 相关
-
-    // 判断是否在微信浏览器
-    isWechat(){
-      return String(navigator.userAgent.toLowerCase().match(/MicroMessenger/i)) === 'micromessenger';
-    },
-    // 获取url中的code
-    getUrlCode () {
-    const url = new URL(location.href);
-    const params = new URLSearchParams(url.search);
-    const code = params.get('code');
-    return code;
-  },
-    //请求微信接口，用来获取code
-     getWeChatCode () {
-    let local = encodeURIComponent(window.location.href); //获取当前页面地址作为回调地址
-    // let local = encodeURIComponent('http://houseingh5.ssdwgg.cn/');
-    let appid = 'wx1976f49ead4f89a0';
-    
-    //通过微信官方接口获取code之后，会重新刷新设置的回调地址【redirect_uri】
-    window.location.href =
-      'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
-      appid +
-      '&redirect_uri=' +
-      local +
-      '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
-  }
+ 
   }
 }
 </script>
