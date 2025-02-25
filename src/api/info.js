@@ -219,3 +219,9 @@ export function takeOrder(data) {
     data
   })
 }
+export function payOrder(storeOrderId) {
+  return request({
+    url: '/app/storeOrder/payOrder/'+storeOrderId ,
+    method: 'post'
+  })
+}

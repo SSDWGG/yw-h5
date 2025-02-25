@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { getAddressList, createOrder } from '@/api/info'
+import { getAddressList, createOrder, payOrder } from '@/api/info'
 
 export default {
 
@@ -151,6 +151,10 @@ export default {
   },
 
   methods: {
+    isWx() {
+      let uAgent = navigator.userAgent.toLowerCase();
+      reutrn(/micromessenger/.test(uAgent)) ? true : false;
+    },
     submitOrder() {
       if (this.userAddr.userAddressId) {
         const params = {}
@@ -160,11 +164,21 @@ export default {
             count: item.count,
           }
         })
-        params.userAddressId =  this.userAddr.userAddressId
-        // console.log(params);
-
+        params.userAddressId = this.userAddr.userAddressId
         createOrder(params).then(res => {
-          console.log(res);
+
+          if (this.isWx()) {
+            // 带着orderId跳转到支付页逻辑
+            console.log('微信浏览器');
+          } else {
+            console.log('非微信浏览器');
+            // 执行H5支付中的创建订单之后的逻辑
+            payOrder(res.data.storeOrderId).then(e => {
+              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cnyw/pay-result/index');
+              console.log(redirect_url, document.referrer, 999);
+              window.location.href = redirect_url
+            })
+          }
         })
       } else {
         uni.$u.toast('请选择地址');

@@ -71,12 +71,12 @@
     </view>
 
     <view class="modeView fx">
-      <!-- <view class="header">
+      <view class="header">
         <view class="txt">
           分销中心
         </view>
         <u-icon name="arrow-right" size="12" @click="toFxCenter" />
-      </view> -->
+      </view>
       <view class="content">
         <view class="contentItem" v-for="(item, index) in fxType" :key="index" @click="item.request()">
           <view class="icon">
@@ -144,11 +144,11 @@ export default {
         },
       ],
       fxType: [
-        // {
-        //   name: '我的团队',
-        //   icon: require("@/static/yw/me/fxType/1.png"),
-        //   request: () => { uni.navigateTo({ url: '/yw/fx-mytd/index' }) }
-        // },
+        {
+          name: '我的团队',
+          icon: require("@/static/yw/me/fxType/1.png"),
+          request: () => { uni.navigateTo({ url: '/yw/fx-mytd/index' }) }
+        },
         {
           name: '邀请用户',
           icon: require("@/static/yw/me/fxType/2.png"),

@@ -1,214 +1,226 @@
 {
-	"easycom": {
-		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
-	},
-	"pages": [
-		{
-			"path": "yw/login/index",
-			"style": {
-				"navigationStyle": "custom",
+  "easycom": {
+    "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+  },
+  "pages": [
+    {
+      "path": "yw/login/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "登陆"
-			}
-		},
-		{
-			"path": "yw/register/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/register/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "注册"
-
-			}
-		},
+      }
+    },
     {
-			"path": "yw/menu/index",
-			"style": {
-				"navigationStyle": "custom",
+      "path": "yw/menu/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "金义源官网"
-
-			}
-		}, 
+      }
+    },
     {
-			"path": "yw/car/index",
-			"style": {
-				"navigationStyle": "custom",
+      "path": "yw/car/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "我的购物车"
-
-			}
-		}, {
-			"path": "yw/me/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/me/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "个人中心"
-
-			}
-		} ,{
-			"path": "yw/prod-list/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/prod-list/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "商品列表"
-
-			}
-		}, {
-			"path": "yw/prod-detail/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/prod-detail/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "商品详情"
-
-			}
-		}, {
-			"path": "yw/submit/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/submit/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "订单结算"
-
-			}
-		}, {
-			"path": "yw/address/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/address/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "收货地址"
-
-			}
-		}, {
-			"path": "yw/address-add/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/address-add/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "填写收货地址"
-
-			}
-		}, {
-			"path": "yw/my-order/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/my-order/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "我的订单"
-
-			}
-		}, {
-			"path": "yw/edit-info/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/edit-info/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "我的信息"
-
-			}
-		}, {
-			"path": "yw/edit-password/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/edit-password/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "修改密码"
-
-			}
-		}, {
-			"path": "yw/yh-card/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/yh-card/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "银行卡"
-
-			}
-		}, {
-			"path": "yw/send-kf/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/send-kf/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "客服留言"
-
-			}
-		}, {
-			"path": "yw/fx-center/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/fx-center/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "分销中心"
-
-			}
-		}, {
-			"path": "yw/fx-mytd/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/fx-mytd/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "我的团队"
-
-			}
-		}, {
-			"path": "yw/fx-mytgm/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/fx-mytgm/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "我的推广码"
-
-			}
-		}, {
-			"path": "yw/tx-record/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/tx-record/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "提现记录"
-
-			}
-		}, {
-			"path": "yw/tx-detail/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/tx-detail/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "收益明细"
-
-			}
-		}, {
-			"path": "yw/tx/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/tx/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "提现"
-
-			}
-		},
-     {
-			"path": "yw/hy/index",
-			"style": {
-				"navigationStyle": "custom",
+      }
+    },
+    {
+      "path": "yw/hy/index",
+      "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "会员权益"
-
-			}
-		  },
-      {
-        "path": "yw/gsjs/index",
-        "style": {
-          "navigationStyle": "custom",
-          "navigationBarTitleText": "公司介绍"
-  
-        }
-        }, {
-          "path": "yw/lxkf/index",
-          "style": {
-            "navigationStyle": "custom",
-            "navigationBarTitleText": "联系客服"
-    
-          }
-          }, {
-            "path": "yw/shfw/index",
-            "style": {
-              "navigationStyle": "custom",
-              "navigationBarTitleText": "售后服务"
-      
-            }
-            }
-	],
-	"subPackages":[],
+      }
+    },
+    {
+      "path": "yw/gsjs/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "公司介绍"
+      }
+    },
+    {
+      "path": "yw/lxkf/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "联系客服"
+      }
+    },
+    {
+      "path": "yw/shfw/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "售后服务"
+      }
+    },
+    {
+      "path": "yw/paying/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "支付中"
+      }
+    },{
+      "path": "yw/pay-result/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "支付结果"
+      }
+    }
+  ],
+  "subPackages": [],
   "router": {
     "mode": "history"
   },
-	"tabBar": {
-		"color": "#666666",
-		"iconWidth": "12px",
-		"borderStyle": "white",
-		"selectedColor": "#205BA9",
-		"blurEffect": "light",
-		"backgroundColor": "#ffffff",
-		"custom":true,
-		"list": [ {
-			"pagePath": "yw/menu/index"
-		}, {
-			"pagePath": "yw/me/index"
-		}, {
-			"pagePath": "yw/car/index"
-		}]
-	},
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "燕窝",
-		"navigationBarBackgroundColor": "#fff",
-		"backgroundColor": "#fff"
-	},
-	"lazyCodeLoading": "requiredComponents"
+  "tabBar": {
+    "color": "#666666",
+    "iconWidth": "12px",
+    "borderStyle": "white",
+    "selectedColor": "#205BA9",
+    "blurEffect": "light",
+    "backgroundColor": "#ffffff",
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "yw/menu/index"
+      },
+      {
+        "pagePath": "yw/me/index"
+      },
+      {
+        "pagePath": "yw/car/index"
+      }
+    ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "燕窝",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#fff"
+  },
+  "lazyCodeLoading": "requiredComponents"
 }
