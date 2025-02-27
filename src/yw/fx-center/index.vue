@@ -73,9 +73,9 @@
       </view>
     </view>
 
-    <view class="tip">
+    <!-- <view class="tip">
       <view class="title">
-        分销须知：
+        推广须知：
       </view>
        <view class="item">
         金粉：首次购买6提，可获得15%的推荐奖励，复购限6提/月；
@@ -102,6 +102,10 @@
 
 
 
+    </view> -->
+    <view class="tip2">
+      <view class="item" @click="toHy"> 会员中心
+      </view>
     </view>
 
   </view>
@@ -147,13 +151,17 @@ export default {
   methods: {
     toTxPage() {
       uni.navigateTo({ url: '/yw/tx/index' })
-    }
+    },
+    toHy() {
+      uni.navigateTo({ url: '/yw/hy/index' })
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
+  height: 100vh;
   .bgcolor {
     background: #F4F3F2;
     z-index: -2;
@@ -242,6 +250,22 @@ export default {
         color: #fff;
         padding: 5px 17px;
       }
+    }
+  }
+  .tip2 {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .item {
+      color: rgba(70, 41, 6, .5);
+      margin-bottom: 16px;
+      font-size: 12px;
+
     }
   }
 

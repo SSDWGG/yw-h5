@@ -4,7 +4,7 @@
 
     <view class="line3">
 
-      <view class="list">
+      <view class="list" v-if="list.length>0">
         <view :class="['item',index===list.length-1?'last':'']" v-for="(item, index) in list" :key="index">
           <view class="left" >
             <view class="time" >
@@ -21,6 +21,12 @@
         </view>
 
       </view>
+      <view class="empty" v-else>
+      <img src="@/static/yw/emptyCar.png" />
+      <view class="txt">
+        暂无收益记录~
+      </view>
+    </view>
     </view>
   </view>
 </template>
@@ -33,38 +39,15 @@ export default {
   data() {
     return {
 
-      list: [{
-        time: '2024.12.01 20:00:00',
-        content: 'xxxx卖出100件',
-        syPrice:20
-      },{
-        time: '2024.12.01 20:00:00',
-        content: 'xxxx卖出100件',
-        syPrice:20
-      },{
-        time: '2024.12.01 20:00:00',
-        content: 'xxxx卖出100件',
-        syPrice:20
-      },{
-        time: '2024.12.01 20:00:00',
-        content: 'xxxx卖出100件',
-        syPrice:20
-      },{
-        time: '2024.12.01 20:00:00',
-        content: 'xxxx卖出100件',
-        syPrice:20
-      },{
-        time: '2024.12.01 20:00:00',
-        content: 'xxxx卖出100件',
-        syPrice:20
-      },]
+      list: []
 
     };
   },
   created() {
     getAppIncome().then((res) => {
-      console.log(res);
       this.list = res.rows
+      console.log( this.list);
+
     })
 
   },
@@ -87,7 +70,21 @@ export default {
     background-color: #FFFFFF;
     border-radius: 10px;
 
-
+    .empty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 100px;
+    img{
+      width: 130px;
+      height: 130px;
+    }
+    .txt{
+      color: #C5C5C5;
+      padding-top: 14px;
+    }
+  }
 
     .list {
       padding: 16px;

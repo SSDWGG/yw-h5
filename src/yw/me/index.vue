@@ -73,7 +73,7 @@
     <view class="modeView fx">
       <view class="header">
         <view class="txt">
-          分销中心
+          推广中心
         </view>
         <u-icon name="arrow-right" size="12" @click="toFxCenter" />
       </view>

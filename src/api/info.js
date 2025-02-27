@@ -177,7 +177,7 @@ export function getQR() {
     method: 'get'
   })
 }
-// 获取分销中心数据
+// 获取推广中心数据
 export function getBrokerageCenter() {
   return request({
     url: '/app/user/brokerageCenter' ,
