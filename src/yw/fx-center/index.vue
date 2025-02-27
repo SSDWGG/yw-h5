@@ -143,7 +143,6 @@ export default {
     getBrokerageCenter().then((res) => {
       this.obj = res.data
     })
-
   },
   methods: {
     toTxPage() {

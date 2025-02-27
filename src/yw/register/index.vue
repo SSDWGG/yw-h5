@@ -9,7 +9,7 @@
         <u--form labelPosition="left" labelWidth="0" :model="form" :rules="rules" ref="uForm">
           <u-form-item>
             <text class="login-title">
-              <span class="name"> {{!!this.$mp.query.reset?'重置密码':'用户注册'}}</span>
+              <span class="name"> {{ !!this.$mp.query.reset ? '重置密码' : '用户注册' }}</span>
             </text>
           </u-form-item>
           <u-form-item prop="username">
@@ -48,6 +48,12 @@
               placeholder="请输入手机号">
             </u--input>
           </u-form-item>
+          <u-form-item prop="spreadCode">
+            <u--input v-model="form.spreadCode" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
+              prefixIcon="share" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
+              placeholder="请输入邀请码，没有则不填">
+            </u--input>
+          </u-form-item>
           <u-form-item prop="code">
             <u--input v-model="form.code" style="padding: 8px 9px;border: 1px solid #CAA156;border-radius: 10px;"
               prefixIcon="fingerprint" prefixIconStyle="color: rgba(70, 41, 6,.7);margin-right:2px;"
@@ -62,8 +68,8 @@
           <u-form-item style="margin-top:20px">
             <view class="footer" hover-class="none">
 
-              <u-button customStyle="border-radius: 6px;" color="#EF432A" :text="!!this.$mp.query.reset?'重置':'立即注册'" class="btn"
-                @click="handleRegister"></u-button>
+              <u-button customStyle="border-radius: 6px;" color="#EF432A" :text="!!this.$mp.query.reset ? '重置' : '立即注册'"
+                class="btn" @click="handleRegister"></u-button>
 
             </view>
           </u-form-item>
@@ -84,7 +90,7 @@
 </template>
 <script>
 import Card from '@/components/Card.vue'
-import { appRegister,appResetPwd,getSysCode } from '@/api/login'
+import { appRegister, appResetPwd, getSysCode } from '@/api/login'
 
 export default {
   components: {
@@ -92,7 +98,7 @@ export default {
   },
   data() {
     return {
-      jsCode:'',
+      jsCode: '',
       form: {
         username: '',
         password: '',
@@ -168,14 +174,20 @@ export default {
       jzPassWord: []
     }
   },
-  created(){
-    console.log(1111);
-       this.jsCode = this.getUrlCode();
-      // 判断是否在微信浏览器 //  (/micromessenger/.test(navigator.userAgent.toLowerCase()))&&
-      if (!this.jsCode&&!this.$mp.query.reset){
-          console.log('不存在code，需要换取code用于注册');
-          this.getWeChatCode()
-        }
+  created() {
+    console.log(1111, this.$mp.query.spreadCode);
+    if (!!this.$mp.query.spreadCode) {
+      uni.setStorageSync('spreadCode', this.$mp.query.spreadCode)
+      this.form.spreadCode = this.$mp.query.spreadCode
+    }else{
+      this.form.spreadCode =  uni.getStorageSync('spreadCode')
+    }
+    this.jsCode = this.getUrlCode();
+    // 判断是否在微信浏览器 //  (/micromessenger/.test(navigator.userAgent.toLowerCase()))&&
+    if (!this.jsCode && !this.$mp.query.reset) {
+      console.log('不存在code，需要换取code用于注册');
+      this.getWeChatCode()
+    }
   },
   methods: {
     sendSms() {
@@ -222,36 +234,36 @@ export default {
             }, 1000)
           }).catch(errors => {
             uni.$u.toast(errors)
-          }) 
-        
+          })
+
         }
       })
 
 
     },
 
-       // 获取code 相关  
+    // 获取code 相关  
     // 获取url中的code
-    getUrlCode () {
-    const url = new URL(location.href);
-    const params = new URLSearchParams(url.search);
-    const code = params.get('code');
-    return code;
-  },
+    getUrlCode() {
+      const url = new URL(location.href);
+      const params = new URLSearchParams(url.search);
+      const code = params.get('code');
+      return code;
+    },
     //请求微信接口，用来获取code
-     getWeChatCode () {
-    let local = encodeURIComponent(window.location.href); //获取当前页面地址作为回调地址
-    // let local = encodeURIComponent('https://jinriyouli.cn');
-    let appid = 'wx279666fdf4f01517';
-    
-    //通过微信官方接口获取code之后，会重新刷新设置的回调地址【redirect_uri】
-    window.location.href =
-      'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
-      appid +
-      '&redirect_uri=' +
-      local +
-      '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
-  }
+    getWeChatCode() {
+      let local = encodeURIComponent(window.location.href); //获取当前页面地址作为回调地址
+      // let local = encodeURIComponent('https://jinriyouli.cn');
+      let appid = 'wx279666fdf4f01517';
+
+      //通过微信官方接口获取code之后，会重新刷新设置的回调地址【redirect_uri】
+      window.location.href =
+        'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
+        appid +
+        '&redirect_uri=' +
+        local +
+        '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
+    }
   }
 }
 </script>

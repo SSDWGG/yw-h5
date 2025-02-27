@@ -43,7 +43,7 @@
           </view>
         </view>
 
-        <u-button color="#EF432A" text="申请提现" class="btn"></u-button>
+        <u-button color="#EF432A" text="申请提现" class="btn" @click="handleTx"></u-button>
 
       </view>
 
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { getBankList } from '@/api/info'
+import { getBankList, appExtractAdd,getBrokerageCenter } from '@/api/info'
 
 export default {
 
@@ -67,6 +67,7 @@ export default {
       yhName: '',
       show: false,
       columns: [],
+      userBankId: ''
     };
   },
   created() {
@@ -74,11 +75,31 @@ export default {
       this.columns = [res.data]
     })
 
-
+    getBrokerageCenter().then((res) => {
+      this.allPrice = res.data.balance
+    })
   },
   methods: {
+    handleTx() {
+      if (!this.userBankId) {
+        uni.$u.toast('请选择银行');
+        return
+      }
+      if (!!this.txPrice && this.txPrice <= this.allPrice) {
+        appExtractAdd({
+          userBankId: this.userBankId,
+          extractPrice: this.txPrice
+        }).then(res=>{
+          uni.$u.toast('已发起提现');
+        })
+      } else {
+        uni.$u.toast('金额输入错误');
+      }
+
+    },
     handleConfirmPicker(chooseVal) {
       this.yhName = chooseVal.value[0].bankName
+      this.userBankId = chooseVal.value[0].userBankId
       this.handleCalcelPicker()
     },
     handleCalcelPicker() {
