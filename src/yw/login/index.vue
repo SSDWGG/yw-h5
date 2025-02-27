@@ -141,6 +141,13 @@ export default {
       },
     }
   },
+  created() {
+    // 携带token，直接跳转menu
+    const token = uni.getStorageSync("access_token");
+    if(!!token){
+      uni.switchTab({ url: '/yw/menu/index' })
+    }
+  },
   methods: {
     sendSms() {
       if (!!this.form.phone) {
@@ -182,8 +189,6 @@ export default {
 
 
     },
-
- 
   }
 }
 </script>
