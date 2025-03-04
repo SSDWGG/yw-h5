@@ -184,11 +184,19 @@
         "navigationStyle": "custom",
         "navigationBarTitleText": "支付中"
       }
-    },{
+    }
+    ,{
       "path": "yw/pay-result/index",
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": "支付结果"
+      }
+    }
+    ,{
+      "path": "yw/order-detail/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "订单详情"
       }
     }
   ],

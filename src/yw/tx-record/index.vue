@@ -1,21 +1,15 @@
 <template>
   <view class="container">
-
-
     <view class="line3">
-
       <view class="list"  v-if="list.length>0">
         <view class="item" v-for="(item, index) in list" :key="index">
           <view class="time" >
             {{ item.createTime }}
-
           </view> 
           <view class="content" >
            提现金额： {{ item.extractPrice }}
           </view>
-
         </view>
-
       </view>
       <view class="empty" v-else>
       <img src="@/static/yw/emptyCar.png" />

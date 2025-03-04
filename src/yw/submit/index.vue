@@ -28,8 +28,37 @@
       </view>
     </view>
 
+    <!-- 自提判断 -->
+    <view class="address">
+      <img class="icon" src="@/static/yw/ztadress.png" alt="">
+      <view class="content">
+        提货方式
+      </view>
+      <view>
+        <u-radio-group v-model="radiovalue">
+          <u-radio class="lab1" size="14" labelSize="14" shape="circle" label="自提" activeColor="#CEAA70"
+            name="自提"></u-radio>
+          <u-radio class="lab2" size="14" labelSize="14" shape="circle" label="邮寄" activeColor="#CEAA70"
+            name="邮寄"></u-radio>
+        </u-radio-group>
+      </view>
+
+    </view>
+    <!-- 自提地址 -->
+    <view class="address2" v-show="this.radiovalue === '自提'">
+      <view class="line1" >
+        <img class="icon" src="@/static/yw/address.png" alt="">
+        <view class="content">
+          提货地址
+        </view>
+      </view>
+
+      <view class="detail">
+        宁国市北园路津河小区1幢20号门面
+      </view>
+    </view>
     <!-- 收货地址 -->
-    <view class="address" @click="toAddress">
+    <view class="address" @click="toAddress" v-show="this.radiovalue === '邮寄'">
       <img class="icon" src="@/static/yw/address.png" alt="">
       <view class="content">
 
@@ -44,7 +73,7 @@
     </view>
 
     <!-- info -->
-    <view class="info">
+    <view class="info" v-show="this.radiovalue === '邮寄'">
       <view class="infoItem">
         <view class="lab">
           商品金额
@@ -119,9 +148,11 @@ export default {
 
   data() {
     return {
+      radiovalue: '邮寄',
+      isSend: true,
       prodList: [],
       userAddr: {},
-      storeOrderId:''
+      storeOrderId: ''
     };
   },
   computed: {
@@ -153,7 +184,7 @@ export default {
   methods: {
     // data为网页端接口请求参数列表
     onBridgeReady(data) {
-      console.log(666,data);
+      console.log(666, data);
 
       let that = this
       WeixinJSBridge.invoke(
@@ -162,7 +193,7 @@ export default {
           // 公众号名称，由商户传入
           appId: data.appId,
           // 时间戳，自1970年以来的秒数
-          timeStamp:data.timeStamp,
+          timeStamp: data.timeStamp,
           // 随机串
           nonceStr: data.nonceStr,
           package: data.packageValue,
@@ -172,12 +203,12 @@ export default {
           paySign: data.paySign,
         },
         function (res) {
-          console.log('支付完成',res,that.storeOrderId);
+          console.log('支付完成', res, that.storeOrderId);
           if (res.err_msg == "get_brand_wcpay_request:ok") {
             // 使用以上方式判断前端返回,微信团队郑重提示：
             // res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-            console.log('支付完成',that.storeOrderId);
-            uni.navigateTo({ url: '/yw/pay-result/index?storeOrderId='+that.storeOrderId })
+            console.log('支付完成', that.storeOrderId);
+            uni.navigateTo({ url: '/yw/pay-result/index?storeOrderId=' + that.storeOrderId })
 
           }
         }
@@ -192,7 +223,14 @@ export default {
             count: item.count,
           }
         })
-        params.userAddressId = this.userAddr.userAddressId
+
+        // 邮寄type ：0  自提：1
+        if(this.radiovalue === '邮寄'){
+          params.type = 0
+          params.userAddressId = this.userAddr.userAddressId
+        }else{
+          params.type = 1
+        }
 
         let that = this
         createOrder(params).then(res => {
@@ -240,6 +278,10 @@ export default {
   padding: 0 10px;
   background: #F4F3F2;
   height: 100vh;
+
+  .lab1 {
+    margin-right: 30px;
+  }
 
   .prodList {
     .prod {
@@ -323,6 +365,38 @@ export default {
     }
   }
 
+  .address2 {
+    background-color: #fff;
+    padding: 15px 12px;
+    border-radius: 10px;
+   
+    margin-top: 16px;
+    .line1{
+      display: flex;
+      font-weight: 500;
+    }
+
+    .icon {
+      width: 15px;
+      height: 15px;
+      margin-top: 2px;
+      margin-right: 8px;
+    }
+
+    .content {
+      flex: 1;
+      color: #222222;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .detail{
+      color: #666666;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 14px;
+    }
+  }
   .address {
     background-color: #fff;
     padding: 15px 12px;
@@ -341,6 +415,8 @@ export default {
       flex: 1;
       color: #222222;
       font-size: 14px;
+      font-weight: 500;
+
     }
 
     .go {}
