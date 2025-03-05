@@ -118,6 +118,18 @@ export default {
       status: '待提货',
       // 未支付，未发货，待收货，待评价，已完成，退款中，已退款，拒绝退款
       statusMap: {
+        '未支付': {
+          statusName: '待支付',
+          txt: '待支付！'
+        },
+        '待评价': {
+          statusName: '待评价',
+          txt: '待评价！'
+        },
+        '已完成': {
+          statusName: '已完成',
+          txt: '已完成！'
+        },
         '待提货': {
           statusName: '待提货',
           txt: '已付款，请于指定地点提货哦！'
@@ -126,9 +138,9 @@ export default {
           statusName: '售后中',
           txt: '订单已申请退款，请耐心等待商家处理'
         },
-        '已取消': {
-          statusName: '已取消',
-          txt: '订单已经申请退款'
+        '拒绝退款': {
+          statusName: '拒绝退款',
+          txt: '申请退款已被拒绝'
         },
         '已退款': {
           statusName: '退款成功',

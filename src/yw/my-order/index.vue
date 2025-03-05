@@ -12,7 +12,7 @@
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prodView" v-for="(prodItem, index) in prodList" :key="index">
-        <view class="skuItem" v-for="(item, index) in prodItem.cartInfoList" v-if="!!prodItem.cartInfoList" :key="index" @click="toDetail(prodItem.storeOrderId)">
+        <view class="skuItem" v-for="(item, index) in prodItem.cartInfoList" v-if="!!prodItem.cartInfoList" :key="index" @click="toDetail(prodItem.storeOrderId,prodItem.statusName)">
           <view class="prod">
             <img :src="item.product.imageUrl" class="prodImage" />
             <view class="prodinfo">
@@ -127,8 +127,11 @@ export default {
     });
   },
   methods: {
-    toDetail(storeOrderId){
-      uni.navigateTo({ url: '/yw/order-detail/index?storeOrderId='+storeOrderId })
+    toDetail(storeOrderId,statusName){
+      if(statusName !=='未支付'){
+        uni.navigateTo({ url: '/yw/order-detail/index?storeOrderId='+storeOrderId })
+
+      }
     },
      // data为网页端接口请求参数列表
      onBridgeReady(data) {
