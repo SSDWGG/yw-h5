@@ -6,7 +6,7 @@
 
     <view class="allprice">
       <view class="txt">
-        {{ this.statusMap[this.status].statusName }}
+        {{ this.statusMap[this.status].statusName}}
       </view>
       <view class="num">
         {{ this.statusMap[this.status].txt }}
@@ -50,7 +50,7 @@
       <view class="infoDiv">
         <view class="title">运费</view>
         <view class="content">
-          <view class="title2" v-if="this.status === '99'">买家自提</view>
+          <view class="title2" v-if="info.deliveryType === '1'">买家自提</view>
           ￥{{ info.totalPostage }}
         </view>
       </view>
@@ -92,9 +92,12 @@
 
     <!-- bottom -->
 
-    <view class="bottom" v-if="status !== '-2'" >
-      <view class="btn2" >
+    <view class="bottom" v-if="status !== '已退款'" >
+      <view class="btn2" @click = tk(info.storeOrderId) v-if="status !== '退款中'">
         申请退款
+      </view>
+      <view class="btn2"  v-else>
+        售后中
       </view>
       <view class="btn1" @click="handleBuy(info.cartInfoList[0].product.storeProductId)">
         再次购买
@@ -104,7 +107,7 @@
 </template>
 
 <script>
-import { orderDetail } from '@/api/info'
+import { orderDetail,refundApply } from '@/api/info'
 
 export default {
 
@@ -112,30 +115,30 @@ export default {
     return {
       info: {},
       prodList: [],
-      status: '99',
-      // -1 : 申请退款 -2 : 退货成功 0：待发货；1：待收货；2：已收货；3：已完成；-1：已退款
+      status: '待提货',
+      // 未支付，未发货，待收货，待评价，已完成，退款中，已退款，拒绝退款
       statusMap: {
-        '99': {
+        '待提货': {
           statusName: '待提货',
           txt: '已付款，请于指定地点提货哦！'
         },
-        "-1": {
+        "退款中": {
           statusName: '售后中',
           txt: '订单已申请退款，请耐心等待商家处理'
         },
-        '-1': {
+        '已取消': {
           statusName: '已取消',
           txt: '订单已经申请退款'
         },
-        '-2': {
+        '已退款': {
           statusName: '退款成功',
           txt: '货款已经原路退回'
         },
-        '0': {
+        '未发货': {
           statusName: '待发货',
           txt: '已付款，请耐心等待发货哦！'
         },
-        '1': {
+        '待收货': {
           statusName: '已发货',
           txt: '商品已经发货，请耐心等待哦！'
         }
@@ -143,22 +146,33 @@ export default {
     };
   },
   created() {
-    if (!!this.$mp.query.storeOrderId) {
+    this.initOrderDetail()
+  },
+  methods: {
+    initOrderDetail(){
+      if (!!this.$mp.query.storeOrderId) {
       orderDetail(this.$mp.query.storeOrderId).then(res => {
-        console.log(res);
         this.info = res.data
         this.prodList = res.data.cartInfoList
-        if (res.data.deliveryType === "1") {
-          this.status = '99'
+        if (res.data.deliveryType === "1"&&res.data.status===1) {
+          this.status = '待提货'
         } else {
-          this.status = res.data.status + ''
-          console.log(this.status);
-
+          this.status = res.data.statusName
         }
       })
     }
-  },
-  methods: {
+    },
+    tk(storeOrderId){
+    refundApply({
+      storeOrderId,
+      refundReasonWapImg:'',
+      refundReasonWap:''
+      }).then(()=>{
+        uni.$u.toast('申请退款成功')
+        this.initOrderDetail()
+
+      })
+    },
     getDetail(info) {
       uni.setClipboardData({
         data: info,//要被复制的内容

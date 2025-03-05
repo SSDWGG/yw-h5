@@ -240,9 +240,17 @@ export function orderDetail(storeOrderId) {
     }
   })
 }
+
 export function appExtractAdd(data) {
   return request({
     url: '/system/userExtract/appExtractAdd',
+    method: 'post',
+    data
+  })
+}
+export function refundApply(data) {
+  return request({
+    url: '/app/storeOrder/app/refundApply',
     method: 'post',
     data
   })
