@@ -90,15 +90,15 @@
           -￥{{ yhPrice }}
         </view>
       </view>
-      <!-- <view class="infoItem">
+     <view class="infoItem">
         <view class="lab">
           运费
         </view>
         <view class="value">
-          ￥{{ orderObj.yf }}
+          ￥{{ postagePrice }}
         </view>
       </view>
-      <view class="infoItem">
+     <!--   <view class="infoItem">
         <view class="lab">
           代金券
         </view>
@@ -131,7 +131,7 @@
     <view class="bottomViewPlaceholder" />
     <view class="bottomView">
       <view class="left">
-        实付款：￥{{ price - yhPrice }}
+        实付款：￥{{ price - yhPrice + postagePrice}}
       </view>
 
       <view class="right" @click="submitOrder">
@@ -163,10 +163,14 @@ export default {
     yhPrice() {
       return this.prodList.reduce((prev, curr) => prev + (curr.price - curr.otPrice) * curr.count, 0)
     },
+    postagePrice() {
+      return this.prodList.reduce((prev, curr) => prev + curr.postage , 0)
+    }
   },
   onShow() {
     // if (!this.$mp.query.car) 
     this.prodList = uni.getStorageSync('orderInfoArr')
+    console.log(999, this.prodList);
     const pages = getCurrentPages();
     const currPage = pages[pages.length - 1];
     if (currPage.selAddress === 'yes') {
@@ -400,6 +404,7 @@ export default {
   .address {
     background-color: #fff;
     padding: 15px 12px;
+    padding-right: 22px;
     border-radius: 10px;
     display: flex;
     margin-top: 16px;
@@ -442,7 +447,7 @@ export default {
       .value {
         color: #462906;
         font-size: 14px;
-        letter-spacing: -3px;
+        // letter-spacing: -3px;
       }
 
       .price {

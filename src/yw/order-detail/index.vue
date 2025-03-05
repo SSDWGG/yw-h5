@@ -45,7 +45,7 @@
       <view class="line" />
       <view class="infoDiv">
         <view class="title">商品总额</view>
-        <view class="content">￥{{ info.totalPrice }}</view>
+        <view class="content">￥{{ info.totalPrice - info.totalPostage }}</view>
       </view>
       <view class="infoDiv">
         <view class="title">运费</view>
@@ -92,7 +92,7 @@
 
     <!-- bottom -->
 
-    <view class="bottom" v-if="status !== '已退款'" >
+    <view class="bottom" v-if="status !== '已退款'&&status !== '未支付'" >
       <view class="btn2" @click = tk(info.storeOrderId) v-if="status !== '退款中'">
         申请退款
       </view>
@@ -120,7 +120,7 @@ export default {
       statusMap: {
         '未支付': {
           statusName: '待支付',
-          txt: '待支付！'
+          txt: '请前往支付！'
         },
         '待评价': {
           statusName: '待评价',

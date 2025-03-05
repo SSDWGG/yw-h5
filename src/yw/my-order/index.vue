@@ -128,10 +128,10 @@ export default {
   },
   methods: {
     toDetail(storeOrderId,statusName){
-      if(statusName !=='未支付'){
+      // if(statusName !=='未支付'){
         uni.navigateTo({ url: '/yw/order-detail/index?storeOrderId='+storeOrderId })
 
-      }
+      // }
     },
      // data为网页端接口请求参数列表
      onBridgeReady(data) {
