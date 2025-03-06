@@ -131,7 +131,7 @@
     <view class="bottomViewPlaceholder" />
     <view class="bottomView">
       <view class="left">
-        实付款：￥{{ price - yhPrice + postagePrice}}
+        实付款：￥{{ this.radiovalue === '邮寄'? (price - yhPrice + postagePrice):(price - yhPrice)}}
       </view>
 
       <view class="right" @click="submitOrder">
@@ -404,11 +404,11 @@ export default {
   .address {
     background-color: #fff;
     padding: 15px 12px;
-    padding-right: 22px;
+    // padding-right: 22px;
     border-radius: 10px;
     display: flex;
     margin-top: 16px;
-
+align-items: center;
     .icon {
       width: 15px;
       height: 15px;
@@ -424,7 +424,9 @@ export default {
 
     }
 
-    .go {}
+    .go {
+      margin-left: 10px;
+    }
   }
 
   .info {

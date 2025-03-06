@@ -38,10 +38,13 @@
           </view>
          
         </view>
+
+         <!-- 分割线 -->
+      <view class="line" />
         <view class="jsTabbar">
             <view class="tip">
               <!-- {{ statusMap[prodItem.status] }} -->
-              {{prodItem.statusName }}
+              {{ prodItem.deliveryType === "1" && prodItem.status===0 ?'待提货':prodItem.statusName }}
 
             </view>
 
@@ -244,11 +247,17 @@ export default {
       .skuItem{
         margin-bottom: 10px;
       }
+      .line {
+      border-top: 1rpx solid rgba(70, 41, 6, .1);
+      width: 332px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
 
       .jsTabbar {
 
         width: 100%;
-        padding-top: 35px;
+        padding-top: 24px;
         display: flex;
         box-sizing: border-box;
         align-items: center;

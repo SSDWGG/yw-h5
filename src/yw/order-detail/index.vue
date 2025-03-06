@@ -64,7 +64,7 @@
     </view>
 
     <!-- 自提地址 -->
-    <view class="address2">
+    <view class="address2" v-if="info.deliveryType === '1'">
       <view class="line1">
         <img class="icon" src="@/static/yw/address.png" alt="">
         <view class="content">
@@ -166,7 +166,7 @@ export default {
       orderDetail(this.$mp.query.storeOrderId).then(res => {
         this.info = res.data
         this.prodList = res.data.cartInfoList
-        if (res.data.deliveryType === "1"&&res.data.status===1) {
+        if (res.data.deliveryType === "1" && res.data.status===0) {
           this.status = '待提货'
         } else {
           this.status = res.data.statusName
@@ -290,8 +290,10 @@ export default {
     background-color: #fff;
 
     .prod {
-      padding: 11px;
+      padding: 11px 21px;
       display: flex;
+      width: 100%;
+      box-sizing: border-box;
       // margin-top: 10px;
 
       .prodImage {
