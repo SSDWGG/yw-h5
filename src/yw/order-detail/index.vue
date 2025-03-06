@@ -300,6 +300,8 @@ export default {
         width: 107px;
         height: 107px;
         margin-right: 16px;
+        border-radius: 6px;
+
       }
 
       .prodinfo {

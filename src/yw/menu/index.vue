@@ -16,7 +16,7 @@
 
     <!-- 春节活动 -->
     <view class="hy">
-      <img src="@/static/yw/announcement.png" class="hyiconAll"/>
+      <img src="@/static/yw/announcement.jpg" class="hyiconAll"/>
     </view>
      <!-- 会员 -->
      <!-- <view class="hy"> -->

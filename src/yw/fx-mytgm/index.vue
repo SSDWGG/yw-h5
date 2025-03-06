@@ -4,7 +4,7 @@
     <img class="titleBg" src="@/static/yw/shareBg.png">
     <view class="block">
       <view class="avatar">
-        <img class="avatarImg" :src="!!userInfo.avatar ? userInfo.avatar : defaultImg">
+        <img  class="avatarImg"  :src="!!userInfo.avatar ? userInfo.avatar : defaultImg">
       </view>
       <view class="line1">
         {{ userInfo.nikeName }}
@@ -28,7 +28,7 @@
 
 
     <view class="bottom">
-      <view class="item" v-for="(item, index) in bottomList" :key="index">
+      <view class="item" v-for="(item, index) in bottomList" :key="index" @click="exportImage(imgUrl)">
         <img class="icon" :src="item.icon">
         <view class="tip">
           {{ item.tip }}
@@ -50,16 +50,21 @@ export default {
       imgUrl: '',
       defaultImg: require("@/static/yw/prodDetail.png"),
       bottomList: [
+        // {
+        //   tip: '微信好友',
+        //   icon: require("@/static/yw/wechat.png")
+        // }, {
+        //   tip: '朋友圈',
+        //   icon: require("@/static/yw/pyq.png")
+        // }, {
+        //   tip: 'QQ好友',
+        //   icon: require("@/static/yw/qq.png")
+        // }
         {
-          tip: '微信好友',
-          icon: require("@/static/yw/wechat.png")
-        }, {
-          tip: '朋友圈',
-          icon: require("@/static/yw/pyq.png")
-        }, {
-          tip: 'QQ好友',
-          icon: require("@/static/yw/qq.png")
+          tip: '下载',
+          icon: require("@/static/yw/downloadIcon.jpg")
         }
+        
       ]
 
     };
@@ -73,9 +78,27 @@ export default {
     })
   },
   methods: {
-
-  },
-};
+    exportImage(base64str) {
+      // 将base64格式的图片转换成Blob对象
+      var arr = base64str.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      // 将Blob对象转换成文件并下载到本地
+      var blob = new Blob([u8arr], {
+        type: mime
+      });
+      var a = document.createElement('a');
+      a.download = `金义源${this.userInfo.nikeName}的邀请码`;
+      a.href = URL.createObjectURL(blob);
+      a.click();
+    },
+  }
+}
 </script>
 
 <style lang="scss" scoped>
