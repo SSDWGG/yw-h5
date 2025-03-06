@@ -61,7 +61,7 @@ export default {
         //   icon: require("@/static/yw/qq.png")
         // }
         {
-          tip: '下载',
+          tip: '保存图片',
           icon: require("@/static/yw/downloadIcon.jpg")
         }
         
@@ -202,7 +202,7 @@ export default {
     margin-top: 76px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 
     .item {
       display: flex;
