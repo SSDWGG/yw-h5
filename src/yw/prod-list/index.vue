@@ -27,7 +27,7 @@
             </view>
             <view class="buy">
               <u-button color="linear-gradient(to bottom, #F9694C, #F22020)" text="去购买" class="btn"
-                @click="handleBuy(item.storeProductId)"></u-button>
+                @click="handleBuy(item)"></u-button>
 
             </view>
 
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { getProdList } from '@/api/info'
+import { getProdList,getYwUserInfo } from '@/api/info'
 
 export default {
   data() {
@@ -57,12 +57,16 @@ export default {
           index: 2
         }
       ],
+      isVip:false,
       activeIndex: 0,
       prodList: [],
     };
   },
   created() {
     console.log(this.$mp.query.storeCategoryId);
+    if(!!this.$mp.query.isVip){
+      this.isVip = true
+    }
     // if(!!this.$mp.query.isVip){
     //   getAddressItem(this.$mp.query.userAddressId).then(res => {
     //     this.form = res.data
@@ -82,8 +86,22 @@ export default {
   },
   methods: {
 
-    handleBuy(storeProductId) {
-      uni.navigateTo({ url: `/yw/prod-detail/index?storeProductId=${storeProductId}` })
+    handleBuy(item) {
+      if(item.isRebuy ==='1'){
+getYwUserInfo().then((res) => {
+  if(!!res.data.levelName){
+    uni.navigateTo({ url: `/yw/prod-detail/index?storeProductId=${item.storeProductId}` })
+
+  }else{
+    uni.$u.toast('您还不是会员，无法购买')
+
+  }
+
+
+    })
+      }else{
+        uni.navigateTo({ url: `/yw/prod-detail/index?storeProductId=${item.storeProductId}` })
+      }
     },
   },
 };

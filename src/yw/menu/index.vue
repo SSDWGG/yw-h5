@@ -124,7 +124,7 @@ export default {
       })
     },
     toProdList(item){
-      console.log(item);
+      console.log(item.isVip,item.isVip=='1');
       if(item.cateName==='公司介绍'){
         uni.navigateTo({ url: '/yw/gsjs/index' })
       } else if(item.cateName==='联系客服'){
@@ -132,9 +132,9 @@ export default {
       }else if(item.cateName==='售后服务'){
         uni.navigateTo({ url: '/yw/shfw/index' })
       }
-    //  else if(item.isVip==='1'){
-    //     uni.navigateTo({ url: '/yw/prod-list/index?isVip=true' })
-    //   }
+     else if(item.isVip=='1'){
+        uni.navigateTo({ url: '/yw/prod-list/index?isVip=true&storeCategoryId='+item.storeCategoryId })
+      }
       else{
         uni.navigateTo({ url: '/yw/prod-list/index?storeCategoryId='+item.storeCategoryId })
       }
