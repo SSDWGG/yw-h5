@@ -46,7 +46,7 @@
     </view>
     <!-- 自提地址 -->
     <view class="address2" v-show="this.radiovalue === '自提'">
-      <view class="line1" >
+      <view class="line1">
         <img class="icon" src="@/static/yw/address.png" alt="">
         <view class="content">
           提货地址
@@ -90,7 +90,7 @@
           -￥{{ yhPrice }}
         </view>
       </view>
-     <view class="infoItem">
+      <view class="infoItem">
         <view class="lab">
           运费
         </view>
@@ -98,7 +98,7 @@
           ￥{{ postagePrice }}
         </view>
       </view>
-     <!--   <view class="infoItem">
+      <!--   <view class="infoItem">
         <view class="lab">
           代金券
         </view>
@@ -131,7 +131,7 @@
     <view class="bottomViewPlaceholder" />
     <view class="bottomView">
       <view class="left">
-        实付款：￥{{ this.radiovalue === '邮寄'? (price - yhPrice + postagePrice):(price - yhPrice)}}
+        实付款：￥{{ this.radiovalue === '邮寄' ? (price - yhPrice + postagePrice) : (price - yhPrice) }}
       </view>
 
       <view class="right" @click="submitOrder">
@@ -164,7 +164,7 @@ export default {
       return this.prodList.reduce((prev, curr) => prev + (curr.price - curr.otPrice) * curr.count, 0)
     },
     postagePrice() {
-      return this.prodList.reduce((prev, curr) => prev + curr.postage , 0)
+      return this.prodList.reduce((prev, curr) => prev + curr.postage, 0)
     }
   },
   onShow() {
@@ -219,55 +219,60 @@ export default {
       );
     },
     submitOrder() {
-      if (this.userAddr.userAddressId) {
-        const params = {}
-        params.bos = this.prodList.map(item => {
-          return {
-            productId: item.storeProductId,
-            count: item.count,
-          }
-        })
-
-        // 邮寄type ：0  自提：1
-        if(this.radiovalue === '邮寄'){
-          params.type = 0
-          params.userAddressId = this.userAddr.userAddressId
-        }else{
-          params.type = 1
+      // if (this.userAddr.userAddressId) {
+      const params = {}
+      params.bos = this.prodList.map(item => {
+        return {
+          productId: item.storeProductId,
+          count: item.count,
         }
+      })
 
-        let that = this
-        createOrder(params).then(res => {
-          console.log((/micromessenger/.test(navigator.userAgent.toLowerCase())));
-          if ((/micromessenger/.test(navigator.userAgent.toLowerCase()))) {
-            // 带着orderId跳转到支付页逻辑
-            console.log('微信浏览器');
-            this.storeOrderId = res.data.storeOrderId
-            jsapiPayOrder(res.data.storeOrderId).then(e => {
-              if (typeof WeixinJSBridge == "undefined") {
-                if (document.addEventListener) {
-                  document.addEventListener("WeixinJSBridgeReady", onBridgeReady, false);
-                } else if (document.attachEvent) {
-                  document.attachEvent("WeixinJSBridgeReady", onBridgeReady);
-                  document.attachEvent("onWeixinJSBridgeReady", onBridgeReady);
-                }
-              } else {
-                that.onBridgeReady(e.data);
-              }
-            })
-          } else {
-            console.log('非微信浏览器');
-            // 执行H5支付中的创建订单之后的逻辑
-            payOrder(res.data.storeOrderId).then(e => {
-              let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cn/yw/pay-result/index?storeOrderId=' + res.data.storeOrderId);
-              console.log(redirect_url, document.referrer, 999);
-              window.location.href = redirect_url
-            })
-          }
-        })
+      // 邮寄type ：0  自提：1
+      if (this.radiovalue === '邮寄') {
+        if (this.userAddr.userAddressId) {
+        } else {
+          uni.$u.toast('请选择地址');
+          return
+        }
+        params.type = 0
+        params.userAddressId = this.userAddr.userAddressId
       } else {
-        uni.$u.toast('请选择地址');
+        params.type = 1
       }
+
+      let that = this
+      createOrder(params).then(res => {
+        console.log((/micromessenger/.test(navigator.userAgent.toLowerCase())));
+        if ((/micromessenger/.test(navigator.userAgent.toLowerCase()))) {
+          // 带着orderId跳转到支付页逻辑
+          console.log('微信浏览器');
+          this.storeOrderId = res.data.storeOrderId
+          jsapiPayOrder(res.data.storeOrderId).then(e => {
+            if (typeof WeixinJSBridge == "undefined") {
+              if (document.addEventListener) {
+                document.addEventListener("WeixinJSBridgeReady", onBridgeReady, false);
+              } else if (document.attachEvent) {
+                document.attachEvent("WeixinJSBridgeReady", onBridgeReady);
+                document.attachEvent("onWeixinJSBridgeReady", onBridgeReady);
+              }
+            } else {
+              that.onBridgeReady(e.data);
+            }
+          })
+        } else {
+          console.log('非微信浏览器');
+          // 执行H5支付中的创建订单之后的逻辑
+          payOrder(res.data.storeOrderId).then(e => {
+            let redirect_url = e.data.mwebUrl + '&redirect_url=' + encodeURIComponent('https://jinriyouli.cn/yw/pay-result/index?storeOrderId=' + res.data.storeOrderId);
+            console.log(redirect_url, document.referrer, 999);
+            window.location.href = redirect_url
+          })
+        }
+      })
+      // } else {
+      //   uni.$u.toast('请选择地址');
+      // }
     },
     toAddress() {
       uni.navigateTo({ url: '/yw/address/index' })
@@ -373,9 +378,10 @@ export default {
     background-color: #fff;
     padding: 15px 12px;
     border-radius: 10px;
-   
+
     margin-top: 16px;
-    .line1{
+
+    .line1 {
       display: flex;
       font-weight: 500;
     }
@@ -394,13 +400,14 @@ export default {
       font-weight: 500;
     }
 
-    .detail{
+    .detail {
       color: #666666;
       font-size: 14px;
       font-weight: 500;
       margin-top: 14px;
     }
   }
+
   .address {
     background-color: #fff;
     padding: 15px 12px;
@@ -408,7 +415,8 @@ export default {
     border-radius: 10px;
     display: flex;
     margin-top: 16px;
-align-items: center;
+    align-items: center;
+
     .icon {
       width: 15px;
       height: 15px;

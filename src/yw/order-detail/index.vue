@@ -6,7 +6,7 @@
 
     <view class="allprice">
       <view class="txt">
-        {{ this.statusMap[this.status].statusName}}
+        {{ this.statusMap[this.status].statusName }}
       </view>
       <view class="num">
         {{ this.statusMap[this.status].txt }}
@@ -92,22 +92,29 @@
 
     <!-- bottom -->
 
-    <view class="bottom" v-if="status !== '已退款'&&status !== '未支付'" >
-      <view class="btn2" @click = tk(info.storeOrderId) v-if="status !== '退款中'">
+    <view class="bottom" v-if="status !== '已退款' && status !== '未支付'">
+      <view   v-if="status !== '已完成'">
+        
+      
+      <view class="btn2" @click=tk(info.storeOrderId) v-if="status !== '退款中'">
         申请退款
       </view>
-      <view class="btn2"  v-else>
+      <view class="btn2" v-else>
         售后中
       </view>
-      <view class="btn1" @click="handleBuy(info.cartInfoList[0].product.storeProductId)">
+    </view>
+      <view class="btn1" @click="handleBuy(info.cartInfoList[0].product.storeProductId)" v-if="status !== '待提货'">
         再次购买
+      </view>
+      <view class="btn1" @click="handleBuyEnd(info.storeOrderId)" v-else>
+        确认收货
       </view>
     </view>
   </view>
 </template>
 
 <script>
-import { orderDetail,refundApply } from '@/api/info'
+import { orderDetail, refundApply, takeOrder } from '@/api/info'
 
 export default {
 
@@ -161,25 +168,25 @@ export default {
     this.initOrderDetail()
   },
   methods: {
-    initOrderDetail(){
+    initOrderDetail() {
       if (!!this.$mp.query.storeOrderId) {
-      orderDetail(this.$mp.query.storeOrderId).then(res => {
-        this.info = res.data
-        this.prodList = res.data.cartInfoList
-        if (res.data.deliveryType === "1" && res.data.status===0) {
-          this.status = '待提货'
-        } else {
-          this.status = res.data.statusName
-        }
-      })
-    }
+        orderDetail(this.$mp.query.storeOrderId).then(res => {
+          this.info = res.data
+          this.prodList = res.data.cartInfoList
+          if (res.data.deliveryType === "1" && res.data.statusName === '待收货') {
+            this.status = '待提货'
+          } else {
+            this.status = res.data.statusName
+          }
+        })
+      }
     },
-    tk(storeOrderId){
-    refundApply({
-      storeOrderId,
-      refundReasonWapImg:'',
-      refundReasonWap:''
-      }).then(()=>{
+    tk(storeOrderId) {
+      refundApply({
+        storeOrderId,
+        refundReasonWapImg: '',
+        refundReasonWap: ''
+      }).then(() => {
         uni.$u.toast('申请退款成功')
         this.initOrderDetail()
 
@@ -233,6 +240,13 @@ export default {
     },
     handleBuy(storeProductId) {
       uni.navigateTo({ url: `/yw/prod-detail/index?storeProductId=${storeProductId}` })
+    },
+    async handleBuyEnd(storeOrderId) {
+      const res = await takeOrder({
+        storeOrderId
+      })
+      uni.$u.toast('收货成功')
+        this.initOrderDetail()
     },
 
   },
@@ -548,7 +562,8 @@ export default {
       margin-top: 14px;
     }
   }
-  .bottom{
+
+  .bottom {
     position: fixed;
     bottom: 0;
     padding: 12px;
@@ -561,6 +576,7 @@ export default {
     align-items: center;
     justify-content: flex-end;
     background-color: #fff;
+
     .btn1 {
       padding: 11px 34px;
       border-radius: 6px;
@@ -572,6 +588,7 @@ export default {
       align-items: center;
       justify-content: center;
     }
+
     .btn2 {
       border: 1px solid #E2E2E2;
       padding: 11px 34px;
@@ -586,7 +603,7 @@ export default {
       margin-right: 17px;
     }
   }
-  
+
 
 
 }

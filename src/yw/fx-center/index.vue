@@ -43,7 +43,7 @@
         </view>
         <view class="contentItem">
           <view class="icon">
-            ￥{{ obj.todaySubOrderCount }}
+            {{ obj.todaySubOrderCount }}
           </view>
           <view class="name">
             今日订单
@@ -51,7 +51,7 @@
         </view>
         <view class="contentItem">
           <view class="icon">
-            ￥{{ obj.todaySubUserCount }}
+            {{ obj.todaySubUserCount }}
           </view>
           <view class="name">
             今日新增客户

@@ -34,7 +34,7 @@
             ￥{{ item.brokerage }}
           </view>
         </view>
-        <view class="empty" v-if="obj.todayTeamUserList.length===0">
+        <view class="empty" v-if="!!obj.todayTeamUserList&& obj.todayTeamUserList.length===0">
           暂无业绩
         </view>
       </view>
@@ -50,7 +50,7 @@
             ￥{{ item.brokerage }}
           </view>
         </view>
-        <view class="empty" v-if="obj.totalTeamUserList.length===0">
+        <view class="empty" v-if="!!obj.totalTeamUserList&&obj.totalTeamUserList.length===0">
           暂无业绩
         </view>
       </view>

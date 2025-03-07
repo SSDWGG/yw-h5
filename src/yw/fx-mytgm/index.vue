@@ -1,5 +1,5 @@
 <template>
-  <view class="container">
+  <view class="container" @click="tip()">
     <view class="bgcolor" />
     <img class="titleBg" src="@/static/yw/shareBg.png">
     <view class="block">
@@ -27,14 +27,14 @@
     </view>
 
 
-    <view class="bottom">
+    <!-- <view class="bottom">
       <view class="item" v-for="(item, index) in bottomList" :key="index" @click="exportImage(imgUrl)">
         <img class="icon" :src="item.icon">
         <view class="tip">
           {{ item.tip }}
         </view>
       </view>
-    </view>
+    </view> -->
 
   </view>
 </template>
@@ -60,10 +60,10 @@ export default {
         //   tip: 'QQ好友',
         //   icon: require("@/static/yw/qq.png")
         // }
-        {
-          tip: '保存图片',
-          icon: require("@/static/yw/downloadIcon.jpg")
-        }
+        // {
+        //   tip: '保存图片',
+        //   icon: require("@/static/yw/downloadIcon.jpg")
+        // }
         
       ]
 
@@ -78,6 +78,10 @@ export default {
     })
   },
   methods: {
+    tip(){
+      uni.$u.toast('通过右上角保存邀请码图片到手机本地');
+
+    },
     exportImage(base64str) {
       // 将base64格式的图片转换成Blob对象
       var arr = base64str.split(","),

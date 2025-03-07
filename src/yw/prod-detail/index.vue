@@ -10,8 +10,11 @@
         ￥{{ prodInfo.price }}
       </view>
       <view class="line3" v-if="prodInfo.isVip">
-        <view class="left">
-          当前优惠 ￥{{ prodInfo.vipPrice }}
+        <view class="left" v-if="prodInfo.otPrice !== prodInfo.price ">
+          当前优惠 ￥{{ prodInfo.otPrice - prodInfo.price }}
+        </view>
+        <view  v-else>
+          
         </view>
         <view class="kc">
           库存：{{ prodInfo.stock }}

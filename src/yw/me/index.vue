@@ -16,11 +16,14 @@
           </view>
           <view class="dj" v-if=" userInfo.level">
             <img class="djIcon" :src="djIcon">
-            {{ userInfo.level }}
+            {{ userInfo.levelName }}
           </view>
         </view>
         <view class="line2">
           {{ userInfo.phone }}
+        </view>
+        <view class="line2" v-if=userInfo.spreadUserName>
+         邀请人： {{ userInfo.spreadUserName }}
         </view>
       </view>
     </view>

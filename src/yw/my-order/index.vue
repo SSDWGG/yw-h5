@@ -44,7 +44,7 @@
         <view class="jsTabbar">
             <view class="tip">
               <!-- {{ statusMap[prodItem.status] }} -->
-              {{ prodItem.deliveryType === "1" && prodItem.status===0 ?'待提货':prodItem.statusName }}
+              {{ prodItem.deliveryType === "1" && prodItem.statusName==='待收货' ?'待提货':prodItem.statusName }}
 
             </view>
 
