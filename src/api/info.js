@@ -255,3 +255,10 @@ export function refundApply(data) {
     data
   })
 }
+export function cancelOrder(data) {
+  return request({
+    url: '/app/storeOrder/cancelOrder',
+    method: 'post',
+    data
+  })
+}

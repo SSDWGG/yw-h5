@@ -92,7 +92,7 @@
 
     <!-- bottom -->
 
-    <view class="bottom" v-if="status !== '已退款' && status !== '未支付'">
+    <view class="bottom" v-if="status !== '已退款' && status !== '未支付'&&status !== '已取消'">
       <view   v-if="status !== '已完成'">
         
       
@@ -110,11 +110,19 @@
         确认收货
       </view>
     </view>
+    <view class="bottom" v-if="status === '未支付'&&status !== '已取消'">
+     
+    
+      <view class="btn1" @click="handleCancel(info.storeOrderId)" >
+        取消订单
+
+      </view>
+    </view>
   </view>
 </template>
 
 <script>
-import { orderDetail, refundApply, takeOrder } from '@/api/info'
+import { orderDetail, refundApply, takeOrder,cancelOrder } from '@/api/info'
 
 export default {
 
@@ -160,6 +168,10 @@ export default {
         '待收货': {
           statusName: '已发货',
           txt: '商品已经发货，请耐心等待哦！'
+        },
+        '已取消': {
+          statusName: '已取消',
+          txt: '订单已经已取消'
         }
       }
     };
@@ -190,6 +202,15 @@ export default {
         uni.$u.toast('申请退款成功')
         this.initOrderDetail()
 
+      })
+    },
+    handleCancel(storeOrderId) {
+      cancelOrder({
+        storeOrderId,
+      }).then(() => {
+        uni.$u.toast('取消订单成功')
+        this.status = '已取消'
+        // uni.navigateTo({ url: '/yw/my-order/index?type=99' })
       })
     },
     getDetail(info) {
