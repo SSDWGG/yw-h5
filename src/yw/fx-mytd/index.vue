@@ -28,7 +28,7 @@
             {{ index + 1 }}
           </view>
           <view class="name">
-            {{ item.userName }}
+            {{ item.realName }}
           </view>
           <view class="price">
             ￥{{ item.brokerage }}
@@ -44,7 +44,7 @@
             {{ index + 1 }}
           </view>
           <view class="name">
-            {{ item.userName }}
+            {{ item.realName }}
           </view>
           <view class="price">
             ￥{{ item.brokerage }}

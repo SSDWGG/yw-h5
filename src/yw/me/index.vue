@@ -23,7 +23,7 @@
           {{ userInfo.phone }}
         </view>
         <view class="line2" v-if=userInfo.spreadUserName>
-         邀请人： {{ userInfo.spreadUserName }}
+          邀请人： {{ userInfo.spreadUserName }}
         </view>
       </view>
     </view>
@@ -74,11 +74,11 @@
     </view>
 
     <view class="modeView fx">
-      <view class="header">
+      <view class="header" @click="toFxCenter">
         <view class="txt">
           推广中心
         </view>
-        <u-icon name="arrow-right" size="12" @click="toFxCenter" />
+        <u-icon name="arrow-right" size="12" />
       </view>
       <view class="content">
         <view class="contentItem" v-for="(item, index) in fxType" :key="index" @click="item.request()">
