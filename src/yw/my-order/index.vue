@@ -54,7 +54,6 @@
               实付款
             </view>
             <view class="info2">
-
               <view class="num">
                 ￥{{ prodItem.totalPrice }}
               </view>
