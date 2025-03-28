@@ -58,7 +58,7 @@
       <view class="infoDiv2">
         <view class="content2">
           <view class="title">实付金额</view>
-          ￥{{ info.payPrice }}
+          ￥{{ info.totalPrice }}
         </view>
       </view>
     </view>
@@ -93,16 +93,16 @@
     <!-- bottom -->
 
     <view class="bottom" v-if="status !== '已退款' && status !== '未支付'&&status !== '已取消'">
-      <view   v-if="status !== '已完成'">
-        
-      
-      <view class="btn2" @click=tk(info.storeOrderId) v-if="status !== '退款中'">
-        申请退款
+      <view v-if="status !== '已完成'">
+
+
+        <view class="btn2" @click=tk(info.storeOrderId) v-if="status !== '退款中'">
+          申请退款
+        </view>
+        <view class="btn2" v-else>
+          售后中
+        </view>
       </view>
-      <view class="btn2" v-else>
-        售后中
-      </view>
-    </view>
       <view class="btn1" @click="handleBuy(info.cartInfoList[0].product.storeProductId)" v-if="status !== '待提货'">
         再次购买
       </view>
@@ -111,9 +111,9 @@
       </view>
     </view>
     <view class="bottom" v-if="status === '未支付'&&status !== '已取消'">
-     
-    
-      <view class="btn1" @click="handleCancel(info.storeOrderId)" >
+
+
+      <view class="btn1" @click="handleCancel(info.storeOrderId)">
         取消订单
 
       </view>

@@ -12,7 +12,8 @@
     <!-- 商品卡片 -->
     <view class="prodList">
       <view class="prodView" v-for="(prodItem, index) in prodList" :key="index">
-        <view class="skuItem" v-for="(item, index) in prodItem.cartInfoList" v-if="!!prodItem.cartInfoList" :key="index" @click="toDetail(prodItem.storeOrderId,prodItem.statusName)">
+        <view class="skuItem" v-for="(item, index) in prodItem.cartInfoList" v-if="!!prodItem.cartInfoList" :key="index"
+          @click="toDetail(prodItem.storeOrderId, prodItem.statusName)">
           <view class="prod">
             <img :src="item.product.imageUrl" class="prodImage" />
             <view class="prodinfo">
@@ -36,36 +37,37 @@
               </view>
             </view>
           </view>
-         
+
         </view>
 
-         <!-- 分割线 -->
-      <view class="line" />
+        <!-- 分割线 -->
+        <view class="line" />
         <view class="jsTabbar">
-            <view class="tip">
-              <!-- {{ statusMap[prodItem.status] }} -->
-              {{ prodItem.deliveryType === "1" && prodItem.statusName==='待收货' ?'待提货':prodItem.statusName }}
+          <view class="tip">
+            <!-- {{ statusMap[prodItem.status] }} -->
+            {{ prodItem.deliveryType === "1" && prodItem.statusName === '待收货' ? '待提货' : prodItem.statusName }}
 
+          </view>
+
+          <view class="info">
+            <view class="info1">
+              实付款
             </view>
+            <view class="info2">
 
-            <view class="info">
-              <view class="info1">
-                实付款
+              <view class="num">
+                <!-- totalPrice -->
+                ￥{{ prodItem.totalPrice }}
               </view>
-              <view class="info2">
-
-                <view class="num">
-                  ￥{{ prodItem.payPrice }}
-                </view>
-              </view>
-            </view>
-            <view class="btn" v-if="prodItem.statusName === '未支付'" @click="handleBuy(prodItem.storeOrderId)">
-              立即付款
-            </view>
-            <view class="btn" v-if="prodItem.statusName === '待收货'" @click="handleSh(prodItem.storeOrderId)">
-              确认收货
             </view>
           </view>
+          <view class="btn" v-if="prodItem.statusName === '未支付'" @click="handleBuy(prodItem.storeOrderId)">
+            立即付款
+          </view>
+          <view class="btn" v-if="prodItem.statusName === '待收货'" @click="handleSh(prodItem.storeOrderId)">
+            确认收货
+          </view>
+        </view>
       </view>
     </view>
   </view>
