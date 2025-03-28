@@ -56,7 +56,6 @@
             <view class="info2">
 
               <view class="num">
-                <!-- totalPrice -->
                 ￥{{ prodItem.totalPrice }}
               </view>
             </view>
